@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    Log.i (TAG, "onCreate fire")
+    Log.i (TAG, "onCreate the app created!")
 
   }
 }
