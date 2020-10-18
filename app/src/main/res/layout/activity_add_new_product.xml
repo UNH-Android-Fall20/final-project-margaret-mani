@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:visibility="visible"
+  tools:context=".AddNewProduct">
+
+
+  <ImageView
+    android:id="@+id/iv_picture"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_marginStart="50dp"
+    android:layout_marginTop="20dp"
+    android:contentDescription="photo"
+    android:text="photo"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <Button
+    android:id="@+id/b_prodName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="50dp"
+    android:layout_marginTop="20dp"
+    android:text="Product Name"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/iv_picture" />
+
+  <Button
+    android:id="@+id/b_quantity"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:text="What quantities are available?"
+    app:layout_constraintStart_toStartOf="@+id/b_prodName"
+    app:layout_constraintTop_toBottomOf="@id/b_prodName" />
+
+  <Button
+    android:id="@+id/b_price"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:text="What does each quantity cose?"
+    app:layout_constraintStart_toStartOf="@+id/b_prodName"
+    app:layout_constraintTop_toBottomOf="@id/b_quantity" />
+
+  <Button
+    android:id="@+id/b_description"
+    android:layout_width="333dp"
+    android:layout_height="109dp"
+    android:layout_marginTop="20dp"
+    android:text="What else do you want to say about the product?"
+    app:layout_constraintStart_toStartOf="@+id/b_prodName"
+    app:layout_constraintTop_toBottomOf="@id/b_price" />
+
+  <Button
+    android:id="@+id/b_zip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:text="Zipcode location"
+    app:layout_constraintStart_toStartOf="@+id/b_prodName"
+    app:layout_constraintTop_toBottomOf="@id/b_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
