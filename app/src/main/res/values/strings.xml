@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">VirtualFarmersMarket</string>
-    <string name="welcome_string">Welcome!! what do you wanna do.</string>
-    <string name="sell_button">Sell</string>
-    <string name="buy_button">Buy</string>
+  <string name="app_name">VirtualFarmersMarket</string>
+  <string name="welcome_string">Welcome!! what do you wanna do.</string>
+  <string name="sell_button">Sell</string>
+  <string name="buy_button">Buy</string>
+  <string name="add_button">Add Product</string>
 </resources>
