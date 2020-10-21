@@ -52,14 +52,12 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "get failed with ", exception)
       }
 
-    var i: Int = 0
     db.collection("categories").get()
       .addOnSuccessListener { documents ->
         this.categoryList = mutableListOf()
         for (document in documents) {
           document.getString("category")?.let { categoryList.add(it) }
           Log.d(TAG, "${document.id} => ${document.getString("category")}")
-          i += 1
         }
         categoryOne.setText(categoryList[0])
         categoryTwo.setText(categoryList[1])
@@ -67,14 +65,6 @@ class MainActivity : AppCompatActivity() {
         categoryFour.setText(categoryList[3])
         categoryFive.setText(categoryList[4])
       }
-    //Log.d(TAG, categoryList[0].toString())
-    /*
-    categoryOne.setText(categoryList[0])
-    categoryTwo.setText(categoryList[1])
-    categoryThree.setText(categoryList[2])
-    categoryFour.setText(categoryList[3])
-    categoryFive.setText(categoryList[4])
-    */
   }
 }
 
