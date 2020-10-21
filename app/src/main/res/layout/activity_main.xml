@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        andriod:id="@+id/tv_fruits"
+        andriod:id="@+id/tv_categoryOne"
         andriod:layout_width="wrap_content"
         andriod:layout_height="wrap_content"
         andriod:layout_marginStart="96dp"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        andriod:id="@+id/tv_grains"
+        andriod:id="@+id/tv_categoryTwo"
         andriod:layout_width="wrap_content"
         andriod:layout_height="wrap_content"
         andriod:layout_marginStart="248dp"
@@ -102,10 +102,10 @@
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_fruits" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_categoryOne" />
 
     <TextView
-        andriod:id="@+id/tv_produce"
+        andriod:id="@+id/tv_categoryThree"
         andriod:layout_width="wrap_content"
         andriod:layout_height="wrap_content"
         andriod:layout_marginStart="88dp"
@@ -126,10 +126,10 @@
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintStart_toEndOf="@+id/produce_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_grains" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_categoryTwo" />
 
     <TextView
-        andriod:id="@+id/tv_protein"
+        andriod:id="@+id/tv_categoryFour"
         andriod:layout_width="wrap_content"
         andriod:layout_height="wrap_content"
         andriod:layout_marginStart="248dp"
@@ -153,7 +153,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        andriod:id="@+id/tv_other"
+        andriod:id="@+id/tv_categoryFive"
         andriod:layout_width="wrap_content"
         andriod:layout_height="wrap_content"
         andriod:layout_marginStart="168dp"
