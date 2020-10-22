@@ -4,6 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
+
+
   android:visibility="visible"
   tools:context=".AddNewProduct">
 
@@ -21,13 +23,19 @@
 
   <Button
     android:id="@+id/b_prodName"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="99dp"
+    android:layout_height="32dp"
     android:layout_marginStart="50dp"
     android:layout_marginTop="20dp"
+    android:background="@drawable/custom_button_round"
     android:text="Product Name"
+    android:textAllCaps="false"
+    android:textColor="#003700"
+    android:textSize="15sp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/iv_picture" />
+
+
 
   <Button
     android:id="@+id/b_quantity"
@@ -35,6 +43,10 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     android:text="What quantities are available?"
+    android:textAllCaps="false"
+    android:textColor="#003700"
+    android:textSize="15sp"
+    android:background="@drawable/custom_button_round"
     app:layout_constraintStart_toStartOf="@+id/b_prodName"
     app:layout_constraintTop_toBottomOf="@id/b_prodName" />
 
@@ -43,16 +55,25 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
-    android:text="What does each quantity cose?"
+    android:text="What does each quantity cost?"
+    android:textAllCaps="false"
+    android:textColor="#003700"
+    android:textSize="15sp"
+    android:background="@drawable/custom_button_round"
     app:layout_constraintStart_toStartOf="@+id/b_prodName"
     app:layout_constraintTop_toBottomOf="@id/b_quantity" />
 
   <Button
     android:id="@+id/b_description"
-    android:layout_width="333dp"
-    android:layout_height="109dp"
+    android:layout_width="337dp"
+    android:layout_height="70dp"
     android:layout_marginTop="20dp"
+    android:background="@drawable/custom_button_round"
     android:text="What else do you want to say about the product?"
+    android:textAlignment="textStart"
+    android:textAllCaps="false"
+    android:textColor="#003700"
+    android:textSize="15sp"
     app:layout_constraintStart_toStartOf="@+id/b_prodName"
     app:layout_constraintTop_toBottomOf="@id/b_price" />
 
@@ -61,8 +82,27 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
-    android:text="Zipcode location"
+    android:text="Zip code of product's location"
+    android:textAllCaps="false"
+    android:textColor="#003700"
+    android:textSize="15sp"
+    android:background="@drawable/custom_button_round"
     app:layout_constraintStart_toStartOf="@+id/b_prodName"
     app:layout_constraintTop_toBottomOf="@id/b_description" />
+
+  <Button
+    android:id="@+id/b_addItNow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="84dp"
+    android:layout_marginTop="36dp"
+    android:text="Add Product for Sale"
+    android:textAllCaps="false"
+    android:textColor="#67A030"
+    android:textSize="15sp"
+    android:background="@drawable/custom_button_round"
+    app:layout_constraintStart_toStartOf="@+id/b_prodName"
+    app:layout_constraintTop_toBottomOf="@id/b_zip" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
