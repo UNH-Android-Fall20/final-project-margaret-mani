@@ -14,6 +14,8 @@
         andriod:layout_marginTop="572dp"
         andriod:gravity="center"
         andriod:text="@string/add_button"
+        andriod:textAllCaps="false"
+        andriod:textColor="#003700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
