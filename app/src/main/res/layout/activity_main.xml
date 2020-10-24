@@ -42,9 +42,10 @@
                 andriod:layout_width="189dp"
                 andriod:layout_height="36dp"
                 andriod:layout_marginStart="10dp"
-                andriod:layout_marginTop="68dp"
+                andriod:layout_marginTop="65dp"
                 andriod:layout_marginEnd="15dp"
                 andriod:autofillHints="AUTOFILL_TYPE_TEXT"
+                andriod:background="@drawable/custom_search_bar"
                 andriod:ems="10"
                 andriod:hint="@string/product_search_hint"
                 andriod:inputType="textPersonName"
@@ -53,6 +54,19 @@
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                andriod:id="@+id/tv_categories_heading"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginStart="28dp"
+                andriod:layout_marginBottom="16dp"
+                andriod:fontFamily="@font/abril_fatface"
+                andriod:text="CATEGORIES"
+                andriod:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/fruit_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 andriod:id="@+id/fruit_image"
@@ -83,11 +97,12 @@
                 andriod:layout_width="96dp"
                 andriod:layout_height="96dp"
                 andriod:layout_marginTop="56dp"
-                andriod:layout_marginEnd="72dp"
                 andriod:src="@drawable/grains"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.442"
+                app:layout_constraintStart_toEndOf="@+id/fruit_image"
                 app:layout_constraintTop_toBottomOf="@+id/pt_productSearch" />
 
             <TextView
@@ -132,11 +147,12 @@
                 andriod:layout_width="96dp"
                 andriod:layout_height="96dp"
                 andriod:layout_marginTop="15dp"
-                andriod:layout_marginEnd="72dp"
                 andriod:src="@drawable/protein"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/produce_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_categoryTwo" />
 
             <TextView

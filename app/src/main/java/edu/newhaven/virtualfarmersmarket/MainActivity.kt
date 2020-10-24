@@ -4,9 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
   private lateinit var categoryList: MutableList<String>
 
+  private lateinit var bottom_navigation_menu: BottomNavigationView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
@@ -33,24 +39,12 @@ class MainActivity : AppCompatActivity() {
     categoryFour = findViewById(R.id.tv_categoryFour)
     categoryFive = findViewById(R.id.tv_categoryFive)
     addButton = findViewById<Button>(R.id.b_addProduct)
+    bottom_navigation_menu = findViewById(R.id.bottom_navigation_view)
 
     addButton.setOnClickListener {
         val intent = Intent(this, AddNewProduct::class.java)
         startActivity(intent)
     }
-
-    val docRef = db.collection("categories").document("4GvfeP3OcHm5K5zi5x07")
-    docRef.get()
-      .addOnSuccessListener { document ->
-        if (document != null) {
-          Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-        } else {
-          Log.d(TAG, "No such document")
-        }
-      }
-      .addOnFailureListener { exception ->
-        Log.d(TAG, "get failed with ", exception)
-      }
 
     db.collection("categories").get()
       .addOnSuccessListener { documents ->
@@ -64,6 +58,19 @@ class MainActivity : AppCompatActivity() {
         categoryThree.setText(categoryList[2])
         categoryFour.setText(categoryList[3])
         categoryFive.setText(categoryList[4])
+      }
+
+      bottom_navigation_menu.selectedItemId = R.id.nav_home
+      bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
+        var message = ""
+        when(item.itemId) {
+          R.id.nav_sell_home -> message = "SELL Home page"
+          R.id.nav_home -> message = "Home"
+          R.id.nav_settings -> message = "Setting"
+          R.id.nav_logout -> message = "Logout"
+        }
+        Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
+        return@setOnNavigationItemSelectedListener true
       }
   }
 }
