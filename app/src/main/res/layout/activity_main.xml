@@ -7,164 +7,217 @@
     andriod:layout_gravity="center"
     andriod:gravity="top">
 
-    <Button
-        andriod:id="@+id/b_addProduct"
-        andriod:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+        andriod:layout_width="match_parent"
+        andriod:layout_height="0dp"
+        andriod:layout_marginBottom="20dp"
+        andriod:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            andriod:id="@+id/linearLayout2"
+            andriod:layout_width="match_parent"
+            andriod:layout_height="wrap_content">
+
+            <TextView
+                andriod:id="@+id/textView2"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginStart="16dp"
+                andriod:layout_marginTop="68dp"
+                andriod:layout_marginBottom="67dp"
+                andriod:fontFamily="sans-serif-black"
+                andriod:text="@string/product_search"
+                andriod:textSize="20sp"
+                andriod:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/pt_productSearch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                andriod:id="@+id/pt_productSearch"
+                andriod:layout_width="189dp"
+                andriod:layout_height="36dp"
+                andriod:layout_marginStart="10dp"
+                andriod:layout_marginTop="65dp"
+                andriod:layout_marginEnd="15dp"
+                andriod:autofillHints="AUTOFILL_TYPE_TEXT"
+                andriod:background="@drawable/custom_search_bar"
+                andriod:ems="10"
+                andriod:hint="@string/product_search_hint"
+                andriod:inputType="textPersonName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                andriod:id="@+id/tv_categories_heading"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginStart="28dp"
+                andriod:layout_marginBottom="16dp"
+                andriod:fontFamily="@font/abril_fatface"
+                andriod:text="CATEGORIES"
+                andriod:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/fruit_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                andriod:id="@+id/fruit_image"
+                andriod:layout_width="96dp"
+                andriod:layout_height="96dp"
+                andriod:layout_marginStart="70dp"
+                andriod:layout_marginTop="92dp"
+                andriod:src="@drawable/fruits"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+            <TextView
+                andriod:id="@+id/tv_categoryOne"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginStart="95dp"
+                andriod:layout_marginTop="20dp"
+                andriod:text="@string/category_one"
+                andriod:textSize="16sp"
+                andriod:textStyle="bold|italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fruit_image" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                andriod:id="@+id/grains_image"
+                andriod:layout_width="96dp"
+                andriod:layout_height="96dp"
+                andriod:layout_marginTop="56dp"
+                andriod:src="@drawable/grains"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.442"
+                app:layout_constraintStart_toEndOf="@+id/fruit_image"
+                app:layout_constraintTop_toBottomOf="@+id/pt_productSearch" />
+
+            <TextView
+                andriod:id="@+id/tv_categoryTwo"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginTop="20dp"
+                andriod:text="@string/category_two"
+                andriod:textSize="16sp"
+                andriod:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_categoryOne"
+                app:layout_constraintTop_toBottomOf="@+id/grains_image" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                andriod:id="@+id/produce_image"
+                andriod:layout_width="96dp"
+                andriod:layout_height="96dp"
+                andriod:layout_marginStart="70dp"
+                andriod:layout_marginTop="15dp"
+                andriod:src="@drawable/produce"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_categoryOne" />
+
+            <TextView
+                andriod:id="@+id/tv_categoryThree"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginStart="95dp"
+                andriod:layout_marginTop="20dp"
+                andriod:text="@string/category_three"
+                andriod:textSize="16sp"
+                andriod:textStyle="bold|italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/produce_image" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                andriod:id="@+id/protein_image"
+                andriod:layout_width="96dp"
+                andriod:layout_height="96dp"
+                andriod:layout_marginTop="15dp"
+                andriod:src="@drawable/protein"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/produce_image"
+                app:layout_constraintTop_toBottomOf="@+id/tv_categoryTwo" />
+
+            <TextView
+                andriod:id="@+id/tv_categoryFour"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginTop="20dp"
+                andriod:text="@string/category_four"
+                andriod:textSize="16sp"
+                andriod:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_categoryThree"
+                app:layout_constraintTop_toBottomOf="@+id/protein_image" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                andriod:id="@+id/other_image"
+                andriod:layout_width="96dp"
+                andriod:layout_height="96dp"
+                andriod:layout_marginTop="460dp"
+                andriod:src="@drawable/other_food"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                andriod:id="@+id/tv_categoryFive"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginTop="20dp"
+                andriod:text="@string/category_five"
+                andriod:textSize="16sp"
+                andriod:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/other_image" />
+
+            <Button
+                andriod:id="@+id/b_addProduct"
+                andriod:layout_width="wrap_content"
+                andriod:layout_height="wrap_content"
+                andriod:layout_marginTop="20dp"
+                andriod:gravity="center"
+                andriod:text="@string/add_button"
+                andriod:textAllCaps="false"
+                andriod:textColor="#003700"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_categoryFive" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        andriod:id="@+id/bottom_navigation_view"
+        andriod:layout_width="match_parent"
         andriod:layout_height="wrap_content"
-        andriod:layout_marginTop="572dp"
-        andriod:gravity="center"
-        andriod:text="@string/add_button"
-        andriod:textAllCaps="false"
-        andriod:textColor="#003700"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        andriod:background="#F8F5F6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        andriod:id="@+id/textView2"
-        andriod:layout_width="wrap_content"
-        andriod:layout_height="wrap_content"
-        andriod:layout_marginStart="24dp"
-        andriod:layout_marginTop="68dp"
-        andriod:fontFamily="sans-serif-black"
-        andriod:text="@string/product_search"
-        andriod:textSize="20sp"
-        andriod:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        andriod:id="@+id/pt_productSearch"
-        andriod:layout_width="191dp"
-        andriod:layout_height="35dp"
-        andriod:layout_marginStart="24dp"
-        andriod:layout_marginTop="68dp"
-        andriod:ems="10"
-        andriod:hint="enter a product name"
-        andriod:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        andriod:id="@+id/fruit_image"
-        andriod:layout_width="96dp"
-        andriod:layout_height="96dp"
-        andriod:layout_marginStart="68dp"
-        andriod:layout_marginTop="128dp"
-        andriod:src="@drawable/fruits"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        andriod:id="@+id/tv_categoryOne"
-        andriod:layout_width="wrap_content"
-        andriod:layout_height="wrap_content"
-        andriod:layout_marginStart="96dp"
-        andriod:layout_marginTop="12dp"
-        andriod:text="Fruits"
-        andriod:textSize="16sp"
-        andriod:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fruit_image" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        andriod:id="@+id/grains_image"
-        andriod:layout_width="96dp"
-        andriod:layout_height="96dp"
-        andriod:layout_marginStart="64dp"
-        andriod:layout_marginTop="128dp"
-        andriod:src="@drawable/grains"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toEndOf="@+id/fruit_image"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        andriod:id="@+id/tv_categoryTwo"
-        andriod:layout_width="wrap_content"
-        andriod:layout_height="wrap_content"
-        andriod:layout_marginStart="248dp"
-        andriod:layout_marginTop="12dp"
-        andriod:text="Grains"
-        andriod:textSize="16sp"
-        andriod:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grains_image" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        andriod:id="@+id/produce_image"
-        andriod:layout_width="96dp"
-        andriod:layout_height="96dp"
-        andriod:layout_marginStart="68dp"
-        andriod:layout_marginTop="20dp"
-        andriod:src="@drawable/produce"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_categoryOne" />
-
-    <TextView
-        andriod:id="@+id/tv_categoryThree"
-        andriod:layout_width="wrap_content"
-        andriod:layout_height="wrap_content"
-        andriod:layout_marginStart="88dp"
-        andriod:layout_marginTop="12dp"
-        andriod:text="Produce"
-        andriod:textSize="16sp"
-        andriod:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/produce_image" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        andriod:id="@+id/protein_image"
-        andriod:layout_width="96dp"
-        andriod:layout_height="96dp"
-        andriod:layout_marginStart="64dp"
-        andriod:layout_marginTop="20dp"
-        andriod:src="@drawable/protein"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toEndOf="@+id/produce_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_categoryTwo" />
-
-    <TextView
-        andriod:id="@+id/tv_categoryFour"
-        andriod:layout_width="wrap_content"
-        andriod:layout_height="wrap_content"
-        andriod:layout_marginStart="248dp"
-        andriod:layout_marginTop="12dp"
-        andriod:text="Proteins"
-        andriod:textSize="16sp"
-        andriod:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/protein_image" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        andriod:id="@+id/other_image"
-        andriod:layout_width="96dp"
-        andriod:layout_height="96dp"
-        andriod:layout_marginStart="152dp"
-        andriod:layout_marginTop="416dp"
-        andriod:src="@drawable/other_food"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        andriod:id="@+id/tv_categoryFive"
-        andriod:layout_width="wrap_content"
-        andriod:layout_height="wrap_content"
-        andriod:layout_marginStart="168dp"
-        andriod:layout_marginTop="12dp"
-        andriod:text="OtherFoods"
-        andriod:textSize="16sp"
-        andriod:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/other_image" />
+        app:menu="@menu/bottom_navigation_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
