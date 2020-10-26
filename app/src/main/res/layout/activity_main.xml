@@ -10,7 +10,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +61,7 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/abril_fatface"
-                android:text="CATEGORIES"
+                android:text="@string/categories_heading"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/fruit_image"
                 app:layout_constraintStart_toStartOf="parent"
@@ -217,6 +216,7 @@
         android:background="#F8F5F6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu" />
 
 
