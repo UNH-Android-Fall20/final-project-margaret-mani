@@ -7,7 +7,7 @@
     <string name="product_search">Product Search</string>
     <string name="product_search_hint">enter a product name</string>
   <string name="category_one">Fruits</string>
-  <string name="category_five">OtherFoods</string>
+  <string name="category_five">Other Foods</string>
   <string name="category_four">Proteins</string>
   <string name="category_three">Produce</string>
   <string name="category_two">Grains</string>
@@ -15,4 +15,12 @@
   <string name="bottom_nav_home">Home</string>
   <string name="bottom_nav_user_settings">User settings</string>
   <string name="bottom_nav_logout">Logout</string>
+  <string name="userName">JoeUser</string>
+  <string-array name="categoryList">
+    <item>Fruits</item>
+    <item>OtherFoods</item>
+    <item>Proteins</item>
+    <item>Products</item>
+    <item>Grains</item>
+  </string-array>
 </resources>
