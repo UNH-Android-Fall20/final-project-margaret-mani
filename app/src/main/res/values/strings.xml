@@ -16,4 +16,11 @@
   <string name="bottom_nav_user_settings">User settings</string>
   <string name="bottom_nav_logout">Logout</string>
     <string name="categories_heading">CATEGORIES</string>
+  <string-array name="categoryList">
+    <item>Fruits</item>
+    <item>OtherFoods</item>
+    <item>Proteins</item>
+    <item>Products</item>
+    <item>Grains</item>
+  </string-array>
 </resources>
