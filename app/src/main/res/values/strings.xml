@@ -4,8 +4,8 @@
   <string name="sell_button">Sell</string>
   <string name="buy_button">Buy</string>
   <string name="add_button">Add Product</string>
-    <string name="product_search">Product Search</string>
-    <string name="product_search_hint">enter a product name</string>
+  <string name="product_search">Product Search</string>
+  <string name="product_search_hint">enter a product name</string>
   <string name="category_one">Fruits</string>
   <string name="category_five">OtherFoods</string>
   <string name="category_four">Proteins</string>
@@ -15,12 +15,18 @@
   <string name="bottom_nav_home">Home</string>
   <string name="bottom_nav_user_settings">User settings</string>
   <string name="bottom_nav_logout">Logout</string>
-    <string name="categories_heading">CATEGORIES</string>
-  <string-array name="categoryList">
-    <item>Fruits</item>
-    <item>OtherFoods</item>
-    <item>Proteins</item>
-    <item>Products</item>
-    <item>Grains</item>
-  </string-array>
+  <string name="categories_heading">CATEGORIES</string>
+  <string-array name="categoryList"></string-array>
+
+
+  <string name="add_products">Add Product</string>
+  <string name="photo">photo</string>
+  <string name="product_name">Product Name</string>
+  <string name="quantity">What quantities are available?</string>
+  <string name="cost">What does each quantity cost?</string>
+  <string name="prod_details">What else do you want to say about the product?</string>
+  <string name="zip_code">Zip code of product\'s location</string>
+  <string name="add_product">Add Product for Sale</string>
+
+
 </resources>
