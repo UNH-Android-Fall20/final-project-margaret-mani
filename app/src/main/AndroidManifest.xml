@@ -11,27 +11,19 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.MyApp">
-
+    <activity android:name=".SellersHomePage"></activity>
 
     <provider
-      android:authorities="edu.newhaven.virtualfarmersmarket.fileprovider"
       android:name="androidx.core.content.FileProvider"
+      android:authorities="edu.newhaven.virtualfarmersmarket.fileprovider"
       android:exported="false"
       android:grantUriPermissions="true">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"
         android:resource="@xml/fileprovider" />
-
-
     </provider>
 
-
-
-
-
-    <activity android:name=".AddNewProduct">
-
-    </activity>
+    <activity android:name=".AddNewProduct"></activity>
     <activity android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -40,9 +32,9 @@
       </intent-filter>
     </activity>
 
-      <meta-data
-          android:name="preloaded_fonts"
-          android:resource="@array/preloaded_fonts" />
+    <meta-data
+      android:name="preloaded_fonts"
+      android:resource="@array/preloaded_fonts" />
   </application>
 
 </manifest>
