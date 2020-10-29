@@ -17,21 +17,46 @@ import kotlinx.android.synthetic.main.activity_add_new_product.*
 import java.io.File
 import android.content.Intent
 
+private var catSelection = ""
+private val FILE_NAME = "photo.jpg"
+private val REQUEST_CODE = 42
+private lateinit var photoFile: File
+
 
 class AddNewProduct : AppCompatActivity() {
-
   private val TAG = javaClass.name
   private val db = FirebaseFirestore.getInstance()
-  private var catSelection = ""
-  private val fileName = "photo.jpg"
-  private val RequestCode = 42
-  private lateinit var photoFile: File
+  private lateinit var categoryBank: MutableList<String>
+  private lateinit var categoryList: Array<String?>
+  private var arrayAdapter: ArrayAdapter<String?>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_add_new_product)
 
-      spCategories.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+      db.collection("categories").get()
+        .addOnSuccessListener { documents ->
+          this.categoryBank = mutableListOf()
+          for (document in documents) {
+            document.getString("category")?.let { categoryBank.add(it) }
+            Log.d(TAG, "${document.id} => ${document.getString("category")}")
+          }
+
+          val howMany = categoryBank.size
+          categoryList = Array(howMany){null}
+          var i = 0
+
+          for (item in categoryBank) {
+            categoryList[i] = item
+            i += 1
+          }
+          arrayAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_dropdown_item, categoryList)
+          spCategories.adapter = arrayAdapter
+        }
+
+
+    spCategories.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        //spinner selection Toast
         override fun onNothingSelected(p0: AdapterView<*>?) {
         }
 
@@ -42,44 +67,42 @@ class AddNewProduct : AppCompatActivity() {
         }
       }
 
+      //photo module
       b_takePicture.setOnClickListener {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        photoFile = getPhotoFile(fileName)
+        photoFile = getPhotoFile(FILE_NAME)
 
         val fileProvider =FileProvider.getUriForFile(this, "edu.newhaven.virtualfarmersmarket.fileprovider", photoFile)
 
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
         if (takePictureIntent.resolveActivity(this.packageManager) !=null) {
-          startActivityForResult(takePictureIntent, RequestCode)
+            startActivityForResult(takePictureIntent, REQUEST_CODE)
         } else {
             Toast.makeText(this, "Unable to open camera", Toast.LENGTH_SHORT).show()
         }
-       }
-      fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
-        if (requestCode == RequestCode && resultCode == Activity.RESULT_OK){
-          val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-          iv_prodPicture.setImageBitmap(takenImage)
-        } else{
-            super.onActivityResult(requestCode, resultCode, data)
-        }
       }
 
+      //communication with firebase adding the product to the list
       db.collection("products")
 
         b_addItNow.setOnClickListener {
 
           var edtField: EditText? = null
           val loggedInUser = "JoeUser"
+          val productStatus = "Added"
 
           val products = mutableMapOf(
+            //takenImage to firebase
             "product" to txtProdName.text.toString(),
             "description" to txtDescription.text.toString(),
             "price" to txtPrice.text.toString(),
             "quantity" to txtQuantity.text.toString(),
             "zip" to txtZip.text.toString(),
             "category" to catSelection,
-            "user" to loggedInUser
+            "user" to loggedInUser,
+            "status" to productStatus
           )
+
 
           fun nowClearIt(view: View){
             txtProdName?.text?.clear()
@@ -88,7 +111,6 @@ class AddNewProduct : AppCompatActivity() {
             txtQuantity?.text?.clear()
             txtZip?.text?.clear()
           }
-
 
           db.collection("products")
             .add(products)
@@ -103,11 +125,22 @@ class AddNewProduct : AppCompatActivity() {
             }
 
        }
+
   }
 
+  //Additional photo functions for transferring the taken photo back to app
   private fun getPhotoFile(fileName: String): File {
     val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(fileName, ".jpg", storageDirectory)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+      val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
+      iv_prodPicture.setImageBitmap(takenImage)
+    } else{
+        super.onActivityResult(requestCode, resultCode, data)
+    }
   }
 
 }

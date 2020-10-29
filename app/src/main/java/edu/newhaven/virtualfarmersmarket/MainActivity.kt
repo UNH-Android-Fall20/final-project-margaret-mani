@@ -64,7 +64,10 @@ class MainActivity : AppCompatActivity() {
       bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
         var message = ""
         when(item.itemId) {
-          R.id.nav_sell_home -> message = "SELL Home page"
+          R.id.nav_sell_home -> {
+            val intent = Intent(this, SellersHomePage::class.java)
+            startActivity(intent)
+          }
           R.id.nav_home -> message = "Home"
           R.id.nav_settings -> message = "Setting"
           R.id.nav_logout -> message = "Logout"
@@ -72,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
         return@setOnNavigationItemSelectedListener true
       }
+
   }
 }
 
