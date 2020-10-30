@@ -27,6 +27,15 @@
   <string name="prod_details">What else do you want to say about the product?</string>
   <string name="zip_code">Zip code of product\'s location</string>
   <string name="add_product">Add Product for Sale</string>
+  <string name="product_name_PLVH">Product Name</string>
+  <string name="iv_content_description_PLVH">Image of product will be shown here</string>
+  <string name="product_description_PLVH">Product Description</string>
+  <string name="dollar_symbol">$</string>
+  <string name="product_price_PLVH">Product Price</string>
+  <string name="available_quantity_PLVH">Available Quantity</string>
+  <string name="category_title_PLVH">Category :</string>
+  <string name="category_name_PLVH">Category Name</string>
+  <string name="buy_button_PLVH">Buy</string>
 
 
 </resources>
