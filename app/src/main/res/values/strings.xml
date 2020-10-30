@@ -36,6 +36,7 @@
   <string name="category_title_PLVH">Category :</string>
   <string name="category_name_PLVH">Category Name</string>
   <string name="buy_button_PLVH">Buy</string>
+  <string name="products_listing_title">Products in :</string>
 
 
 </resources>
