@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_productListingVhPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/iv_content_description_PLVH"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fruits" />
+
+    <TextView
+        android:id="@+id/tv_productListingVhProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/tienne_bold"
+        android:text="@string/product_name_PLVH"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toEndOf="@+id/iv_productListingVhPhoto"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_productListingVhDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="25dp"
+        android:fontFamily="@font/tienne"
+        android:text="@string/product_description_PLVH"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_productListingVhProductName"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productListingVhProductName" />
+
+    <TextView
+        android:id="@+id/tv_productListingVhDollarSymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/dollar_symbol"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_productListingVhDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productListingVhDescription" />
+
+    <TextView
+        android:id="@+id/tv__productListingVhPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="@string/product_price_PLVH"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_productListingVhDollarSymbol"
+        app:layout_constraintTop_toTopOf="@+id/tv_productListingVhDollarSymbol" />
+
+    <TextView
+        android:id="@+id/tv_productListingVhQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/available_quantity_PLVH"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_productListingVhDollarSymbol"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productListingVhDollarSymbol" />
+
+    <TextView
+        android:id="@+id/tv_productListingVhCategoryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/category_title_PLVH"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/tv_productListingVhQuantity"
+        app:layout_constraintTop_toTopOf="@+id/tv_productListingVhQuantity" />
+
+    <TextView
+        android:id="@+id/tv_productListingVhCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category_name_PLVH"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/tv_productListingVhCategoryTitle"
+        app:layout_constraintTop_toTopOf="@+id/tv_productListingVhCategoryTitle" />
+
+    <Button
+        android:id="@+id/bt_productListingVhBuy"
+        android:layout_width="68dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/custom_search_bar"
+        android:text="@string/buy_button_PLVH"
+        app:layout_constraintStart_toStartOf="@+id/tv_productListingVhQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productListingVhQuantity" />
+</androidx.constraintlayout.widget.ConstraintLayout>
