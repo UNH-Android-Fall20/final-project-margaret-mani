@@ -34,7 +34,8 @@
     android:textAllCaps="false"
     android:textColor="#003700"
     app:layout_constraintStart_toEndOf="@+id/iv_prodPicture"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toTopOf="parent"
+    android:contentDescription="@string/prodTakePicture" />
 
   <ImageView
     android:id="@+id/iv_prodPicture"
@@ -75,7 +76,8 @@
     android:textColor="#003700"
     android:textSize="15sp"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/iv_prodPicture" />
+    app:layout_constraintTop_toBottomOf="@+id/iv_prodPicture"
+    android:importantForAutofill="no" />
 
   <EditText
     android:id="@+id/txtQuantity"
@@ -83,13 +85,14 @@
     android:layout_height="32dp"
     android:layout_marginTop="20dp"
     android:background="@drawable/custom_button_round"
-    android:hint="@string/quantity"
+    android:hint="@string/addQuantity"
     android:inputType="textPersonName"
     android:textAllCaps="false"
     android:textColor="#003700"
     android:textSize="15sp"
     app:layout_constraintStart_toStartOf="@+id/txtProdName"
-    app:layout_constraintTop_toBottomOf="@id/txtProdName" />
+    app:layout_constraintTop_toBottomOf="@id/txtProdName"
+    android:importantForAutofill="no" />
 
   <EditText
     android:id="@+id/txtPrice"
@@ -97,13 +100,14 @@
     android:layout_height="32dp"
     android:layout_marginTop="20dp"
     android:background="@drawable/custom_button_round"
-    android:hint="@string/cost"
+    android:hint="@string/addCost"
     android:inputType="textPersonName"
     android:textAllCaps="false"
     android:textColor="#003700"
     android:textSize="15sp"
     app:layout_constraintStart_toStartOf="@+id/txtProdName"
-    app:layout_constraintTop_toBottomOf="@id/txtQuantity" />
+    app:layout_constraintTop_toBottomOf="@id/txtQuantity"
+    android:importantForAutofill="no" />
 
   <EditText
     android:id="@+id/txtDescription"
@@ -111,14 +115,15 @@
     android:layout_height="70dp"
     android:layout_marginTop="20dp"
     android:background="@drawable/custom_button_round"
-    android:hint="@string/prod_details"
+    android:hint="@string/addProd_details"
     android:inputType="textPersonName|textCapSentences|textMultiLine"
     android:textAlignment="textStart"
     android:textAllCaps="false"
     android:textColor="#003700"
     android:textSize="15sp"
     app:layout_constraintStart_toStartOf="@+id/txtProdName"
-    app:layout_constraintTop_toBottomOf="@id/txtPrice" />
+    app:layout_constraintTop_toBottomOf="@id/txtPrice"
+    android:importantForAutofill="no" />
 
   <EditText
     android:id="@+id/txtZip"
@@ -126,19 +131,20 @@
     android:layout_height="32dp"
     android:layout_marginTop="20dp"
     android:background="@drawable/custom_button_round"
-    android:hint="@string/zip_code"
+    android:hint="@string/addZip_code"
     android:inputType="textPersonName"
     android:textAllCaps="false"
     android:textColor="#003700"
     android:textSize="15sp"
     app:layout_constraintStart_toStartOf="@+id/txtProdName"
-    app:layout_constraintTop_toBottomOf="@id/txtDescription" />
+    app:layout_constraintTop_toBottomOf="@id/txtDescription"
+    android:importantForAutofill="no" />
 
   <Button
     android:id="@+id/b_addItNow"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="84dp"
+    android:layout_marginStart="54dp"
     android:layout_marginTop="36dp"
     android:background="@drawable/custom_button_round"
     android:text="@string/add_product"
@@ -148,5 +154,18 @@
     app:layout_constraintStart_toStartOf="@+id/txtProdName"
     app:layout_constraintTop_toBottomOf="@id/txtZip" />
 
+  <Button
+    android:id="@+id/b_sellerPage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="38dp"
+    android:layout_marginStart="30dp"
+    android:gravity="center"
+    android:background="@drawable/custom_button_round"
+    android:text="@string/sell_page"
+    android:textAllCaps="false"
+    android:textColor="#000109"
+    app:layout_constraintStart_toEndOf="@id/b_addItNow"
+    app:layout_constraintTop_toBottomOf="@+id/txtZip" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

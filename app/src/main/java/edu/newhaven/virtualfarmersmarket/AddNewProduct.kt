@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_add_new_product.*
 import java.io.File
 import android.content.Intent
+import kotlinx.android.synthetic.main.activity_sellers_home_page.*
 
 private var catSelection = ""
 private val FILE_NAME = "photo.jpg"
@@ -82,6 +83,11 @@ class AddNewProduct : AppCompatActivity() {
         }
       }
 
+      b_sellerPage.setOnClickListener {
+        val intent = Intent(this, SellersHomePage::class.java)
+        startActivity(intent)
+      }
+
       //communication with firebase adding the product to the list
       db.collection("products")
 
@@ -103,14 +109,8 @@ class AddNewProduct : AppCompatActivity() {
             "status" to productStatus
           )
 
-
-          fun nowClearIt(view: View){
-            txtProdName?.text?.clear()
-            txtDescription?.text?.clear()
-            txtPrice?.text?.clear()
-            txtQuantity?.text?.clear()
-            txtZip?.text?.clear()
-          }
+          val intent = Intent(this, SellersHomePage::class.java)
+          startActivity(intent)
 
           db.collection("products")
             .add(products)
