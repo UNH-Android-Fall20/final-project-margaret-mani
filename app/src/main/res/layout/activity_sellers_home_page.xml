@@ -3,17 +3,45 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
+  android:layout_height="wrap_content"
   tools:context=".SellersHomePage">
 
+  <TextView
+    android:id="@+id/t_sellersPage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:text="@string/sellers_list"
+    android:textSize="20sp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/rv_seller_products"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="409dp"
+    android:layout_height="504dp"
+    android:layout_marginBottom="60dp"
     android:scrollbars="vertical"
-    tools:layout_editor_absoluteX="1dp"
-    tools:layout_editor_absoluteY="1dp" />
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/t_sellersPage"/>
+
+  <Button
+    android:id="@+id/b_addProduct"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/custom_button_round"
+    android:gravity="center"
+    android:text="@string/add_button"
+    android:textAllCaps="false"
+    android:textColor="#000109"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.498"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/rv_seller_products" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
