@@ -29,7 +29,7 @@ class SellersHomePage : AppCompatActivity() {
     val query: Query = db
       .collection("products")
       .whereEqualTo("user","JoeUser")
-      //.whereEqualTo ("status", "Added")
+     //.whereEqualTo ("status", "Added")
       .orderBy ("product")
 
     val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()

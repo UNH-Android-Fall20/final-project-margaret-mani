@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
   private lateinit var categoryFourImage: CircleImageView
   private lateinit var categoryFive: TextView
   private lateinit var categoryFiveImage: CircleImageView
-  private lateinit var addButton: Button
 
   private lateinit var categoryList: MutableList<String>
 
@@ -49,13 +48,7 @@ class MainActivity : AppCompatActivity() {
     categoryFourImage = findViewById(R.id.iv_categoryFourImage)
     categoryFive = findViewById(R.id.tv_categoryFive)
     categoryFiveImage = findViewById(R.id.iv_categoryFiveImage)
-    addButton = findViewById<Button>(R.id.b_addProduct)
     bottom_navigation_menu = findViewById(R.id.bottom_navigation_view)
-
-    addButton.setOnClickListener {
-        val intent = Intent(this, AddNewProduct::class.java)
-        startActivity(intent)
-    }
 
     db.collection("categories").get()
       .addOnSuccessListener { documents ->
