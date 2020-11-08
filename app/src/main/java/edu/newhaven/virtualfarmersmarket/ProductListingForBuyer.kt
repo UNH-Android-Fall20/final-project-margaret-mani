@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_product_listing_for_buyer.*
@@ -15,8 +16,8 @@ import kotlinx.android.synthetic.main.activity_product_listing_for_buyer.*
 
 class ProductListingForBuyer : AppCompatActivity() {
 
-    private val TAG = javaClass.name
-    private val db_productListingBuyer = FirebaseFirestore.getInstance()
+    //private val TAG = javaClass.name
+    private val dbProductListingBuyer = FirebaseFirestore.getInstance()
     private var adapter : FirestoreRecyclerAdapter<Product, ProductListingBuyerViewHolder>? = null
 
     private lateinit var categoryFilterView: TextView
@@ -30,10 +31,11 @@ class ProductListingForBuyer : AppCompatActivity() {
 
         categoryFilterView = findViewById(R.id.tv_categoryNamePL)
 
-        val query: Query = db_productListingBuyer
-            .collection("products")
+        val ref: CollectionReference = dbProductListingBuyer.collection("products")
+
+        val query: Query = ref
             .whereEqualTo("category", categoryFilter)
-            .orderBy ("price")
+            .orderBy ("product")
 
         val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
             .setQuery(query, Product::class.java)
@@ -47,6 +49,7 @@ class ProductListingForBuyer : AppCompatActivity() {
                 position: Int,
                 model: Product
             ) {
+                //val resID = resources.getIdentifier(model.category, "drawable", packageName)
                 holder.productName.text = model.product
                 holder.productDescription.text = model.description
                 holder.productPrice.text = model.price.replace("$","")
@@ -55,11 +58,11 @@ class ProductListingForBuyer : AppCompatActivity() {
             }
 
             override fun onCreateViewHolder(
-                group: ViewGroup,
+                parent: ViewGroup,
                 viewType: Int
             ): ProductListingBuyerViewHolder {
-                val view = LayoutInflater.from(group.context)
-                    .inflate(R.layout.product_listing_buyer_view_holder, group, false)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.product_listing_buyer_view_holder, parent, false)
                 return ProductListingBuyerViewHolder(view)
             }
         }
