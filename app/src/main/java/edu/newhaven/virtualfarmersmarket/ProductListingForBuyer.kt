@@ -18,7 +18,8 @@ class ProductListingForBuyer : AppCompatActivity() {
 
     //private val TAG = javaClass.name
     private val dbProductListingBuyer = FirebaseFirestore.getInstance()
-    private var adapter : FirestoreRecyclerAdapter<Product, ProductListingBuyerViewHolder>? = null
+
+    private lateinit var productListingAdapter: ProductListingAdapter
 
     private lateinit var categoryFilterView: TextView
 
@@ -43,41 +44,19 @@ class ProductListingForBuyer : AppCompatActivity() {
 
         categoryFilterView.setText(categoryFilter)
 
-        adapter = object : FirestoreRecyclerAdapter<Product, ProductListingBuyerViewHolder>(options){
-            override fun onBindViewHolder(
-                holder: ProductListingBuyerViewHolder,
-                position: Int,
-                model: Product
-            ) {
-                //val resID = resources.getIdentifier(model.category, "drawable", packageName)
-                holder.productName.text = model.product
-                holder.productDescription.text = model.description
-                holder.productPrice.text = model.price.replace("$","")
-                holder.availableQuantity.text = model.quantity
-                holder.categoryName.text = model.category
-            }
+        productListingAdapter = ProductListingAdapter(options)
 
-            override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
-            ): ProductListingBuyerViewHolder {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.product_listing_buyer_view_holder, parent, false)
-                return ProductListingBuyerViewHolder(view)
-            }
-        }
-
-        rv_product_listing_buyer.adapter = adapter
+        rv_product_listing_buyer.adapter = productListingAdapter
         rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onStart() {
         super.onStart()
-        adapter?.startListening()
+        productListingAdapter.startListening()
     }
 
     override fun onStop() {
         super.onStop()
-        adapter?.stopListening()
+        productListingAdapter.stopListening()
     }
 }
