@@ -48,6 +48,7 @@
 
 
   <string name="sell_page">Sell Page</string>
+  <string name="distance_PLVH">Distance</string>
   <string name="registration">Registration</string>
   <string name="email_address">Email Address/User Name</string>
   <string name="first_name">First Name</string>
