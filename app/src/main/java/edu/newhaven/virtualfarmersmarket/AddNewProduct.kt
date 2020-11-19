@@ -1,6 +1,7 @@
 package edu.newhaven.virtualfarmersmarket
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -16,13 +17,27 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_add_new_product.*
 import java.io.File
 import android.content.Intent
+import android.graphics.ImageDecoder
+import android.media.Image
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+
 import kotlinx.android.synthetic.main.activity_sellers_home_page.*
+
+
+
 
 private var catSelection = ""
 private val FILE_NAME = "photo.jpg"
 private val REQUEST_CODE = 42
 private lateinit var photoFile: File
+private val IMAGE_GALLERY_REQUEST_CODE = 123
 
+private lateinit var storageReference:StorageReference
+private var myImgLocation = ""
 
 class AddNewProduct : AppCompatActivity() {
   private val TAG = javaClass.name
@@ -34,6 +49,9 @@ class AddNewProduct : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_add_new_product)
+
+      //init
+      storageReference = FirebaseStorage.getInstance().getReference("image")
 
       db.collection("categories").get()
         .addOnSuccessListener { documents ->
@@ -68,6 +86,11 @@ class AddNewProduct : AppCompatActivity() {
         }
       }
 
+      //gallery module
+      b_gImage.setOnClickListener {
+        prepOpenImageGallery()
+      }
+
       //photo module
       b_takePicture.setOnClickListener {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -94,7 +117,7 @@ class AddNewProduct : AppCompatActivity() {
         b_addItNow.setOnClickListener {
 
           var edtField: EditText? = null
-          val loggedInUser = "JoeUser"
+          val loggedInUser = firebaseUserID
           val productStatus = "Added"
 
           val products = mutableMapOf(
@@ -106,10 +129,11 @@ class AddNewProduct : AppCompatActivity() {
             "zip" to txtZip.text.toString(),
             "category" to catSelection,
             "user" to loggedInUser,
+            "imageLoc" to myImgLocation,
             "status" to productStatus
           )
 
-          val intent = Intent(this, SellersHomePage::class.java)
+          val intent = Intent(this, AddNewProduct::class.java)
           startActivity(intent)
 
           db.collection("products")
@@ -123,9 +147,15 @@ class AddNewProduct : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
             }
-
        }
+  }
 
+  private fun prepOpenImageGallery() {
+    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply{
+      this.type = "image/*"
+      Log.d(TAG, "get image")
+      startActivityForResult(this, IMAGE_GALLERY_REQUEST_CODE)
+    }
   }
 
   //Additional photo functions for transferring the taken photo back to app
@@ -135,11 +165,29 @@ class AddNewProduct : AppCompatActivity() {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
-    if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
-      val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-      iv_prodPicture.setImageBitmap(takenImage)
-    } else{
+    super.onActivityResult(requestCode, resultCode, data)
+    if (resultCode == Activity.RESULT_OK){
+
+      if (requestCode == REQUEST_CODE) {
+        //image from camera
+        val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
+        iv_prodPicture.setImageBitmap(takenImage)
+        //val uploadTask = storageReference.putFile(takenImage)
+        val myImgLocation = takenImage.toString().substring(0, takenImage.toString().indexOf("&token"))
+
+      } else if (requestCode == IMAGE_GALLERY_REQUEST_CODE)  {
+        //image from gallery
+        if (data!!.data != null){
+          val image = data.data!!
+          iv_prodPicture.setImageURI(image)
+          val uploadTask = storageReference.putFile(image)
+          //val myImgLocation = image.toString().substring(0, image.toString().indexOf("&token"))
+        }
+      } else {
         super.onActivityResult(requestCode, resultCode, data)
+      }
+      val uploadTask = storageReference.putFile(data!!.data!!)
+
     }
   }
 
