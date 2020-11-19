@@ -8,8 +8,10 @@ import android.widget.Adapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import android.widget.Toast
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_sellers_home_page.*
@@ -28,8 +30,8 @@ class SellersHomePage : AppCompatActivity() {
 
     val query: Query = db
       .collection("products")
-      .whereEqualTo("user","JoeUser")
-     //.whereEqualTo ("status", "Added")
+      .whereEqualTo("user", firebaseUserID)
+      .whereEqualTo ("status", "Added")
       .orderBy ("product")
 
     val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
@@ -63,6 +65,19 @@ class SellersHomePage : AppCompatActivity() {
       startActivity(intent)
     }
 
+    b_login.setOnClickListener {
+      val intent = Intent (this, Registration::class.java)
+      startActivity(intent)
+    }
+
+    b_logout.setOnClickListener {
+      FirebaseAuth.getInstance().signOut()
+      firebaseUserID = ""
+      Toast.makeText(
+        this@SellersHomePage,"Logged out", Toast.LENGTH_LONG).show()
+      val intent = Intent (this, Login::class.java)
+      startActivity(intent)
+    }
   }
 
   override fun onStart(){
