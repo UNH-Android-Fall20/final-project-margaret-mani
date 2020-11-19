@@ -1,5 +1,6 @@
 package edu.newhaven.virtualfarmersmarket
 
+import android.location.Location
 import kotlin.random.Random
 
 data class Product (
@@ -9,8 +10,10 @@ data class Product (
     val price: String = "",
     val quantity: String = "",
     val idNumber: String = "",
-    val zipCode: String = ""
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0
+    //val actualLocation: Location
 ) {
     //val distance = Random.nextInt(1, 20)
-    val distance: String = "0.0"
+    var distance: String = "0.0"
 }
