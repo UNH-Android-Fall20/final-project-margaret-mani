@@ -3,6 +3,7 @@
     package="edu.newhaven.virtualfarmersmarket">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".ProductListingForBuyer"></activity>
+        <activity android:name=".ProductListingForBuyer" />
         <activity android:name=".SellersHomePage" />
 
         <provider
