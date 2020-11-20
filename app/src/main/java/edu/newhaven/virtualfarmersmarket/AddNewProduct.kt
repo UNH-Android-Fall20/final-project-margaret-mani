@@ -168,12 +168,16 @@ class AddNewProduct : AppCompatActivity() {
     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
       val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
       fusedLocationClient.lastLocation
-        .addOnSuccessListener { loc: Location ->
-          sellerLocationLatitude = loc.latitude
-          sellerLocationLongitude = loc.longitude
+        .addOnSuccessListener { loc: Location? ->
+          if (loc != null) {
+            sellerLocationLatitude = loc.latitude
+            Log.d(TAG, loc.latitude.toString())
+          }
+          if (loc != null) {
+            sellerLocationLongitude = loc.longitude
+            Log.d(TAG, loc.longitude.toString())
+          }
           //sellerActualLocation = loc
-          Log.d(TAG, loc.latitude.toString())
-          Log.d(TAG, loc.longitude.toString())
           Log.d(TAG, "Last know location is $loc")
         }
     } else {

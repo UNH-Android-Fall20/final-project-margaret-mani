@@ -61,15 +61,16 @@
   <string name="choose_picture">Choose A Picture</string>
   <string name="title_activity_login">activity_login</string>
   <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
+  This string is used for square devices and overridden by hello_world in
+  values-round/strings.xml for round devices.
+  -->
   <string name="hello_world">Hello Square World!</string>
   <string name="already_user">Already a User? Login Here</string>
   <string name="title_activity_main2">MainActivity2</string>
   <string name="login">Login</string>
   <string name="new_here_register">New here? Register</string>
   <string name="zip_code">Zip Code</string>
+    <string name="locationIcon_PLVH">locationIcon</string>
 
 
 </resources>

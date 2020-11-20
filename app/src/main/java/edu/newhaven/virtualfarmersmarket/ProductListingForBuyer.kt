@@ -68,9 +68,9 @@ class ProductListingForBuyer : AppCompatActivity() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationClient.lastLocation
-                .addOnSuccessListener { loc: Location ->
-                    Log.d(TAG, loc.latitude.toString())
-                    Log.d(TAG, loc.longitude.toString())
+                .addOnSuccessListener { loc: Location? ->
+                    //Log.d(TAG, loc.latitude.toString())
+                    //Log.d(TAG, loc.longitude.toString())
                     Log.d(TAG, "Last know location is $loc")
                     productListingAdapter.updateAllDistances(loc)
                 }
