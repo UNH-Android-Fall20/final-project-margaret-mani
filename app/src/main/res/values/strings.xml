@@ -71,6 +71,11 @@
   <string name="new_here_register">New here? Register</string>
   <string name="zip_code">Zip Code</string>
     <string name="locationIcon_PLVH">locationIcon</string>
+    <string name="product_details_buyer">Product Details</string>
+  <string name="image_description_buyer">Image of the product in detials page</string>
+  <string name="product_description_buyer">Product description</string>
+  <string name="distance_PDB">Located 28 Mi from your location</string>
+  <string name="notify_seller">Notify Seller</string>
 
 
 </resources>

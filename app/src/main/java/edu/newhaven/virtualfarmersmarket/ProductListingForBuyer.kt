@@ -56,7 +56,7 @@ class ProductListingForBuyer : AppCompatActivity() {
 
         categoryFilterView.setText(categoryFilter)
 
-        productListingAdapter = ProductListingAdapter(options)
+        productListingAdapter = ProductListingAdapter(options, this)
 
         rv_product_listing_buyer.adapter = productListingAdapter
         rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
