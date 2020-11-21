@@ -59,10 +59,11 @@
 
             <TextView
                 android:id="@+id/tv_product_description_PDB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="302dp"
+                android:layout_height="41dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
+                android:maxLines="100"
                 android:text="@string/product_description_PLVH"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"

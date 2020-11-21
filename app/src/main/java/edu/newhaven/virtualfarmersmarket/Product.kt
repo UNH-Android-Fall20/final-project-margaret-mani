@@ -16,5 +16,5 @@ data class Product (
     //val actualLocation: Location
 ) :Serializable {
     //val distance = Random.nextInt(1, 20)
-    var distance: String = "0.0"
+    var distance: String = ""
 }
