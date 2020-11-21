@@ -8,7 +8,6 @@ import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.pb_progress
-import kotlinx.android.synthetic.main.activity_registration.*
 
 private lateinit var txtEmail: EditText
 private lateinit var txtPassword: EditText
@@ -60,7 +59,7 @@ class Login : AppCompatActivity() {
               firebaseUserID = auth.currentUser!!.uid
               Toast.makeText(
                 this@Login,"Login successful", Toast.LENGTH_LONG).show()
-              val intent = Intent(this, MainActivity::class.java)
+              val intent = Intent(this, BuyersHomePage::class.java)
               startActivity(intent)
             } else {
               Toast.makeText(

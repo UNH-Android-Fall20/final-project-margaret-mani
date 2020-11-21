@@ -46,36 +46,39 @@ class ProductListingForBuyer : AppCompatActivity() {
             .whereEqualTo("category", categoryFilter)
             .orderBy ("product")
 
+        query.addSnapshotListener { _, _ ->
+            updateDistances()
+        }
+
         val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
             .setQuery(query, Product::class.java)
             .build()
 
         categoryFilterView.setText(categoryFilter)
 
-        productListingAdapter = ProductListingAdapter(options)
+        productListingAdapter = ProductListingAdapter(options, this)
 
         rv_product_listing_buyer.adapter = productListingAdapter
         rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
 
-        if (!hasFineLocationPermission()) {
-            requestPermissions()
-        } else {
-            updateDistances()
-        }
     }
 
     private fun updateDistances() {
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { loc: Location ->
-                Log.d(TAG, loc.latitude.toString())
-                Log.d(TAG, loc.longitude.toString())
-                Log.d(TAG, "Last know location is $loc")
-                productListingAdapter.updateAllDistances(loc)
-            }
-    }
 
-    private fun hasFineLocationPermission() = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { loc: Location? ->
+                    //Log.d(TAG, loc.latitude.toString())
+                    //Log.d(TAG, loc.longitude.toString())
+                    Log.d(TAG, "Last know location is $loc")
+                    productListingAdapter.updateAllDistances(loc)
+                }
+        } else {
+            requestPermissions()
+        }
+
+    }
 
     private fun requestPermissions() {
         val permissionsToRequest = mutableListOf<String>()

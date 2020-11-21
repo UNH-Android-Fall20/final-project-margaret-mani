@@ -51,7 +51,7 @@ class Registration : AppCompatActivity() {
     pbProgress = findViewById(R.id.pb_progress)
 
     if (auth.currentUser != null) {
-      val intent = Intent(this, MainActivity::class.java)
+      val intent = Intent(this, BuyersHomePage::class.java)
       startActivity(intent)
     }
 
@@ -96,7 +96,7 @@ class Registration : AppCompatActivity() {
             if (task.isSuccessful) {
               firebaseUserID = auth.currentUser!!.uid
               addToUserCollection()
-              val intent = Intent(this, MainActivity::class.java)
+              val intent = Intent(this, BuyersHomePage::class.java)
               startActivity(intent)
             } else {
               Toast.makeText(

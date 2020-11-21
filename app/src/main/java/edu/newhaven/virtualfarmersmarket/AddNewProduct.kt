@@ -1,5 +1,6 @@
 package edu.newhaven.virtualfarmersmarket
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.Bitmap
@@ -17,18 +18,18 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_add_new_product.*
 import java.io.File
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.ImageDecoder
+import android.location.Location
 import android.media.Image
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-
 import kotlinx.android.synthetic.main.activity_sellers_home_page.*
-
-
-
 
 private var catSelection = ""
 private val FILE_NAME = "photo.jpg"
@@ -46,9 +47,18 @@ class AddNewProduct : AppCompatActivity() {
   private lateinit var categoryList: Array<String?>
   private var arrayAdapter: ArrayAdapter<String?>? = null
 
+  private var sellerLocationLatitude: Double = 0.0
+  private var sellerLocationLongitude: Double = 0.0
+  //private lateinit var sellerActualLocation: Location
+
   override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_add_new_product)
+
+    db.addSnapshotsInSyncListener {
+      updatingSellersLocation()
+    }
+    //updatingSellersLocation()
 
       //init
       storageReference = FirebaseStorage.getInstance().getReference("image")
@@ -130,7 +140,10 @@ class AddNewProduct : AppCompatActivity() {
             "category" to catSelection,
             "user" to loggedInUser,
             "imageLoc" to myImgLocation,
-            "status" to productStatus
+            "status" to productStatus,
+            "latitude" to sellerLocationLatitude,
+            "longitude" to sellerLocationLongitude
+            //"actualLocation" to sellerActualLocation
           )
 
           val intent = Intent(this, AddNewProduct::class.java)
@@ -148,6 +161,59 @@ class AddNewProduct : AppCompatActivity() {
                 Log.w(TAG, "Error adding document", e)
             }
        }
+  }
+
+  private fun updatingSellersLocation() {
+
+    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+      val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+      fusedLocationClient.lastLocation
+        .addOnSuccessListener { loc: Location? ->
+          if (loc != null) {
+            sellerLocationLatitude = loc.latitude
+            Log.d(TAG, loc.latitude.toString())
+          }
+          if (loc != null) {
+            sellerLocationLongitude = loc.longitude
+            Log.d(TAG, loc.longitude.toString())
+          }
+          //sellerActualLocation = loc
+          Log.d(TAG, "Last know location is $loc")
+        }
+    } else {
+      requestPermissions()
+    }
+
+  }
+
+  private fun requestPermissions() {
+    val permissionsToRequest = mutableListOf<String>()
+    permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
+    if (permissionsToRequest.isNotEmpty()) {
+      ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), PERMISSION_REQUEST_CODE)
+    }
+  }
+
+  override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray
+  ) {
+    when (requestCode) {
+      PERMISSION_REQUEST_CODE -> {
+        // If request is cancelled, the result arrays are empty.
+        if ((grantResults.isNotEmpty() &&
+                  grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        ) {
+          Log.d("PermissionsRequest", "Permission Granted for ${permissions[0]}")
+          updatingSellersLocation()
+
+        } else {
+          Log.d("PermissionsRequest", "Permission Denied")
+        }
+        return
+      }
+    }
   }
 
   private fun prepOpenImageGallery() {

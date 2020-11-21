@@ -5,15 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class BuyersHomePage : AppCompatActivity() {
 
   private val TAG = javaClass.name
 
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    setContentView(R.layout.activity_buyers_home_page)
 
     categoryOne = findViewById(R.id.tv_categoryOne)
     categoryOneImage = findViewById(R.id.iv_categoryOneImage)
