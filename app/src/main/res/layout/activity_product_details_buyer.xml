@@ -60,7 +60,7 @@
             <TextView
                 android:id="@+id/tv_product_description_PDB"
                 android:layout_width="302dp"
-                android:layout_height="41dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:maxLines="100"
@@ -150,6 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:maxLines="100"
                 android:text="@string/distance_PDB"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_location_icon_PDB"

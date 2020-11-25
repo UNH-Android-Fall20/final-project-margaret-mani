@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_product_listing_for_buyer.*
 
 const val PERMISSION_REQUEST_CODE = 0
 
-class ProductListingForBuyer : AppCompatActivity() {
+class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnDataChanged {
 
     private val TAG = javaClass.name
 
@@ -45,10 +45,6 @@ class ProductListingForBuyer : AppCompatActivity() {
         val query: Query = ref
             .whereEqualTo("category", categoryFilter)
             .orderBy ("product")
-
-        query.addSnapshotListener { _, _ ->
-            updateDistances()
-        }
 
         val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
             .setQuery(query, Product::class.java)
@@ -118,5 +114,9 @@ class ProductListingForBuyer : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         productListingAdapter.stopListening()
+    }
+
+    override fun dataChanged() {
+        updateDistances()
     }
 }

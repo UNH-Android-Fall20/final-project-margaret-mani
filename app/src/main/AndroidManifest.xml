@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".ProductDetailsBuyer"></activity>
+
+        <activity android:name=".ProductDetailsBuyer" />
         <activity android:name=".ProductListingForBuyer" />
         <activity android:name=".Login"
           android:parentActivityName=".BuyersHomePage"/>
