@@ -1,19 +1,19 @@
 package edu.newhaven.virtualfarmersmarket
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -31,6 +31,8 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
 
     private lateinit var categoryFilterView: TextView
 
+    private lateinit var bottomNavigationMenuPL: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_listing_for_buyer)
@@ -38,6 +40,7 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         val intent = intent
         val categoryFilter = intent.getStringExtra("CategoryClicked")
 
+        bottomNavigationMenuPL = findViewById(R.id.bottom_navigation_viewPL)
         categoryFilterView = findViewById(R.id.tv_categoryNamePL)
 
         val ref: CollectionReference = dbProductListingBuyer.collection("products")
@@ -56,6 +59,25 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
 
         rv_product_listing_buyer.adapter = productListingAdapter
         rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
+
+        bottomNavigationMenuPL.menu.getItem(0).isCheckable = false
+        bottomNavigationMenuPL.setOnNavigationItemSelectedListener { item ->
+            var message = ""
+            when(item.itemId) {
+                R.id.nav_sell_home -> {
+                    val intent = Intent(this, SellersHomePage::class.java)
+                    startActivity(intent)
+                }
+                R.id.nav_home -> {
+                    val intent = Intent(this, BuyersHomePage::class.java)
+                    startActivity(intent)
+                }
+                R.id.nav_settings -> message = "Setting"
+                R.id.nav_logout -> message = "Logout"
+            }
+            Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
+            return@setOnNavigationItemSelectedListener true
+        }
 
     }
 
