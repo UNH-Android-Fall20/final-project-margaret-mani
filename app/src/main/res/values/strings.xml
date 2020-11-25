@@ -12,6 +12,7 @@
   <string name="category_three">Produce</string>
   <string name="category_two">Grains</string>
   <string name="bottom_nav_sell">Sell</string>
+  <string name="bottom_nav_buy">Buy</string>
   <string name="bottom_nav_home">Home</string>
   <string name="bottom_nav_user_settings">User settings</string>
   <string name="bottom_nav_logout">Logout</string>
@@ -77,6 +78,7 @@
   <string name="distance_PDB">Located 28 Mi from your location</string>
   <string name="notify_seller">Notify Seller</string>
   <string name="forgot_password">I forgot my password</string>
+  <string name="add_product_menu">Add Product</string>
 
 
 </resources>
