@@ -51,8 +51,12 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".AddNewProduct" />
-        <activity android:name=".BuyersHomePage">
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".AddNewProduct" />
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".BuyersHomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
