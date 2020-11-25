@@ -19,21 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rv_product_listing_buyer"
-    android:layout_width="410dp"
-    android:layout_height="532dp"
-    android:layout_marginTop="28dp"
-    android:layout_marginBottom="5dp"
-    android:scrollbars="vertical"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tv_products_title"
-    app:layout_constraintVertical_bias="0.955" />
-
-  <TextView
+    <TextView
         android:id="@+id/tv_categoryNamePL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,4 +29,25 @@
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/tv_products_title"
         app:layout_constraintTop_toTopOf="@+id/tv_products_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_product_listing_buyer"
+        android:layout_width="406dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_viewPL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_products_title" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_viewPL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F8F5F6"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

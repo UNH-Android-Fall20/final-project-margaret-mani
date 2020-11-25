@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.newhaven.virtualfarmersmarket">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-feature android:name="android.hardware.type.watch" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".ProductDetailsBuyer"></activity>
+
+        <activity android:name=".ProductDetailsBuyer" />
         <activity android:name=".ProductListingForBuyer" />
         <activity android:name=".Login"
           android:parentActivityName=".BuyersHomePage"/>
@@ -50,8 +47,12 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".AddNewProduct" />
-        <activity android:name=".BuyersHomePage">
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".AddNewProduct" />
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".BuyersHomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
