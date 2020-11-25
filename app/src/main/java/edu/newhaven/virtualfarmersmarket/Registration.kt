@@ -15,10 +15,8 @@ import kotlinx.android.synthetic.main.activity_registration.pb_progress
 class Registration : AppCompatActivity() {
 
   private lateinit var txtUserFirstName: EditText
-  private lateinit var txtUserLastName: EditText
   private lateinit var txtEmail: EditText
   private lateinit var txtPhoneNumber: EditText
-  private lateinit var txtZipCode: EditText
   private lateinit var txtPassword: EditText
   private lateinit var txtConfirmPassword: EditText
   private lateinit var txtSearchLimit: EditText
@@ -37,10 +35,9 @@ class Registration : AppCompatActivity() {
     setContentView(R.layout.activity_registration)
 
     txtUserFirstName = findViewById(R.id.txt_userFirstName)
-    txtUserLastName = findViewById(R.id.txt_userLastName)
     txtEmail = findViewById(R.id.txt_email)
     txtPhoneNumber = findViewById(R.id.txt_phoneNumber)
-    txtZipCode = findViewById(R.id.txt_zipCode)
+
     txtPassword = findViewById(R.id.txt_password)
     txtConfirmPassword = findViewById(R.id.txt_confirmPassword)
     txtSearchLimit = findViewById(R.id.txt_searchLimit)
@@ -120,11 +117,9 @@ class Registration : AppCompatActivity() {
     val myUser = mutableMapOf(
       "userID" to firebaseUserID,
       "emailAddress" to txtEmail.text.toString(),
-      "firstName" to txtUserFirstName.text.toString(),
-      "lastName" to txtUserLastName.text.toString(),
+      "preferredName" to txtUserFirstName.text.toString(),
       "phoneNbr" to txtPhoneNumber.text.toString(),
-      "searchLimit" to txtSearchLimit.text.toString(),
-      "zipCode" to txtZipCode.text.toString()
+      "searchLimit" to txtSearchLimit.text.toString()
     )
 
     db.collection("users")

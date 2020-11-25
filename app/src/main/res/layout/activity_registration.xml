@@ -11,16 +11,15 @@
 
   <TextView
     android:id="@+id/tv_register"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="336dp"
+    android:layout_height="32dp"
     android:layout_marginStart="24dp"
     android:layout_marginTop="20dp"
-    android:layout_marginBottom="67dp"
     android:fontFamily="sans-serif-black"
     android:text="@string/registration"
+    android:textColor="@android:color/darker_gray"
     android:textSize="20sp"
     android:textStyle="bold"
-    android:textColor="@android:color/darker_gray"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +29,7 @@
     android:layout_height="32dp"
     android:layout_marginTop="40dp"
     android:background="@drawable/custom_button_round"
-    android:hint="@string/first_name"
+    android:hint="@string/preferred_name"
     android:importantForAutofill="no"
     android:inputType="textPersonName"
     android:textAllCaps="false"
@@ -38,22 +37,6 @@
     android:textSize="15sp"
     app:layout_constraintStart_toStartOf="@+id/tv_register"
     app:layout_constraintTop_toBottomOf="@+id/tv_register" />
-
-  <EditText
-    android:id="@+id/txt_userLastName"
-    android:layout_width="339dp"
-    android:layout_height="32dp"
-    android:layout_marginStart="25dp"
-    android:layout_marginTop="20dp"
-    android:background="@drawable/custom_button_round"
-    android:hint="@string/last_name"
-    android:importantForAutofill="no"
-    android:inputType="textPersonName"
-    android:textAllCaps="false"
-    android:textColor="#003700"
-    android:textSize="15sp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txt_userFirstName" />
 
   <EditText
     android:id="@+id/txt_email"
@@ -69,7 +52,7 @@
     android:textColor="#003700"
     android:textSize="15sp"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txt_userLastName" />
+    app:layout_constraintTop_toBottomOf="@+id/txt_userFirstName"/>
 
   <EditText
     android:id="@+id/txt_phoneNumber"
@@ -88,15 +71,15 @@
     app:layout_constraintTop_toBottomOf="@+id/txt_email" />
 
   <EditText
-    android:id="@+id/txt_zipCode"
-    android:layout_width="148dp"
+    android:id="@+id/txt_searchLimit"
+    android:layout_width="160dp"
     android:layout_height="32dp"
     android:layout_marginStart="25dp"
     android:layout_marginTop="20dp"
     android:background="@drawable/custom_button_round"
-    android:hint="@string/zip_code"
+    android:hint="@string/preferred_search_zone_in_miles"
     android:importantForAutofill="no"
-    android:inputType="text"
+    android:inputType="number"
     android:textAllCaps="false"
     android:textColor="#003700"
     android:textSize="15sp"
@@ -135,47 +118,46 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/txt_password" />
 
-  <EditText
-    android:id="@+id/txt_searchLimit"
-    android:layout_width="250dp"
-    android:layout_height="32dp"
-    android:layout_marginStart="25dp"
-    android:layout_marginTop="20dp"
-    android:background="@drawable/custom_button_round"
-    android:hint="@string/preferred_search_zone_in_miles"
-    android:importantForAutofill="no"
-    android:inputType="number"
-    android:textAllCaps="false"
-    android:textColor="#003700"
-    android:textSize="15sp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txt_confirmPassword" />
-
   <Button
-    android:id="@+id/b_register"
+    android:id="@+id/b_location"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="148dp"
-    android:layout_marginTop="52dp"
+    android:layout_marginStart="140dp"
+    android:layout_marginTop="32dp"
     android:background="@drawable/custom_button_round"
     android:gravity="center"
-    android:text="@string/register"
+    android:text="@string/add_location"
     android:textAllCaps="false"
     android:textColor="#000109"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txt_searchLimit" />
+    app:layout_constraintTop_toBottomOf="@+id/txt_confirmPassword" />
 
   <TextView
     android:id="@+id/tv_userButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="104dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="30dp"
     android:gravity="center"
     android:text="@string/already_user"
     android:textColor="@android:color/darker_gray"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txt_searchLimit" />
+    app:layout_constraintTop_toBottomOf="@+id/b_location" />
+
+
+  <Button
+    android:id="@+id/b_register"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="152dp"
+    android:layout_marginTop="24dp"
+    android:background="@drawable/custom_button_round"
+    android:gravity="center"
+    android:text="@string/register"
+    android:textAllCaps="false"
+    android:textColor="#000109"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_userButton" />
 
   <ProgressBar
     android:id="@+id/pb_progress"

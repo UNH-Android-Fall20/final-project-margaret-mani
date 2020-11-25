@@ -51,15 +51,15 @@
   <string name="distance_PLVH">Distance</string>
   <string name="registration">Registration</string>
   <string name="email_address">Email Address/User Name</string>
-  <string name="first_name">First Name</string>
-  <string name="last_name">Last Name</string>
   <string name="phone_number">Phone Number</string>
+  <string name="preferred_name">Preferred Name</string>
   <string name="password">Password</string>
   <string name="confirm_password">Confirm Password</string>
-  <string name="preferred_search_zone_in_miles">Preferred Search Zone(in miles)</string>
+  <string name="preferred_search_zone_in_miles">Search Zone(in miles)</string>
   <string name="register">Register</string>
   <string name="choose_picture">Choose A Picture</string>
   <string name="title_activity_login">activity_login</string>
+  <string name="add_location">Add My Location</string>
   <!--
   This string is used for square devices and overridden by hello_world in
   values-round/strings.xml for round devices.
@@ -76,6 +76,7 @@
   <string name="product_description_buyer">Product description</string>
   <string name="distance_PDB">Located 28 Mi from your location</string>
   <string name="notify_seller">Notify Seller</string>
+  <string name="forgot_password">I forgot my password</string>
 
 
 </resources>
