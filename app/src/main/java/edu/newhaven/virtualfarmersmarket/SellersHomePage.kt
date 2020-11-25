@@ -4,30 +4,34 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.content.Intent
-import android.widget.Adapter
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.Toast
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_sellers_home_page.*
-import kotlinx.android.synthetic.main.view_holder.*
-import java.text.FieldPosition
 
 
 class SellersHomePage : AppCompatActivity() {
+
   private val TAG = javaClass.name
   private val db = FirebaseFirestore.getInstance()
   private var adapter : FirestoreRecyclerAdapter<Product, ProductViewHolder>? = null
+  private lateinit var bottomNavigationViewSellHome: BottomNavigationView
+  private lateinit var addButton: FloatingActionButton
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_sellers_home_page)
 
+    bottomNavigationViewSellHome = findViewById(R.id.bottom_navigation_view_sell_home)
+    addButton = findViewById(R.id.fab)
     val query: Query = db
       .collection("products")
       .whereEqualTo("user", firebaseUserID)
@@ -60,23 +64,38 @@ class SellersHomePage : AppCompatActivity() {
     rv_seller_products.adapter = adapter
     rv_seller_products.layoutManager = LinearLayoutManager (this)
 
-    b_addProduct.setOnClickListener {
+    addButton.setOnClickListener{
       val intent = Intent(this, AddNewProduct::class.java)
       startActivity(intent)
     }
 
-    b_login.setOnClickListener {
-      val intent = Intent (this, Registration::class.java)
-      startActivity(intent)
-    }
-
-    b_logout.setOnClickListener {
-      FirebaseAuth.getInstance().signOut()
-      firebaseUserID = ""
-      Toast.makeText(
-        this@SellersHomePage,"Logged out", Toast.LENGTH_LONG).show()
-      val intent = Intent (this, Login::class.java)
-      startActivity(intent)
+    bottomNavigationViewSellHome.background = null
+    bottomNavigationViewSellHome.menu.getItem(2).isEnabled = false
+    bottomNavigationViewSellHome.selectedItemId = R.id.nav_sell_home
+    bottomNavigationViewSellHome.setOnNavigationItemSelectedListener { item ->
+      var message = ""
+      when(item.itemId) {
+        R.id.nav_sell_buy_home -> {
+          val intent = Intent(this, BuyersHomePage::class.java)
+          startActivity(intent)
+        }
+        R.id.nav_sell_home -> message = "Home"
+        R.id.nav_sell_add_new_product -> {
+          val intent = Intent(this, AddNewProduct::class.java)
+          startActivity(intent)
+        }
+        R.id.nav_sell_settings -> message = "Setting"
+        R.id.nav_sell_logout -> {
+          FirebaseAuth.getInstance().signOut()
+          firebaseUserID = ""
+          Toast.makeText(
+            this@SellersHomePage,"Logged out", Toast.LENGTH_LONG).show()
+          val intent = Intent (this, Login::class.java)
+          startActivity(intent)
+        }
+      }
+      Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
+      return@setOnNavigationItemSelectedListener true
     }
   }
 
