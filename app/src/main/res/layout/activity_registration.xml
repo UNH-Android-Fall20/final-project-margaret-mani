@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="@drawable/gradient_color"
+  android:background="@drawable/vfmback8"
   android:scaleType="fitXY"
   tools:context=".Registration">
 
@@ -17,7 +17,7 @@
     android:layout_marginTop="20dp"
     android:fontFamily="sans-serif-black"
     android:text="@string/registration"
-    android:textColor="@android:color/darker_gray"
+    android:textColor="#006400"
     android:textSize="20sp"
     android:textStyle="bold"
     app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +140,7 @@
     android:layout_marginTop="30dp"
     android:gravity="center"
     android:text="@string/already_user"
-    android:textColor="@android:color/darker_gray"
+    android:textColor="#006400"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/b_location" />
 
