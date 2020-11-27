@@ -82,29 +82,9 @@ class Login : AppCompatActivity() {
     }
 
     forgotPass.setOnClickListener{
-      val builder = AlertDialog.Builder(this)
-      builder.setTitle("Forgot Password")
-      val view = layoutInflater.inflate(R.layout.activity_forgot_password, null)
-      val username = view.findViewById<EditText>(R.id.et_username)
-      builder.setView(view)
-      builder.setPositiveButton("Reset", DialogInterface.OnClickListener() { _, _ -> forgotPassword(username)})
-      builder.setNegativeButton("Close", DialogInterface.OnClickListener() { _, _ -> forgotPassword(username)})
-      builder.show()
-    }
+      val intent = Intent(this, ForgotPassword::class.java)
+      startActivity(intent)
+          }
 
-  }
-  private fun forgotPassword(username: EditText) {
-    if (username.text.toString().isEmpty()) {
-      return
-    }
-    if (!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()) {
-      return
-    }
-    auth.sendPasswordResetEmail(username.text.toString())
-      .addOnCompleteListener { task ->
-        if (task.isSuccessful) {
-          Toast.makeText(this, "Email sent", Toast.LENGTH_SHORT).show()
-        }
-      }
   }
 }
