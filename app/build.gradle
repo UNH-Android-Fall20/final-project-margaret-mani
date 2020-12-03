@@ -63,6 +63,11 @@ dependencies {
     // Circular Image View
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    // User Settings
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.3.2"
+
     //Authorization
     //implementation 'com.google.firebase:firebase-core:17.2.3'
     //implementation 'com.google.firebase:firebase-auth:19.2.0'

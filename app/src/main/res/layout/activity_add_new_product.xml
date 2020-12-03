@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="@drawable/vfmback8"
   android:visibility="visible"
   tools:context=".AddNewProduct">
 
@@ -150,21 +151,6 @@
           app:layout_constraintStart_toStartOf="@+id/txtProdName"
           app:layout_constraintTop_toBottomOf="@id/txtPrice" />
 
-      <EditText
-          android:id="@+id/txtZip"
-          android:layout_width="wrap_content"
-          android:layout_height="32dp"
-          android:layout_marginTop="20dp"
-          android:background="@drawable/custom_button_round"
-          android:hint="@string/addZip_code"
-          android:importantForAutofill="no"
-          android:inputType="textPersonName"
-          android:textAllCaps="false"
-          android:textColor="#003700"
-          android:textSize="15sp"
-          app:layout_constraintStart_toStartOf="@+id/txtProdName"
-          app:layout_constraintTop_toBottomOf="@id/txtDescription" />
-
       <Button
           android:id="@+id/b_addItNow"
           android:layout_width="wrap_content"
@@ -177,7 +163,7 @@
           android:textColor="#000109"
           android:textSize="15sp"
           app:layout_constraintStart_toStartOf="@+id/txtProdName"
-          app:layout_constraintTop_toBottomOf="@id/txtZip" />
+          app:layout_constraintTop_toBottomOf="@id/txtDescription" />
 
       <Button
           android:id="@+id/b_sellerPage"
@@ -191,7 +177,7 @@
           android:textAllCaps="false"
           android:textColor="#000109"
           app:layout_constraintStart_toEndOf="@id/b_addItNow"
-          app:layout_constraintTop_toBottomOf="@id/txtZip" />
+          app:layout_constraintTop_toBottomOf="@id/txtDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
