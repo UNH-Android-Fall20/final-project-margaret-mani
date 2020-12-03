@@ -13,19 +13,21 @@
     android:fillViewport="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0">
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/linearLayout2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
       <TextView
         android:id="@+id/tv_userSettings"
         android:layout_width="336dp"
         android:layout_height="32dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/user_settings"
@@ -35,137 +37,139 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
       <TextView
         android:id="@+id/tv_userFirstName"
         android:layout_width="125dp"
         android:layout_height="32dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="68dp"
         android:fontFamily="sans-serif-black"
+        android:gravity="center_vertical"
         android:text="@string/preferred_name"
         android:textColor="#006400"
-        android:gravity="center_vertical"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_userSettings"
-        app:layout_constraintStart_toStartOf="@id/tv_userSettings" />
-
+        app:layout_constraintStart_toStartOf="@id/tv_userSettings"
+        app:layout_constraintTop_toBottomOf="@+id/tv_userSettings" />
 
       <EditText
         android:id="@+id/et_newUserPreferredName"
         android:layout_width="125dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
+        android:autofillHints="New Preferred Name"
         android:background="@drawable/custom_button_round"
         android:hint="@string/new_preferred_name"
         android:inputType="textPersonName"
         android:textAllCaps="false"
         android:textColor="#003700"
         android:textSize="12sp"
-        app:layout_constraintTop_toTopOf="@+id/tv_userFirstName"
         app:layout_constraintStart_toEndOf="@id/tv_userFirstName"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="@+id/tv_userFirstName" />
 
       <Button
         android:id="@+id/b_updateMe"
         android:layout_width="90dp"
         android:layout_height="32dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/custom_button_round"
         android:gravity="center"
         android:text="@string/save_name"
         android:textAllCaps="false"
         android:textColor="#003700"
-        app:layout_constraintStart_toEndOf="@id/et_newUserPreferredName"
-        app:layout_constraintTop_toTopOf="@+id/et_newUserPreferredName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_newUserPreferredName" />
 
       <TextView
         android:id="@+id/tv_phoneNumber"
         android:layout_width="125dp"
         android:layout_height="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="sans-serif-black"
+        android:gravity="center_vertical"
         android:text="@string/phone_number"
         android:textColor="#006400"
-        android:gravity="center_vertical"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_userFirstName"
-        app:layout_constraintStart_toStartOf="@id/tv_userFirstName" />
-
+        app:layout_constraintStart_toStartOf="@id/tv_userFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/b_updateMe" />
 
       <EditText
         android:id="@+id/et_newPhoneNumber"
         android:layout_width="125dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
+        android:autofillHints="New Phone Number"
         android:background="@drawable/custom_button_round"
         android:hint="@string/new_phone_number"
         android:inputType="phone"
         android:textAllCaps="false"
         android:textColor="#003700"
         android:textSize="12sp"
-        app:layout_constraintTop_toTopOf="@+id/tv_phoneNumber"
         app:layout_constraintStart_toEndOf="@id/tv_phoneNumber"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="@+id/tv_phoneNumber" />
 
       <Button
         android:id="@+id/b_updatePhone"
         android:layout_width="90dp"
         android:layout_height="32dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTo="20dp"
         android:background="@drawable/custom_button_round"
         android:gravity="center"
         android:text="@string/save_phone"
         android:textAllCaps="false"
         android:textColor="#003700"
-        app:layout_constraintStart_toEndOf="@id/et_newPhoneNumber"
-        app:layout_constraintTop_toTopOf="@+id/et_newPhoneNumber" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_newPhoneNumber"/>
 
       <TextView
         android:id="@+id/tv_searchLimit"
         android:layout_width="125dp"
         android:layout_height="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="sans-serif-black"
+        android:gravity="center_vertical"
         android:text="@string/product_search"
         android:textColor="#006400"
-        android:gravity="center_vertical"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_phoneNumber"
-        app:layout_constraintStart_toStartOf="@id/tv_phoneNumber" />
+        app:layout_constraintStart_toStartOf="@id/tv_phoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phoneNumber" />
 
       <EditText
         android:id="@+id/et_newSearchLimit"
         android:layout_width="125dp"
         android:layout_height="32dp"
         android:layout_marginStart="10dp"
+        android:autofillHints="New Search Limit"
         android:background="@drawable/custom_button_round"
         android:hint="@string/new_search_limit"
         android:inputType="phone"
         android:textAllCaps="false"
         android:textColor="#003700"
         android:textSize="12sp"
-        app:layout_constraintTop_toTopOf="@+id/tv_searchLimit"
         app:layout_constraintStart_toEndOf="@id/tv_searchLimit"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="@+id/tv_searchLimit" />
 
       <Button
         android:id="@+id/b_updateSearch"
         android:layout_width="90dp"
         android:layout_height="32dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:background="@drawable/custom_button_round"
         android:gravity="center"
         android:text="@string/save_limit"
         android:textAllCaps="false"
         android:textColor="#003700"
-        app:layout_constraintStart_toEndOf="@id/et_newSearchLimit"
-        app:layout_constraintTop_toTopOf="@+id/et_newSearchLimit" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_newSearchLimit" />
 
       <Button
         android:id="@+id/b_updateLocation"
         android:layout_width="175dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="45dp"
         android:background="@drawable/custom_button_round"
         android:gravity="center"
         android:text="@string/update_my_location"
@@ -188,6 +192,6 @@
         app:layout_constraintStart_toStartOf="@+id/b_updateLocation"
         app:layout_constraintTop_toBottomOf="@+id/b_updateLocation" />
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
