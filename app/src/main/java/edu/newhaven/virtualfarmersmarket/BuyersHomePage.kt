@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -16,6 +18,7 @@ class BuyersHomePage : AppCompatActivity() {
   private val TAG = javaClass.name
 
   private val db = FirebaseFirestore.getInstance()
+  private var auth = FirebaseAuth.getInstance()  //Needed to check login
 
   private lateinit var categoryOne: TextView
   private lateinit var categoryOneImage: CircleImageView
@@ -78,13 +81,26 @@ class BuyersHomePage : AppCompatActivity() {
     bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
     var message = ""
     when(item.itemId) {
-      R.id.nav_sell_home -> {
-        val intent = Intent(this, SellersHomePage::class.java)
-        startActivity(intent)
+      R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance()
+        if (auth.currentUser == null){
+          val intent = Intent(this, Login::class.java)
+          startActivity(intent)
+          Log.d(TAG, "Not logged in")
+        } else {
+            val intent = Intent(this, SellersHomePage::class.java)
+            startActivity(intent)
+            Log.d(TAG, "User is in")
+          }
         }
       R.id.nav_home -> message = "Home"
-      R.id.nav_settings -> message = "Setting"
-      R.id.nav_logout -> message = "Logout"
+      R.id.nav_settings ->  {
+        val intent = Intent(this, UserSettings::class.java)
+        startActivity(intent)
+      }
+      R.id.nav_logout -> {
+        FirebaseAuth.getInstance().signOut()
+        firebaseUserID = ""
+      }
     }
       Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
       return@setOnNavigationItemSelectedListener true
