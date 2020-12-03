@@ -84,7 +84,9 @@ class SellersHomePage : AppCompatActivity() {
           val intent = Intent(this, AddNewProduct::class.java)
           startActivity(intent)
         }
-        R.id.nav_sell_settings -> message = "Setting"
+        R.id.nav_sell_settings -> {
+          val intent = Intent(this, UserSettings::class.java)
+          startActivity(intent)}
         R.id.nav_sell_logout -> {
           FirebaseAuth.getInstance().signOut()
           firebaseUserID = ""
