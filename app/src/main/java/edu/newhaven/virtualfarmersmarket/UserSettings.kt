@@ -34,6 +34,7 @@ class UserSettings : AppCompatActivity() {
     val phoneNbr = findViewById<TextView>(R.id.tv_phoneNumber)
     val mySearchLimit = findViewById<TextView>(R.id.tv_searchLimit)
 
+    //get data
     db.collection("users")
       .whereEqualTo("userID", firebaseUserID)
       .get()
@@ -49,9 +50,8 @@ class UserSettings : AppCompatActivity() {
       .addOnFailureListener { exception ->
         Log.w(TAG, "Error getting documents: ", exception)
       }
-
+    //update preferred name
     b_updateMe.setOnClickListener {
-
       Toast.makeText(this, "where the update stuff goes", Toast.LENGTH_LONG).show()
 
       val newPreferredName : String = et_newUserPreferredName.text.toString()
@@ -68,6 +68,7 @@ class UserSettings : AppCompatActivity() {
       startActivity(intent)
     }
 
+    //update the phone number
     b_updatePhone.setOnClickListener {
 
       Toast.makeText(this, "where the update stuff goes", Toast.LENGTH_LONG).show()
@@ -86,6 +87,7 @@ class UserSettings : AppCompatActivity() {
       startActivity(intent)
     }
 
+    //update search limit
     b_updateSearch.setOnClickListener {
 
       Toast.makeText(this, "where the update stuff goes", Toast.LENGTH_LONG).show()

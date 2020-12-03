@@ -60,7 +60,7 @@ class AddNewProduct : AppCompatActivity() {
     }
     //updatingSellersLocation()
 
-      //init
+    //init
     storageReference = FirebaseStorage.getInstance().getReference("image")
 
     db.collection("categories").get()
@@ -294,5 +294,4 @@ class AddNewProduct : AppCompatActivity() {
     val stamp = Timestamp(System.currentTimeMillis())
     return Date(stamp.getTime()).toString()
   }
-
 }
