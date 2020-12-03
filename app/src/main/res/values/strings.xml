@@ -73,7 +73,7 @@
     <string name="zip_code">Zip Code</string>
     <string name="locationIcon_PLVH">locationIcon</string>
     <string name="product_details_buyer">Product Details</string>
-    <string name="image_description_buyer">Image of the product in detials page</string>
+    <string name="image_description_buyer">Image of the product in details page</string>
     <string name="product_description_buyer">Product description</string>
     <string name="distance_PDB">Located 28 Mi from your location</string>
     <string name="notify_seller">Notify Seller</string>
@@ -81,6 +81,17 @@
     <string name="add_product_menu">Add Product</string>
     <string name="title_activity_forgot_password">ForgotPassword</string>
     <string name="reset_password">Reset Password</string>
+    <string name="user_settings">User Settings</string>
+  <string name="new_preferred_name">New Preferred Name</string>
+  <string name="new_phone_number">New Phone Number</string>
+  <string name="update_my_location">Update My Location</string>
+  <string name="new_search_limit">New Search Limit</string>
+
+    <string name="retrieve_data">Retrieve Data</string>
+  <string name="save_name">Save Name</string>
+  <string name="save_phone">Save Phone</string>
+  <string name="save_limit">Save Limit</string>
+  <string name="return_to_home_page">Return to Home Page</string>
 
 
 </resources>
