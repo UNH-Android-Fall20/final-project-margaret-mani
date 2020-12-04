@@ -4,6 +4,7 @@ import android.content.Intent
 import android.location.Location
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -42,8 +43,7 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
             holder.itemView.context.startActivity(intent)
         }
 
-        // options: FirestoreRecyclerOptions<Product>, private var resources: Resources
-        //val resID = resources.getIdentifier(model.category, "drawable", "edu.newhaven.virtualfarmersmarket")
+        //holder.distanceLogo.visibility = View.INVISIBLE;
         holder.productName.text = model.product
         holder.productPrice.text = model.price.replace("$","")
         holder.sellerDistance.text = model.distance
