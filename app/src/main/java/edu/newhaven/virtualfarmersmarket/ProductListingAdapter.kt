@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -42,6 +44,9 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
             }
             holder.itemView.context.startActivity(intent)
         }
+
+        val storageReference = Firebase.storage.getReferenceFromUrl(model.imageLoc)
+        GlideApp.with(holder.productImagePL).load(storageReference).into(holder.productImagePL)
 
         //holder.distanceLogo.visibility = View.INVISIBLE;
         holder.productName.text = model.product

@@ -255,15 +255,17 @@ class AddNewProduct : AppCompatActivity() {
     private fun uploadFile() : String{
         val stamp = getDateTime()
         val nameOfImage = ("${stamp}.jpg")
-        val imageRef = FirebaseStorage.getInstance().reference.child ("images/$stamp.jpg")
-        imageRef.putFile(imageUri)
+        val imageRef = FirebaseStorage.getInstance().reference
+        val pathRef = imageRef.child ("images/$stamp.jpg")
+        Log.i("image loc", imageRef.toString() + "images/" + nameOfImage)
+        pathRef.putFile(imageUri)
             .addOnSuccessListener {
                 Toast.makeText(this,"File Uploaded", Toast.LENGTH_LONG).show()
             }
             .addOnFailureListener{
                 Toast.makeText(this, "File not uploaded", Toast.LENGTH_LONG ).show()
             }
-        return nameOfImage
+        return imageRef.toString() + "images/" + nameOfImage
     }
 
     //get the date and time
