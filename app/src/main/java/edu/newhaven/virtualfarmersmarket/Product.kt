@@ -6,6 +6,7 @@ import kotlin.random.Random
 
 data class Product (
     val product: String = "",
+    val imageLoc: String = "",
     val category: String = "",
     val description: String = "",
     val price: String = "",
