@@ -1,12 +1,16 @@
 package edu.newhaven.virtualfarmersmarket
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import edu.newhaven.virtualfarmersmarket.Mailer.sendMail
@@ -22,6 +26,8 @@ class ProductDetailsBuyer : AppCompatActivity() {
 
     private lateinit var btnNotifySeller: Button
     private lateinit var progressBar: ProgressBar
+    private val TAG = javaClass.name
+    private val dbProductDetailsBuyer = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +55,20 @@ class ProductDetailsBuyer : AppCompatActivity() {
         tv_quantity_PDB.text = product.quantity
         tv_distance_PDB.text = "Located ${product.distance} Mi from your Location"
 
+        var sellerEmail: String = ""
+        dbProductDetailsBuyer.collection("users")
+            .whereEqualTo("userID", product.user)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    sellerEmail = document.getString("emailAddress").toString()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+
         btnNotifySeller = findViewById(R.id.btn_notify_seller)
         progressBar = findViewById(R.id.progressbarPDB)
         progressBar.visibility = View.INVISIBLE;
@@ -57,10 +77,27 @@ class ProductDetailsBuyer : AppCompatActivity() {
 
             progressBar.visibility = View.VISIBLE
 
-            GlobalScope.launch { // or however you do background threads
-                sendMail("marg024@yahoo.com")
-                progressBar.visibility = View.INVISIBLE
-            }
+            val emailDialogBuilder = AlertDialog.Builder(this)
+
+            emailDialogBuilder.setMessage("Please Confirm if you are really interested " +
+                    "in this product, if not, click on Cancel.")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", DialogInterface.OnClickListener {
+                    dialog, id ->
+                    GlobalScope.launch { // or however you do background threads
+                        sendMail(sellerEmail)
+                        progressBar.visibility = View.INVISIBLE
+                    }
+                    dialog.cancel()
+                })
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                        dialog, id -> dialog.cancel()
+                    progressBar.visibility = View.INVISIBLE
+                })
+
+            val alert = emailDialogBuilder.create()
+            alert.setTitle("Are you sure?")
+            alert.show()
 
         }
     }
