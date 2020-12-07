@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import de.hdodenhof.circleimageview.CircleImageView
 
 class BuyersHomePage : AppCompatActivity() {
@@ -19,6 +20,7 @@ class BuyersHomePage : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private var auth = FirebaseAuth.getInstance()  //Needed to check login
+    private val thisUser = auth.currentUser
 
     private lateinit var categoryOne: TextView
     private lateinit var categoryOneImage: CircleImageView
@@ -38,6 +40,10 @@ class BuyersHomePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buyers_home_page)
+
+
+        Log.d(TAG, "The user currently is ${auth.currentUser}")
+        Log.d(TAG, "the firebase id is $firebaseUserID")
 
         categoryOne = findViewById(R.id.tv_categoryOne)
         categoryOneImage = findViewById(R.id.iv_categoryOneImage)
@@ -80,9 +86,11 @@ class BuyersHomePage : AppCompatActivity() {
         bottom_navigation_menu.selectedItemId = R.id.nav_home
         bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
             var message = ""
+            Log.d(TAG, "The user currently is ${thisUser.toString()}")
+            Log.d(TAG, "the firebase id is $firebaseUserID")
             when(item.itemId) {
                 R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance()
-                    if (auth.currentUser == null){
+                    if (firebaseUserID == ""){
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                         Log.d(TAG, "Not logged in")
@@ -98,8 +106,8 @@ class BuyersHomePage : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.nav_logout -> {
-                    FirebaseAuth.getInstance().signOut()
-                    firebaseUserID = ""
+                  FirebaseAuth.getInstance().signOut()
+                  firebaseUserID = ""
                 }
             }
             Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
@@ -112,5 +120,6 @@ class BuyersHomePage : AppCompatActivity() {
         intent.putExtra("CategoryClicked", categoryClicked)
         startActivity(intent)
     }
+
 }
 
