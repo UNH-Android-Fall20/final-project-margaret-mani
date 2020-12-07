@@ -24,6 +24,7 @@ import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
 import java.sql.Timestamp
 import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_registration.*
 import java.util.*
 
 private var catSelection = ""
@@ -95,9 +96,12 @@ class AddNewProduct : AppCompatActivity() {
         }
 
         //photo module
-        b_takePicture.setOnClickListener {
+        b_takePicturePerm.setOnClickListener {
             checkForPermissions(android.Manifest.permission.CAMERA, "camera", CAMERA_REQUEST_CODE)
-            capturePhoto()
+        }
+
+        b_takePicture.setOnClickListener{
+           capturePhoto()
         }
 
         b_sellerPage.setOnClickListener {
@@ -170,7 +174,9 @@ class AddNewProduct : AppCompatActivity() {
     private fun checkForPermissions(permission: String, name: String, requestCode: Int ) {
         when{
             ContextCompat.checkSelfPermission(applicationContext, permission) == PackageManager.PERMISSION_GRANTED ->{
-                Toast.makeText(applicationContext, "$name permission granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "$name permission granted", Toast.LENGTH_SHORT).show()
+                b_takePicturePerm.visibility = View.INVISIBLE
+                b_takePicture.visibility = View.VISIBLE
             }
             shouldShowRequestPermissionRationale(permission) -> showDialog(permission, name, requestCode)
 
@@ -184,7 +190,9 @@ class AddNewProduct : AppCompatActivity() {
             if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
                 Toast.makeText(applicationContext, "$name permission refused", Toast.LENGTH_LONG).show()
             }  else{
-                Toast.makeText(applicationContext, "$name permission granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "$name permission granted", Toast.LENGTH_SHORT).show()
+                b_takePicturePerm.visibility = View.INVISIBLE
+                b_takePicturePerm.visibility = View.VISIBLE
             }
         }
         when(requestCode) {
@@ -199,7 +207,7 @@ class AddNewProduct : AppCompatActivity() {
         builder.apply {
             setMessage("Permission to access your $name is required to use this app")
             setTitle("Permission required")
-            setPositiveButton("OK") {dialog, which ->
+            setPositiveButton("OK") { _, _ ->
                 ActivityCompat.requestPermissions(this@AddNewProduct, arrayOf(permission), requestCode)
             }
         }

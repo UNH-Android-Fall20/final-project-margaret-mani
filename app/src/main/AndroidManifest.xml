@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="edu.newhaven.virtualfarmersmarket">
 
-  <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.INTERNET" />
+
+  <uses-feature
+    android:name="android.hardware.camera"
+    android:required="false" />
 
   <application
     android:allowBackup="true"
@@ -14,7 +18,8 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.MyApp">
-    <activity android:name=".UserSettings"/>
+    <activity android:name=".ProductDetailsSeller"></activity>
+    <activity android:name=".UserSettings" />
     <activity
       android:name=".ForgotPassword"
       android:parentActivityName=".Login" />
@@ -38,8 +43,6 @@
     <uses-library
       android:name="com.google.android.maps"
       android:required="false" />
-
-
 
     <activity android:name=".Registration" />
     <activity android:name=".SellersHomePage" />
@@ -71,8 +74,5 @@
       android:name="preloaded_fonts"
       android:resource="@array/preloaded_fonts" />
   </application>
-
-  <uses-feature android:name="android.hardware.camera"
-    android:required="false" />
 
 </manifest>

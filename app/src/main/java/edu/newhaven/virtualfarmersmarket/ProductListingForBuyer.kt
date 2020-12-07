@@ -47,6 +47,7 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
 
         val query: Query = ref
             .whereEqualTo("category", categoryFilter)
+            .whereEqualTo("status", "Added")
             .orderBy ("product")
 
         val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
