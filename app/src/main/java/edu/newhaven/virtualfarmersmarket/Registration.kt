@@ -194,23 +194,6 @@ class Registration : AppCompatActivity() {
 
     private fun addToUserCollection(){
 
-        /*
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)  != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions()
-            addToUserCollection()
-        }
-        LocationServices.getFusedLocationProviderClient(this).lastLocation.addOnSuccessListener { loc: Location? ->
-            val myUser = mutableMapOf(
-                "userID" to firebaseUserID,
-                "emailAddress" to txtEmail.text.toString(),
-                "preferredName" to txtUserFirstName.text.toString(),
-                "phoneNbr" to txtPhoneNumber.text.toString(),
-                "searchLimit" to txtSearchLimit.text.toString(),
-                "currentLocation" to actualLocation
-            )
-        } */
-
         val myUser = mutableMapOf(
             "userID" to firebaseUserID,
             "emailAddress" to txtEmail.text.toString(),
