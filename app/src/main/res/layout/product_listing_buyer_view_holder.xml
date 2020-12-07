@@ -59,7 +59,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/custom_search_bar"
+        android:background="@drawable/custom_button_round"
         android:text="@string/buy_button_PLVH"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv__productListingVhPrice" />
