@@ -3,7 +3,7 @@ package edu.newhaven.virtualfarmersmarket
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_user_settings.*
@@ -17,7 +17,6 @@ private lateinit var docID: String
 
 class UserSettings : AppCompatActivity() {
 
-  private val singleUser = Firebase.firestore.collection("users")
   private val db = Firebase.firestore
   private var myData = FirebaseFirestore.getInstance()
 
@@ -52,8 +51,6 @@ class UserSettings : AppCompatActivity() {
       }
     //update preferred name
     b_updateMe.setOnClickListener {
-      Toast.makeText(this, "where the update stuff goes", Toast.LENGTH_LONG).show()
-
       val newPreferredName : String = et_newUserPreferredName.text.toString()
       val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
       map["preferredName"] = newPreferredName
@@ -70,9 +67,6 @@ class UserSettings : AppCompatActivity() {
 
     //update the phone number
     b_updatePhone.setOnClickListener {
-
-      Toast.makeText(this, "where the update stuff goes", Toast.LENGTH_LONG).show()
-
       val newPhone : String = et_newPhoneNumber.text.toString()
       val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
       map["phoneNbr"] = newPhone
@@ -89,9 +83,6 @@ class UserSettings : AppCompatActivity() {
 
     //update search limit
     b_updateSearch.setOnClickListener {
-
-      Toast.makeText(this, "where the update stuff goes", Toast.LENGTH_LONG).show()
-
       val newSearch : String = et_newSearchLimit.text.toString()
       val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
       map["searchLimit"] = newSearch

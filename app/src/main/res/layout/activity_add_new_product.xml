@@ -23,11 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
+
       <TextView
           android:id="@+id/t_addProducts"
           android:layout_width="131dp"
           android:layout_height="27dp"
-          android:layout_marginStart="15dp"
+          android:layout_marginStart="20dp"
           android:layout_marginTop="20dp"
           android:fontFamily="sans-serif-black"
           android:text="@string/add_products"
@@ -37,7 +39,7 @@
           app:layout_constraintTop_toTopOf="parent" />
 
       <ImageButton
-          android:id="@+id/b_takePicture"
+          android:id="@+id/b_takePicturePerm"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="10dp"
@@ -46,9 +48,25 @@
           android:contentDescription="@string/prodTakePicture"
           android:src="@android:drawable/ic_menu_camera"
           android:textAllCaps="false"
+          android:visibility="visible"
           android:textColor="#003700"
           app:layout_constraintStart_toEndOf="@+id/iv_prodPicture"
           app:layout_constraintTop_toTopOf="parent" />
+
+      <ImageButton
+        android:id="@+id/b_takePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/custom_button_round"
+        android:contentDescription="@string/prodTakePicture"
+        android:src="@android:drawable/ic_menu_camera"
+        android:visibility="invisible"
+        android:textAllCaps="false"
+        android:textColor="#003700"
+        app:layout_constraintStart_toEndOf="@+id/iv_prodPicture"
+        app:layout_constraintTop_toTopOf="parent" />
 
       <Button
           android:id="@+id/b_gImage"
