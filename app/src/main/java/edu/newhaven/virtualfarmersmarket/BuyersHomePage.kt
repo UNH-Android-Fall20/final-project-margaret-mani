@@ -20,7 +20,7 @@ class BuyersHomePage : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private var auth = FirebaseAuth.getInstance()  //Needed to check login
-    private val thisUser = auth.currentUser
+    private val thisUser = auth.currentUser //Needed to check login
 
     private lateinit var categoryOne: TextView
     private lateinit var categoryOneImage: CircleImageView
@@ -89,7 +89,7 @@ class BuyersHomePage : AppCompatActivity() {
             Log.d(TAG, "The user currently is ${thisUser.toString()}")
             Log.d(TAG, "the firebase id is $firebaseUserID")
             when(item.itemId) {
-                R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance()
+                R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
                     if (firebaseUserID == ""){
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
