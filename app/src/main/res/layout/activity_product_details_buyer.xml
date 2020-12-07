@@ -157,8 +157,22 @@
                 app:layout_constraintBottom_toBottomOf="@+id/iv_location_icon_PDB"
                 app:layout_constraintStart_toEndOf="@+id/iv_location_icon_PDB" />
 
+            <ProgressBar
+                android:id="@+id/progressbarPDB"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:indeterminate="true"
+                android:indeterminateTint="#1a09d6"
+                android:max="100"
+                app:layout_constraintBottom_toTopOf="@+id/btn_notify_seller"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_notify_seller"
                 android:layout_width="165dp"
                 android:layout_height="47dp"
                 android:layout_marginTop="25dp"

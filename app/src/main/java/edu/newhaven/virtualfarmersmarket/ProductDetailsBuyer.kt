@@ -2,13 +2,21 @@ package edu.newhaven.virtualfarmersmarket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ProgressBar
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_product_details_buyer.*
+import java.util.*
+import javax.mail.Session
 
 class ProductDetailsBuyer : AppCompatActivity() {
+
+    private lateinit var btnNotifySeller: Button
+    private lateinit var progressBar: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details_buyer)
@@ -35,5 +43,14 @@ class ProductDetailsBuyer : AppCompatActivity() {
         tv_quantity_PDB.text = product.quantity
         tv_distance_PDB.text = "Located ${product.distance} Mi from your Location"
 
+        btnNotifySeller = findViewById(R.id.btn_notify_seller)
+        progressBar = findViewById(R.id.progressbarPDB)
+
+        btnNotifySeller.setOnClickListener {
+            val session: Session
+            val props: Properties
+            //props.put("","")
+
+        }
     }
 }
