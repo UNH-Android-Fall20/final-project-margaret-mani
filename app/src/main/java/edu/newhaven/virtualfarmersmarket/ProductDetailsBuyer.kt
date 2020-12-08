@@ -2,7 +2,6 @@ package edu.newhaven.virtualfarmersmarket
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,11 +21,6 @@ import edu.newhaven.virtualfarmersmarket.Mailer.sendMailToSeller
 import kotlinx.android.synthetic.main.activity_product_details_buyer.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.*
-import javax.mail.*
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
-
 class ProductDetailsBuyer : AppCompatActivity() {
 
     private lateinit var btnNotifySeller: Button
@@ -117,7 +111,7 @@ class ProductDetailsBuyer : AppCompatActivity() {
                     .setCancelable(false)
                     .setPositiveButton("Confirm", DialogInterface.OnClickListener {
                             dialog, id ->
-                        GlobalScope.launch { // or however you do background threads
+                        GlobalScope.launch {
                             sendMailToSeller(sellerName, sellerEmail, buyerEmail, buyerPhone, product.product)
                             progressBar.visibility = View.INVISIBLE
                             sendMailToBuyer(buyerName, buyerEmail, product.product)

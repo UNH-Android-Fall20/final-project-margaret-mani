@@ -57,10 +57,10 @@ object Mailer {
         // Create a message
         val message = "Dear ${emailToName}, \n\n" +
                 "Greetings from VIRTUAL FARMERS MARKET !!\n\n" +
-                "You have a buyer and he is interested to buy $product from your list.\n " +
-                "Below is his contact information:\n"+
+                "You have a buyer that is interested to buy $product from your list.\n " +
+                "Below is the contact information:\n"+
                 "   Email ID: $buyerEmail\n" +
-                "   Phone: $buyerPhone\n" + "Contact then at your earliest convenience.\n" +
+                "   Phone: $buyerPhone\n" + "Contact the buyer at your earliest convenience.\n" +
                 "\nNOTE: Remember, when you contact potential buyers to include the Virtual " +
                 "Farmer's Market in the the subject line.\n" +
                 "If the product is no longer available, please mark it sold or delete in the app. " +
