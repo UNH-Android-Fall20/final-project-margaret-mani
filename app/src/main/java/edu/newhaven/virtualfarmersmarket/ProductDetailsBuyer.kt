@@ -2,14 +2,18 @@ package edu.newhaven.virtualfarmersmarket
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -28,10 +32,14 @@ class ProductDetailsBuyer : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private val TAG = javaClass.name
     private val dbProductDetailsBuyer = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth  //Needed to check login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details_buyer)
+
+        auth = Firebase.auth
+        val thisUser = auth.currentUser
 
         val product = intent.getSerializableExtra("SelectedProduct") as? Product ?: return
 
@@ -56,6 +64,9 @@ class ProductDetailsBuyer : AppCompatActivity() {
         tv_distance_PDB.text = "Located ${product.distance} Mi from your Location"
 
         var sellerEmail: String = ""
+        var sellerName: String = ""
+        var buyerEmail: String = ""
+        var buyerPhone: String = ""
         dbProductDetailsBuyer.collection("users")
             .whereEqualTo("userID", product.user)
             .get()
@@ -63,6 +74,7 @@ class ProductDetailsBuyer : AppCompatActivity() {
                 for (document in documents) {
                     Log.d(TAG, "${document.id} => ${document.data}")
                     sellerEmail = document.getString("emailAddress").toString()
+                    sellerName = document.getString("preferredName").toString()
                 }
             }
             .addOnFailureListener { exception ->
@@ -75,29 +87,52 @@ class ProductDetailsBuyer : AppCompatActivity() {
 
         btnNotifySeller.setOnClickListener {
 
-            progressBar.visibility = View.VISIBLE
+            Log.d(TAG, "The user currently is ${thisUser.toString()}")
 
-            val emailDialogBuilder = AlertDialog.Builder(this)
+            if (thisUser != null){
+                Log.d(TAG, "the firebase id is ${thisUser.uid}")
+                Log.d(TAG, "User is in")
+                progressBar.visibility = View.VISIBLE
 
-            emailDialogBuilder.setMessage("Please Confirm if you are really interested " +
-                    "in this product, if not, click on Cancel.")
-                .setCancelable(false)
-                .setPositiveButton("Confirm", DialogInterface.OnClickListener {
-                    dialog, id ->
-                    GlobalScope.launch { // or however you do background threads
-                        sendMail(sellerEmail)
-                        progressBar.visibility = View.INVISIBLE
+                dbProductDetailsBuyer.collection("users")
+                    .whereEqualTo("userID", thisUser.uid)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            buyerEmail = document.getString("emailAddress").toString()
+                            buyerPhone = document.getString("phoneNbr").toString()
+                        }
                     }
-                    dialog.cancel()
-                })
-                .setNegativeButton("Cancel", DialogInterface.OnClickListener {
-                        dialog, id -> dialog.cancel()
-                    progressBar.visibility = View.INVISIBLE
-                })
+                    .addOnFailureListener { exception ->
+                        Log.w(TAG, "Error getting documents: ", exception)
+                    }
 
-            val alert = emailDialogBuilder.create()
-            alert.setTitle("Are you sure?")
-            alert.show()
+                val emailDialogBuilder = AlertDialog.Builder(this)
+
+                emailDialogBuilder.setMessage("Please Confirm if you are really interested " +
+                        "in this product, if not, click on Cancel.")
+                    .setCancelable(false)
+                    .setPositiveButton("Confirm", DialogInterface.OnClickListener {
+                            dialog, id ->
+                        GlobalScope.launch { // or however you do background threads
+                            sendMail(sellerName, sellerEmail, buyerEmail, buyerPhone, product.product)
+                            progressBar.visibility = View.INVISIBLE
+                        }
+                        dialog.cancel()
+                    })
+                    .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                            dialog, id -> dialog.cancel()
+                        progressBar.visibility = View.INVISIBLE
+                    })
+
+                val alert = emailDialogBuilder.create()
+                alert.setTitle("Are you sure?")
+                alert.show()
+
+            } else {
+                Toast.makeText(this, "YOU MUST LOGIN TO BUY A PRODUCT", Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "Not logged in")
+            }
 
         }
     }
