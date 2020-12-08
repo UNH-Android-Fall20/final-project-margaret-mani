@@ -1,5 +1,7 @@
 package edu.newhaven.virtualfarmersmarket
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.location.Location
 import android.util.Log
@@ -10,9 +12,14 @@ import android.widget.Toast
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.product_listing_buyer_view_holder.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -24,6 +31,8 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
         fun dataChanged()
     }
 
+    private val dbProductAdapterBuyer = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth  //Needed to check login
     private val TAG = javaClass.name
 
     override fun onCreateViewHolder(
@@ -40,7 +49,8 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
         position: Int,
         model: Product
     ) {
-
+        auth = Firebase.auth
+        val thisUser = auth.currentUser
         holder.itemView.setOnClickListener{
             val intent = Intent(holder.itemView.context, ProductDetailsBuyer::class.java).apply {
                 putExtra("SelectedProduct", model)
@@ -48,12 +58,72 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
             holder.itemView.context.startActivity(intent)
         }
 
+        var sellerEmail: String = ""
+        var sellerName: String = ""
+        var buyerEmail: String = ""
+        var buyerPhone: String = ""
+        dbProductAdapterBuyer.collection("users")
+            .whereEqualTo("userID", model.user)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    sellerEmail = document.getString("emailAddress").toString()
+                    sellerName = document.getString("preferredName").toString()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+
         holder.itemView.bt_productListingVhBuy.setOnClickListener {
-            Toast.makeText(
-                holder.itemView.context,
-                "Buy button on this item is clicked" + model.product,
-                Toast.LENGTH_SHORT
-            ).show()
+            if (thisUser != null){
+                Log.d(TAG, "the firebase id is ${thisUser.uid}")
+                Log.d(TAG, "User is in")
+
+                dbProductAdapterBuyer.collection("users")
+                    .whereEqualTo("userID", thisUser.uid)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            buyerEmail = document.getString("emailAddress").toString()
+                            buyerPhone = document.getString("phoneNbr").toString()
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(TAG, "Error getting documents: ", exception)
+                    }
+
+                val emailDialogBuilder = AlertDialog.Builder(holder.itemView.context)
+
+                emailDialogBuilder.setMessage("Please Confirm if you are really interested " +
+                        "in this product, if not, click on Cancel.")
+                    .setCancelable(false)
+                    .setPositiveButton("Confirm", DialogInterface.OnClickListener {
+                            dialog, id ->
+                        GlobalScope.launch { // or however you do background threads
+                            Mailer.sendMail(
+                                sellerName,
+                                sellerEmail,
+                                buyerEmail,
+                                buyerPhone,
+                                model.product
+                            )
+                        }
+                        dialog.cancel()
+                    })
+                    .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                            dialog, id -> dialog.cancel()
+                    })
+
+                val alert = emailDialogBuilder.create()
+                alert.setTitle("Are you sure?")
+                alert.show()
+
+            } else {
+                Toast.makeText(holder.itemView.context, "YOU MUST LOGIN TO BUY A PRODUCT", Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "Not logged in")
+            }
         }
 
         val circularProgressDrawable = CircularProgressDrawable(holder.itemView.context)
