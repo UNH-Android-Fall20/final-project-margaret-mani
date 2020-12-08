@@ -49,16 +49,49 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
 
         val intent = intent
         val categoryFilter = intent.getStringExtra("CategoryClicked")
+        val productSearch = intent.getStringExtra("ProductSearch")
 
         categoryFilterView = findViewById(R.id.tv_categoryNamePL)
 
-        val ref: CollectionReference = dbProductListingBuyer.collection("products")
+        if(categoryFilter == "") {
+            val ref: CollectionReference = dbProductListingBuyer.collection("products")
+            val query: Query = ref
+                .whereEqualTo("productSearch", productSearch)
+                .whereEqualTo("status", "Added")
+                .orderBy ("product")
 
-        val query: Query = ref
-            .whereEqualTo("category", categoryFilter)
-            .whereEqualTo("status", "Added")
-            .orderBy ("product")
+            val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
+                .setQuery(query, Product::class.java)
+                .build()
 
+            categoryFilterView.setText(productSearch)
+
+            productListingAdapter = ProductListingAdapter(options, this)
+
+            rv_product_listing_buyer.adapter = productListingAdapter
+            rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
+
+        } else {
+            val ref: CollectionReference = dbProductListingBuyer.collection("products")
+            val query: Query = ref
+                .whereEqualTo("category", categoryFilter)
+                .whereEqualTo("status", "Added")
+                .orderBy ("product")
+
+            val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
+                .setQuery(query, Product::class.java)
+                .build()
+
+            categoryFilterView.setText(categoryFilter)
+
+            productListingAdapter = ProductListingAdapter(options, this)
+
+            rv_product_listing_buyer.adapter = productListingAdapter
+            rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
+        }
+
+
+        /*
         val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
             .setQuery(query, Product::class.java)
             .build()
@@ -68,7 +101,7 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         productListingAdapter = ProductListingAdapter(options, this)
 
         rv_product_listing_buyer.adapter = productListingAdapter
-        rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
+        rv_product_listing_buyer.layoutManager = LinearLayoutManager(this) */
 
         bottomNavigationMenuPL = findViewById(R.id.bottom_navigation_viewPL)
         bottomNavigationMenuPL.visibility = View.INVISIBLE
@@ -86,15 +119,9 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
                 Log.d(TAG, "the firebase id is $firebaseUserID")
                 when(item.itemId) {
                     R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
-                        if (firebaseUserID == ""){
-                            val intent = Intent(this, Login::class.java)
-                            startActivity(intent)
-                            Log.d(TAG, "Not logged in")
-                        } else {
-                            val intent = Intent(this, SellersHomePage::class.java)
-                            startActivity(intent)
-                            Log.d(TAG, "User is in")
-                        }
+                        val intent = Intent(this, SellersHomePage::class.java)
+                        startActivity(intent)
+                        Log.d(TAG, "User is in")
                     }
                     R.id.nav_home -> {
                         val intent = Intent(this, BuyersHomePage::class.java)
