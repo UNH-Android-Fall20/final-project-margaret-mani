@@ -17,7 +17,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import edu.newhaven.virtualfarmersmarket.Mailer.sendMail
+import edu.newhaven.virtualfarmersmarket.Mailer.sendMailToBuyer
+import edu.newhaven.virtualfarmersmarket.Mailer.sendMailToSeller
 import kotlinx.android.synthetic.main.activity_product_details_buyer.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -66,6 +67,7 @@ class ProductDetailsBuyer : AppCompatActivity() {
         var sellerEmail: String = ""
         var sellerName: String = ""
         var buyerEmail: String = ""
+        var buyerName: String = ""
         var buyerPhone: String = ""
         dbProductDetailsBuyer.collection("users")
             .whereEqualTo("userID", product.user)
@@ -101,6 +103,7 @@ class ProductDetailsBuyer : AppCompatActivity() {
                         for (document in documents) {
                             buyerEmail = document.getString("emailAddress").toString()
                             buyerPhone = document.getString("phoneNbr").toString()
+                            buyerName = document.getString("preferredName").toString()
                         }
                     }
                     .addOnFailureListener { exception ->
@@ -115,8 +118,9 @@ class ProductDetailsBuyer : AppCompatActivity() {
                     .setPositiveButton("Confirm", DialogInterface.OnClickListener {
                             dialog, id ->
                         GlobalScope.launch { // or however you do background threads
-                            sendMail(sellerName, sellerEmail, buyerEmail, buyerPhone, product.product)
+                            sendMailToSeller(sellerName, sellerEmail, buyerEmail, buyerPhone, product.product)
                             progressBar.visibility = View.INVISIBLE
+                            sendMailToBuyer(buyerName, buyerEmail, product.product)
                         }
                         dialog.cancel()
                     })

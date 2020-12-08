@@ -6,7 +6,6 @@ import android.content.Intent
 import android.location.Location
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -61,6 +60,7 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
         var sellerEmail: String = ""
         var sellerName: String = ""
         var buyerEmail: String = ""
+        var buyerName: String = ""
         var buyerPhone: String = ""
         dbProductAdapterBuyer.collection("users")
             .whereEqualTo("userID", model.user)
@@ -88,6 +88,7 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
                         for (document in documents) {
                             buyerEmail = document.getString("emailAddress").toString()
                             buyerPhone = document.getString("phoneNbr").toString()
+                            buyerName = document.getString("preferredName").toString()
                         }
                     }
                     .addOnFailureListener { exception ->
@@ -102,13 +103,14 @@ class ProductListingAdapter(options: FirestoreRecyclerOptions<Product>,
                     .setPositiveButton("Confirm", DialogInterface.OnClickListener {
                             dialog, id ->
                         GlobalScope.launch { // or however you do background threads
-                            Mailer.sendMail(
+                            Mailer.sendMailToSeller(
                                 sellerName,
                                 sellerEmail,
                                 buyerEmail,
                                 buyerPhone,
                                 model.product
                             )
+                            Mailer.sendMailToBuyer(buyerName, buyerEmail, model.product)
                         }
                         dialog.cancel()
                     })

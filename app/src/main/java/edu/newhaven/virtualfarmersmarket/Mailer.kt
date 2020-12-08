@@ -34,7 +34,7 @@ object Mailer {
         }
     }
 
-    fun sendMail(emailToName: String, sellerEmail: String, buyerEmail: String, buyerPhone: String, product: String) {
+    fun sendMailToSeller(emailToName: String, sellerEmail: String, buyerEmail: String, buyerPhone: String, product: String) {
 
         val props = Properties()
         props["mail.smtp.host"] = "smtp.gmail.com"
@@ -71,6 +71,40 @@ object Mailer {
 
         // Send Email
         CoroutineScope(Dispatchers.IO).launch { sendMessageTo("virtualfarmersmarketdev@gmail.com", session, message, subject, sellerEmail) }
+    }
+
+    fun sendMailToBuyer(emailToName: String, buyerEmail: String, product: String) {
+
+        val props = Properties()
+        props["mail.smtp.host"] = "smtp.gmail.com"
+        props["mail.smtp.auth"] = "true"
+        props["mail.smtp.port"] = "465"
+        props["mail.smtp.ssl.enable"] = true
+        props["mail.smtp.auth"] = "true"
+        props["mail.user"] = "virtualfarmersmarketdev@gmail.com"
+        props["mail.smtp.starttls.enable"] = "true"
+        props["mail.smtp.ssl.trust"] = "smtp.gmail.com"
+        props["mail.mime.charset"] = "UTF-8"
+
+        // Open a session
+        val session = Session.getDefaultInstance(props, object : javax.mail.Authenticator() {
+            override fun getPasswordAuthentication(): PasswordAuthentication {
+                return PasswordAuthentication("virtualfarmersmarketdev@gmail.com", "mani@margaret99")
+            }
+        })
+
+        // Create a message
+        val message = "Dear ${emailToName}, \n\n" +
+                "Greetings from VIRTUAL FARMERS MARKET !!\n\n" +
+                "You have showed in buying $product.\n" +
+                "You will be contacted by the seller soon.\n\n" +
+                "Thanks & Regards,\n Virtual Farmers Market."
+
+        // Create subject
+        val subject = "VFM: you requested to buy $product"
+
+        // Send Email
+        CoroutineScope(Dispatchers.IO).launch { sendMessageTo("virtualfarmersmarketdev@gmail.com", session, message, subject, buyerEmail) }
     }
 
 }
