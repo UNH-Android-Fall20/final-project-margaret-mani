@@ -98,10 +98,6 @@ class BuyersHomePage : AppCompatActivity() {
         bottom_navigation_menu_login = findViewById(R.id.bottom_navigation_view_login)
         bottom_navigation_menu_login.visibility = View.INVISIBLE
 
-        if (thisUser != null) {
-            Log.d(TAG, "the firebase id is ${thisUser.uid}")
-        }
-
         if (thisUser != null){
             Log.d(TAG, "the firebase id is ${thisUser.uid}")
             Log.d(TAG, "User is in")

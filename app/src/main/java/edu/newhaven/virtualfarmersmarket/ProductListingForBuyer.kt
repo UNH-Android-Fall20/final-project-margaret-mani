@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_product_listing_for_buyer.*
 
 const val PERMISSION_REQUEST_CODE = 0
@@ -32,15 +36,20 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
     private lateinit var categoryFilterView: TextView
 
     private lateinit var bottomNavigationMenuPL: BottomNavigationView
+    private lateinit var bottom_navigation_menuPL_login: BottomNavigationView
+
+    private lateinit var auth: FirebaseAuth  //Needed to check login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_listing_for_buyer)
 
+        auth = Firebase.auth
+        val thisUser = auth.currentUser
+
         val intent = intent
         val categoryFilter = intent.getStringExtra("CategoryClicked")
 
-        bottomNavigationMenuPL = findViewById(R.id.bottom_navigation_viewPL)
         categoryFilterView = findViewById(R.id.tv_categoryNamePL)
 
         val ref: CollectionReference = dbProductListingBuyer.collection("products")
@@ -61,23 +70,74 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         rv_product_listing_buyer.adapter = productListingAdapter
         rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
 
-        bottomNavigationMenuPL.menu.getItem(0).isCheckable = false
-        bottomNavigationMenuPL.setOnNavigationItemSelectedListener { item ->
-            var message = ""
-            when(item.itemId) {
-                R.id.nav_sell_home -> {
-                    val intent = Intent(this, SellersHomePage::class.java)
-                    startActivity(intent)
+        bottomNavigationMenuPL = findViewById(R.id.bottom_navigation_viewPL)
+        bottomNavigationMenuPL.visibility = View.INVISIBLE
+        bottom_navigation_menuPL_login = findViewById(R.id.bottom_navigation_viewPL_login)
+        bottom_navigation_menuPL_login.visibility = View.INVISIBLE
+
+        if (thisUser != null){
+            Log.d(TAG, "the firebase id is ${thisUser.uid}")
+            Log.d(TAG, "User is in")
+            bottomNavigationMenuPL.visibility = View.VISIBLE
+            bottomNavigationMenuPL.menu.getItem(0).isCheckable = false
+            bottomNavigationMenuPL.setOnNavigationItemSelectedListener { item ->
+                var message = ""
+                Log.d(TAG, "The user currently is ${thisUser.toString()}")
+                Log.d(TAG, "the firebase id is $firebaseUserID")
+                when(item.itemId) {
+                    R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
+                        if (firebaseUserID == ""){
+                            val intent = Intent(this, Login::class.java)
+                            startActivity(intent)
+                            Log.d(TAG, "Not logged in")
+                        } else {
+                            val intent = Intent(this, SellersHomePage::class.java)
+                            startActivity(intent)
+                            Log.d(TAG, "User is in")
+                        }
+                    }
+                    R.id.nav_home -> {
+                        val intent = Intent(this, BuyersHomePage::class.java)
+                        startActivity(intent)
+                    }
+                    R.id.nav_settings ->  {
+                        val intent = Intent(this, UserSettings::class.java)
+                        startActivity(intent)
+                    }
+                    R.id.nav_logout -> {
+                        FirebaseAuth.getInstance().signOut()
+                        val intent = Intent(this, BuyersHomePage::class.java)
+                        startActivity(intent)
+                        firebaseUserID = ""
+                    }
                 }
-                R.id.nav_home -> {
-                    val intent = Intent(this, BuyersHomePage::class.java)
-                    startActivity(intent)
-                }
-                R.id.nav_settings -> message = "Setting"
-                R.id.nav_logout -> message = "Logout"
+                Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
+                return@setOnNavigationItemSelectedListener true
             }
-            Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
-            return@setOnNavigationItemSelectedListener true
+
+        } else {
+            Toast.makeText(this, "YOU MUST LOGIN TO BUY A PRODUCT", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "Not logged in")
+            bottom_navigation_menuPL_login.visibility = View.VISIBLE
+            bottom_navigation_menuPL_login.menu.getItem(0).isCheckable = false
+            bottom_navigation_menuPL_login.setOnNavigationItemSelectedListener { item ->
+                var message = ""
+                Log.d(TAG, "The user currently is ${thisUser.toString()}")
+                Log.d(TAG, "the firebase id is $firebaseUserID")
+                when(item.itemId) {
+                    R.id.nav_user_login ->  {
+                        message = "login"
+                        val intent = Intent(this, Login::class.java)
+                        startActivity(intent)
+                    }
+                    R.id.nav_user_registration -> {
+                        val intent = Intent(this, Registration::class.java)
+                        startActivity(intent)
+                    }
+                }
+                Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
+                return@setOnNavigationItemSelectedListener true
+            }
         }
 
     }
