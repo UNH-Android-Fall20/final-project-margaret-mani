@@ -93,6 +93,9 @@
   <string name="save_limit">Save Limit</string>
   <string name="return_to_home_page">Return to Home Page</string>
   <string name="loc_instructions">Location may take several seconds</string>
+    <string name="new_description">What is the new description?</string>
+  <string name="save_changes">Save Changes</string>
+  <string name="new_quantity">New Quantity?</string>
 
 
 </resources>
