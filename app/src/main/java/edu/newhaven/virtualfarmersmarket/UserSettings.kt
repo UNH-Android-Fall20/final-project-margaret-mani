@@ -18,10 +18,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.ktx.auth
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.activity_user_settings.pb_progress
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+//private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 private lateinit var docID: String
 
 class UserSettings : AppCompatActivity() {
@@ -30,11 +35,15 @@ class UserSettings : AppCompatActivity() {
     private var myData = FirebaseFirestore.getInstance()
 
     private val TAG = javaClass.name
-    private val thisUser = auth.currentUser
+    private lateinit var auth: FirebaseAuth
+    //private val thisUser = auth.currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_settings)
+
+        auth = Firebase.auth
+        val thisUser = auth.currentUser
 
         Log.d(TAG, "We got to here")
 
@@ -43,21 +52,23 @@ class UserSettings : AppCompatActivity() {
         val mySearchLimit = findViewById<TextView>(R.id.tv_searchLimit)
 
         //get data
-        db.collection("users")
-            .whereEqualTo("userID", firebaseUserID)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    docID = document.id
-                    preferredName.text = document.getString("preferredName")
-                    phoneNbr.text = document.getString("phoneNbr")
-                    mySearchLimit.text = document.getString("searchLimit")
+        if (thisUser != null) {
+            db.collection("users")
+                .whereEqualTo("userID", thisUser.uid)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
+                        docID = document.id
+                        preferredName.text = document.getString("preferredName")
+                        phoneNbr.text = document.getString("phoneNbr")
+                        mySearchLimit.text = document.getString("searchLimit")
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                }
+        }
         //update preferred name
         b_updateMe.setOnClickListener {
             val newPreferredName : String = et_newUserPreferredName.text.toString()
@@ -114,7 +125,9 @@ class UserSettings : AppCompatActivity() {
         b_updateLocation.setOnClickListener {
             pb_progress.visibility = View.VISIBLE
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                updateLocation()
+                CoroutineScope(Dispatchers.IO).launch{
+                    updateLocation()
+                }
             } else {
                 requestPermissions()
             }
@@ -123,18 +136,20 @@ class UserSettings : AppCompatActivity() {
     }
 
     private fun updateLocation() {
-        pb_progress.visibility = View.VISIBLE
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { loc: Location? ->
                     Log.d(TAG, "Last know location is $loc")
                     if (loc != null) {
-                        //actualLocationLatitude = loc.latitude
-                        //ctualLocationLongitude = loc.longitude
-                        pb_progress.visibility = View.GONE
-                        //bRegister.visibility = View.VISIBLE;
+                        myData
+                            .collection("users")
+                            .document(docID)
+                            .update(
+                                "currentLatitude", loc.latitude,
+                                "currentLongitude", loc.longitude)
                     }
+                    pb_progress.visibility = View.GONE
                 }
         } else {
             requestPermissions()
