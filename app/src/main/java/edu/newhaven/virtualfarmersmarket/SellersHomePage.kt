@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,19 +35,22 @@ class SellersHomePage : AppCompatActivity() {
   private var adapter : FirestoreRecyclerAdapter<Product, ProductViewHolder>? = null
   private lateinit var bottomNavigationViewSellHome: BottomNavigationView
   private lateinit var addButton: FloatingActionButton
+  private lateinit var auth: FirebaseAuth
  // private lateinit var myProdList: MutableList<Product>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_sellers_home_page)
 
-
+    auth = Firebase.auth
+    val thisUser = auth.currentUser
+    Log.d(TAG, "The user currently is $thisUser")
 
     bottomNavigationViewSellHome = findViewById(R.id.bottom_navigation_view_sell_home)
     addButton = findViewById(R.id.fab)
     val query: Query = db
       .collection("products")
-      .whereEqualTo("user", firebaseUserID)
+      .whereEqualTo("user", thisUser?.uid)
       .whereNotEqualTo ("status", "Deleted")
       .orderBy ("status")
       .orderBy("product")

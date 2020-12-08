@@ -24,6 +24,9 @@ import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
 import java.sql.Timestamp
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_registration.*
 import java.util.*
 
@@ -51,9 +54,14 @@ class AddNewProduct : AppCompatActivity() {
     private lateinit var imageUri : Uri
     private var currentUserDocumentId: String = ""
 
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_product)
+
+        auth = Firebase.auth
+        val thisUser = auth.currentUser
 
         storageReference = FirebaseStorage.getInstance().getReference("image")
 
@@ -132,7 +140,7 @@ class AddNewProduct : AppCompatActivity() {
         b_addItNow.setOnClickListener {
 
             var edtField: EditText? = null
-            val loggedInUser = firebaseUserID
+            val loggedInUser = thisUser?.uid
             val productStatus = "Added"
             val imageName = uploadFile()
             val stamp = getDateTime()
@@ -141,6 +149,7 @@ class AddNewProduct : AppCompatActivity() {
             val products = mutableMapOf(
                 //takenImage to firebase
                 "product" to txtProdName.text.toString(),
+                "productSearch" to txtProdName.text.toString().toUpperCase(),
                 "description" to txtDescription.text.toString(),
                 "price" to txtPrice.text.toString(),
                 "quantity" to txtQuantity.text.toString(),
