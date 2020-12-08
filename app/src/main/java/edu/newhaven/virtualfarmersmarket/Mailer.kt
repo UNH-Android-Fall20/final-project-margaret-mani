@@ -22,15 +22,10 @@ object Mailer {
         try {
             MimeMessage(session).let { mime ->
                 mime.setFrom(InternetAddress(emailFrom))
-                // Adding receiver
                 mime.addRecipient(Message.RecipientType.TO, InternetAddress(emailTo))
-                // Adding subject
                 mime.subject = subject
-                // Adding message
                 mime.setText(message)
-                // Set Content of Message to Html if needed
-                mime.setContent(message, "text/html")
-                // send mail
+                //mime.setContent(message, "text/html")
                 Transport.send(mime)
             }
 
@@ -39,7 +34,7 @@ object Mailer {
         }
     }
 
-    fun sendMail(emailTo: String) {
+    fun sendMail(emailToName: String, sellerEmail: String, buyerEmail: String, buyerPhone: String, product: String) {
 
         val props = Properties()
         props["mail.smtp.host"] = "smtp.gmail.com"
@@ -60,15 +55,22 @@ object Mailer {
         })
 
         // Create a message
-        val message = "Hi Seller, " +
-                "Greetings from VIRTUAL FARMERS MARKET !!" +
-                "email."
+        val message = "Dear ${emailToName}, \n\n" +
+                "Greetings from VIRTUAL FARMERS MARKET !!\n\n" +
+                "You have a buyer and he is interested to buy $product from your list.\n " +
+                "Below is his contact information:\n"+
+                "   Email ID: $buyerEmail\n" +
+                "   Phone: $buyerPhone\n" + "Contact then at your earliest convenience.\n" +
+                "\nNOTE: Remember, when you contact potential buyers to include the Virtual " +
+                "Farmer's Market in the the subject line.\n" +
+                "If the product is no longer available, please mark it sold or delete in the app. " +
+                "Thank you for listing your products for sale in the Virtual Farmer's Market!"
 
         // Create subject
-        val subject = "First test email"
+        val subject = "VFM: A buyer wants your $product"
 
         // Send Email
-        CoroutineScope(Dispatchers.IO).launch { sendMessageTo("virtualfarmersmarketdev@gmail.com", session, message, subject, emailTo) }
+        CoroutineScope(Dispatchers.IO).launch { sendMessageTo("virtualfarmersmarketdev@gmail.com", session, message, subject, sellerEmail) }
     }
 
 }
