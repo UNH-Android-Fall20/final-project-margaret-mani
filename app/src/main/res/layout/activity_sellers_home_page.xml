@@ -8,14 +8,16 @@
     tools:context=".SellersHomePage">
 
   <TextView
-      android:id="@+id/t_sellersPage"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:text="@string/sellers_list"
-      android:textSize="20sp"
-      android:textStyle="bold"/>
+    android:id="@+id/t_sellersPage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:text="@string/sellers_list"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/rv_seller_products"

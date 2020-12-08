@@ -83,10 +83,18 @@ class SellersHomePage : AppCompatActivity() {
         holder.itemView.setOnClickListener{
           val intent = Intent(holder.itemView.context, ProductDetailsSeller::class.java).apply {
             putExtra("SelectedProduct", model)
+            putExtra("myProdId", myProdId)
           }
           holder.itemView.context.startActivity(intent)
         }
 
+        holder.itemView.b_edit.setOnClickListener{
+          val intent = Intent(holder.itemView.context, ProductDetailsSeller::class.java).apply {
+            putExtra("SelectedProduct", model)
+            putExtra("myProdId", myProdId)
+          }
+          holder.itemView.context.startActivity(intent)
+        }
 
         holder.itemView.b_delete.setOnClickListener{
           Toast.makeText(holder.itemView.context, "Product deleted", Toast.LENGTH_LONG ).show()
@@ -101,7 +109,7 @@ class SellersHomePage : AppCompatActivity() {
         }
 
         holder.itemView.b_sold.setOnClickListener{
-          Toast.makeText(holder.itemView.context, "Product deleted", Toast.LENGTH_LONG ).show()
+          Toast.makeText(holder.itemView.context, "Product sold out", Toast.LENGTH_LONG ).show()
 
           val newStatus = "Sold"
           val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()

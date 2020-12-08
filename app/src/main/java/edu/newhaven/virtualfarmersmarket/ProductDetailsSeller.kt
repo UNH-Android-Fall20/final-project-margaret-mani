@@ -2,15 +2,39 @@ package edu.newhaven.virtualfarmersmarket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import android.widget.Button
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_add_new_product.*
 import kotlinx.android.synthetic.main.activity_product_details_buyer.*
+import kotlinx.android.synthetic.main.activity_product_details_buyer.iv_product_image_PDB
+import kotlinx.android.synthetic.main.activity_product_details_buyer.tv_category_PDB
+import kotlinx.android.synthetic.main.activity_product_details_buyer.tv_product_description_PDB
+import kotlinx.android.synthetic.main.activity_product_details_buyer.tv_product_name_PDB
+import kotlinx.android.synthetic.main.activity_product_details_buyer.tv_product_price_PDB
+import kotlinx.android.synthetic.main.activity_product_details_buyer.tv_quantity_PDB
+import kotlinx.android.synthetic.main.activity_product_details_seller.*
+import kotlinx.android.synthetic.main.view_holder.*
+import kotlinx.android.synthetic.main.view_holder.view.*
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+private val db = FirebaseFirestore.getInstance()
+//private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 class ProductDetailsSeller : AppCompatActivity() {
+
+  private val TAG = javaClass.name
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_product_details_seller)
+
+    val intent = intent
+    val prodID = intent.getStringExtra("myProdId")
 
     val product = intent.getSerializableExtra("SelectedProduct") as? Product ?: return
 
@@ -26,7 +50,6 @@ class ProductDetailsSeller : AppCompatActivity() {
       .placeholder(circularProgressDrawable)
       .into(iv_product_image_PDB)
 
-
     tv_product_name_PDB.text = product.product
     tv_category_PDB.text = product.category
     tv_product_description_PDB.text = product.description
@@ -34,6 +57,43 @@ class ProductDetailsSeller : AppCompatActivity() {
     tv_quantity_PDB.text = product.quantity
 
 
+    b_editProd.setOnClickListener {
+      b_editProd.visibility = View.INVISIBLE
+      et_description.visibility = View.VISIBLE
+      et_quantity.visibility = View.VISIBLE
+      et_price.visibility = View.VISIBLE
+      b_saveChanges.visibility = View.VISIBLE
+    }
 
+    b_soldOut.setOnClickListener{
+      Toast.makeText(this, "Product sold out", Toast.LENGTH_LONG ).show()
+      Log.d(TAG, "the id number is ${product.idNumber}")
+
+      val newStatus = "Sold"
+      updateProductStatus(newStatus, prodID)
+    }
+
+    b_deleted.setOnClickListener{
+      Toast.makeText(this, "Product deleted", Toast.LENGTH_LONG ).show()
+      Log.d(TAG, "the id number is ${product.idNumber}")
+
+      val newStatus = "Deleted"
+      updateProductStatus(newStatus, prodID)
+    }
+  }
+
+  private fun updateProductStatus(prodStatus : String, prodID : String?) {
+    Toast.makeText(this, "Trying to delete", Toast.LENGTH_LONG).show()
+
+    val map: MutableMap<String, Any> = mutableMapOf<String, Any>()
+    map["status"] = prodStatus
+
+    if (prodID != null) {
+      db.collection("products")
+        .document(prodID)
+        .update(map)
+    } else{
+      Toast.makeText(this, "Product not found", Toast.LENGTH_LONG).show()
+    }
   }
 }
