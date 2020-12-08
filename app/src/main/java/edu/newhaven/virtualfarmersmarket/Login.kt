@@ -70,7 +70,7 @@ class Login : AppCompatActivity() {
             } else {
               Toast.makeText(
                 this@Login,
-                "User not logged in", Toast.LENGTH_LONG).show()
+                "User id or password not correct.", Toast.LENGTH_LONG).show()
               pb_progress.visibility = View.GONE
             }
           }
