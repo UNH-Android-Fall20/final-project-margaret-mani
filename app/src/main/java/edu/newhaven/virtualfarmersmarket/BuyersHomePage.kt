@@ -1,5 +1,7 @@
 package edu.newhaven.virtualfarmersmarket
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,17 +12,22 @@ import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class BuyersHomePage : AppCompatActivity() {
 
     private val TAG = javaClass.name
 
     private val db = FirebaseFirestore.getInstance()
-    private var auth = FirebaseAuth.getInstance()  //Needed to check login
-    private val thisUser = auth.currentUser //Needed to check login
+    private lateinit var auth: FirebaseAuth
+    //private var auth = FirebaseAuth.getInstance()  //Needed to check login
+    //private val thisUser = auth.currentUser //Needed to check login
 
     private lateinit var categoryOne: TextView
     private lateinit var categoryOneImage: CircleImageView
@@ -36,10 +43,14 @@ class BuyersHomePage : AppCompatActivity() {
     private lateinit var categoryList: MutableList<String>
 
     private lateinit var bottom_navigation_menu: BottomNavigationView
+    private lateinit var bottom_navigation_menu_login: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buyers_home_page)
+
+        auth = Firebase.auth
+        val thisUser = auth.currentUser
 
 
         Log.d(TAG, "The user currently is ${auth.currentUser}")
@@ -55,7 +66,7 @@ class BuyersHomePage : AppCompatActivity() {
         categoryFourImage = findViewById(R.id.iv_categoryFourImage)
         categoryFive = findViewById(R.id.tv_categoryFive)
         categoryFiveImage = findViewById(R.id.iv_categoryFiveImage)
-        bottom_navigation_menu = findViewById(R.id.bottom_navigation_view)
+
 
         db.collection("categories").get()
             .addOnSuccessListener { documents ->
@@ -82,37 +93,81 @@ class BuyersHomePage : AppCompatActivity() {
         categoryFive.setOnClickListener{view: View -> productListing(categoryFive.text)}
         categoryFiveImage.setOnClickListener {view: View -> productListing(categoryFive.text)}
 
+        bottom_navigation_menu = findViewById(R.id.bottom_navigation_view)
+        bottom_navigation_menu.visibility = View.INVISIBLE
+        bottom_navigation_menu_login = findViewById(R.id.bottom_navigation_view_login)
+        bottom_navigation_menu_login.visibility = View.INVISIBLE
 
-        bottom_navigation_menu.selectedItemId = R.id.nav_home
-        bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
-            var message = ""
-            Log.d(TAG, "The user currently is ${thisUser.toString()}")
-            Log.d(TAG, "the firebase id is $firebaseUserID")
-            when(item.itemId) {
-                R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
-                    if (firebaseUserID == ""){
-                        val intent = Intent(this, Login::class.java)
+        if (thisUser != null) {
+            Log.d(TAG, "the firebase id is ${thisUser.uid}")
+        }
+
+        if (thisUser != null){
+            Log.d(TAG, "the firebase id is ${thisUser.uid}")
+            Log.d(TAG, "User is in")
+            bottom_navigation_menu.visibility = View.VISIBLE
+            bottom_navigation_menu.selectedItemId = R.id.nav_home
+            bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
+                var message = ""
+                Log.d(TAG, "The user currently is ${thisUser.toString()}")
+                Log.d(TAG, "the firebase id is $firebaseUserID")
+                when(item.itemId) {
+                    R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
+                        if (firebaseUserID == ""){
+                            val intent = Intent(this, Login::class.java)
+                            startActivity(intent)
+                            Log.d(TAG, "Not logged in")
+                        } else {
+                            val intent = Intent(this, SellersHomePage::class.java)
+                            startActivity(intent)
+                            Log.d(TAG, "User is in")
+                        }
+                    }
+                    R.id.nav_home -> {
+                        val intent = Intent(this, BuyersHomePage::class.java)
                         startActivity(intent)
-                        Log.d(TAG, "Not logged in")
-                    } else {
-                        val intent = Intent(this, SellersHomePage::class.java)
+                    }
+                    R.id.nav_settings ->  {
+                        val intent = Intent(this, UserSettings::class.java)
                         startActivity(intent)
-                        Log.d(TAG, "User is in")
+                    }
+                    R.id.nav_logout -> {
+                        FirebaseAuth.getInstance().signOut()
+                        val intent = Intent(this, BuyersHomePage::class.java)
+                        startActivity(intent)
+                        firebaseUserID = ""
                     }
                 }
-                R.id.nav_home -> message = "Home"
-                R.id.nav_settings ->  {
-                    val intent = Intent(this, UserSettings::class.java)
-                    startActivity(intent)
-                }
-                R.id.nav_logout -> {
-                  FirebaseAuth.getInstance().signOut()
-                  firebaseUserID = ""
-                }
+                Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
+                return@setOnNavigationItemSelectedListener true
             }
-            Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
-            return@setOnNavigationItemSelectedListener true
+
+        } else {
+            Toast.makeText(this, "YOU MUST LOGIN TO BUY A PRODUCT", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "Not logged in")
+            bottom_navigation_menu_login.visibility = View.VISIBLE
+            bottom_navigation_menu_login.menu.getItem(0).isCheckable = false
+            bottom_navigation_menu_login.setOnNavigationItemSelectedListener { item ->
+                var message = ""
+                Log.d(TAG, "The user currently is ${thisUser.toString()}")
+                Log.d(TAG, "the firebase id is $firebaseUserID")
+                when(item.itemId) {
+                    R.id.nav_user_login ->  {
+                        message = "login"
+                        val intent = Intent(this, Login::class.java)
+                        startActivity(intent)
+                    }
+                    R.id.nav_user_registration -> {
+                        val intent = Intent(this, Registration::class.java)
+                        startActivity(intent)
+                    }
+                }
+                Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
+                return@setOnNavigationItemSelectedListener true
+            }
         }
+
+
     }
 
     private fun productListing(categoryClicked: CharSequence){

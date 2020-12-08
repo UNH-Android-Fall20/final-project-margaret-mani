@@ -96,6 +96,8 @@
     <string name="new_description">What is the new description?</string>
   <string name="save_changes">Save Changes</string>
   <string name="new_quantity">New Quantity?</string>
+  <string name="sign_in_home">Sign In</string>
+  <string name="sign_up_home">Sign Up</string>
 
 
 </resources>
