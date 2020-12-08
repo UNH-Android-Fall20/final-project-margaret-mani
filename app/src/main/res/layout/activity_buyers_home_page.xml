@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="68dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="67dp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/product_search"
@@ -41,8 +41,8 @@
                 android:id="@+id/pt_productSearch"
                 android:layout_width="189dp"
                 android:layout_height="36dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="65dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="13dp"
                 android:layout_marginEnd="15dp"
                 android:autofillHints="AUTOFILL_TYPE_TEXT"
                 android:background="@drawable/custom_search_bar"
@@ -54,6 +54,17 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_product_details_title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/iv_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:contentDescription="@string/serach_home"
+                app:layout_constraintBottom_toBottomOf="@+id/pt_productSearch"
+                app:layout_constraintStart_toEndOf="@+id/pt_productSearch"
+                app:layout_constraintTop_toTopOf="@+id/pt_productSearch"
+                app:srcCompat="@drawable/ic_baseline_search_24" />
 
             <TextView
                 android:id="@+id/tv_categories_heading"
@@ -171,14 +182,14 @@
                 android:id="@+id/iv_categoryFiveImage"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:layout_marginTop="460dp"
+                android:layout_marginTop="15dp"
                 android:src="@drawable/other_food"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_categoryThree" />
 
             <TextView
                 android:id="@+id/tv_categoryFive"
@@ -206,6 +217,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F8F5F6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_navigation_login" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

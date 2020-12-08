@@ -13,8 +13,8 @@ data class Product (
     val quantity: String = "",
     val idNumber: String = "",
     val latitude: Double = 0.0,
-    val longitude: Double = 0.0
-
+    val longitude: Double = 0.0,
+    val user: String = ""
 ) :Serializable {
     //val distance = Random.nextInt(1, 20)
     var distance: String = ""
