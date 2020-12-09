@@ -95,9 +95,9 @@ class SellersHomePage : AppCompatActivity() {
         b_soldStatus.setOnClickListener{
           currentStatus = "Sold"
           b_soldStatus.visibility = View.INVISIBLE
-          tv_statusSold.visibility = View.INVISIBLE
+          tv_soldProducts.visibility = View.VISIBLE
           b_addedStatus.visibility = View.VISIBLE
-          tv_currentProducts.visibility = View.VISIBLE
+          tv_currentProducts.visibility = View.INVISIBLE
 
           val newQuery: Query = db
             .collection("products")
@@ -115,7 +115,7 @@ class SellersHomePage : AppCompatActivity() {
         b_addedStatus.setOnClickListener{
           currentStatus = "Added"
           b_soldStatus.visibility = View.VISIBLE
-          tv_statusSold.visibility = View.INVISIBLE
+          tv_soldProducts.visibility = View.INVISIBLE
           b_addedStatus.visibility = View.INVISIBLE
           tv_currentProducts.visibility = View.VISIBLE
 
