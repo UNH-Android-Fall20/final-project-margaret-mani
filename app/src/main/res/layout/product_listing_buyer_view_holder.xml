@@ -21,9 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:fontFamily="@font/tienne_bold"
         android:text="@string/product_name_PLVH"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
@@ -37,7 +36,7 @@
         android:layout_marginStart="13dp"
         android:layout_marginTop="10dp"
         android:text="@string/dollar_symbol"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_productListingVhPhoto"
         app:layout_constraintTop_toBottomOf="@+id/tv_productListingVhProductName" />
@@ -48,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/product_price_PLVH"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_productListingVhDollarSymbol"
         app:layout_constraintTop_toBottomOf="@+id/tv_productListingVhProductName" />
@@ -61,6 +60,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/custom_button_round"
         android:text="@string/buy_button_PLVH"
+        android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv__productListingVhPrice" />
 
