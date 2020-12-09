@@ -23,8 +23,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_product_details_seller.*
 import kotlinx.android.synthetic.main.activity_sellers_home_page.*
 import kotlinx.android.synthetic.main.activity_user_settings.*
+import kotlinx.android.synthetic.main.view_holder.*
 import kotlinx.android.synthetic.main.view_holder.view.*
 
 
@@ -36,7 +38,8 @@ class SellersHomePage : AppCompatActivity() {
   private lateinit var bottomNavigationViewSellHome: BottomNavigationView
   private lateinit var addButton: FloatingActionButton
   private lateinit var auth: FirebaseAuth
- // private lateinit var myProdList: MutableList<Product>
+  private var currentStatus : String = "Added"
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -47,13 +50,17 @@ class SellersHomePage : AppCompatActivity() {
     Log.d(TAG, "The user currently is $thisUser")
 
     bottomNavigationViewSellHome = findViewById(R.id.bottom_navigation_view_sell_home)
+
+
     addButton = findViewById(R.id.fab)
     val query: Query = db
       .collection("products")
       .whereEqualTo("user", thisUser?.uid)
-      .whereNotEqualTo ("status", "Deleted")
+      .whereEqualTo ("status", "Added")
       .orderBy ("status")
       .orderBy("product")
+
+
 
     val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
       .setQuery(query, Product::class.java)
@@ -83,6 +90,47 @@ class SellersHomePage : AppCompatActivity() {
         holder.name.text = model.product
         holder.price.text = model.price
         holder.quantity.text = model.quantity
+        holder.status.text = model.status
+
+        b_soldStatus.setOnClickListener{
+          currentStatus = "Sold"
+          b_soldStatus.visibility = View.INVISIBLE
+          tv_statusSold.visibility = View.INVISIBLE
+          b_addedStatus.visibility = View.VISIBLE
+          tv_currentProducts.visibility = View.VISIBLE
+
+          val newQuery: Query = db
+            .collection("products")
+            .whereEqualTo("user", thisUser?.uid)
+            .whereEqualTo ("status", currentStatus)
+            .orderBy ("status")
+            .orderBy("product")
+
+          val newOptions = FirestoreRecyclerOptions.Builder<Product>()
+            .setQuery(newQuery, Product::class.java)
+            .build()
+          adapter!!.updateOptions(newOptions)
+        }
+
+        b_addedStatus.setOnClickListener{
+          currentStatus = "Added"
+          b_soldStatus.visibility = View.VISIBLE
+          tv_statusSold.visibility = View.INVISIBLE
+          b_addedStatus.visibility = View.INVISIBLE
+          tv_currentProducts.visibility = View.VISIBLE
+
+          val newQuery: Query = db
+            .collection("products")
+            .whereEqualTo("user", thisUser?.uid)
+            .whereEqualTo ("status", currentStatus)
+            .orderBy ("status")
+            .orderBy("product")
+
+          val newOptions = FirestoreRecyclerOptions.Builder<Product>()
+            .setQuery(newQuery, Product::class.java)
+            .build()
+          adapter!!.updateOptions(newOptions)
+        }
 
         holder.itemView.setOnClickListener{
           val intent = Intent(holder.itemView.context, ProductDetailsSeller::class.java).apply {

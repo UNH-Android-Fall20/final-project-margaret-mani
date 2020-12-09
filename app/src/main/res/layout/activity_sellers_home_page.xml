@@ -14,26 +14,89 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:paddingBottom="10dp"
         android:text="@string/sellers_list"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_seller_products"
-        android:layout_width="401dp"
-        android:layout_height="455dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="13dp"
-        android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t_sellersPage" />
+      <TextView
+        android:id="@+id/tv_currentProducts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:paddingBottom="10dp"
+        android:text="-- Current Products"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@id/t_sellersPage"
+        app:layout_constraintTop_toTopOf="@id/t_sellersPage" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+      <TextView
+        android:id="@+id/tv_soldProducts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:paddingBottom="10dp"
+        android:text="-- Sold Products"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/t_sellersPage"
+        app:layout_constraintTop_toTopOf="@id/t_sellersPage" />
+
+    <TextView
+        android:id="@+id/tv_showType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="Change display to:"
+        android:textStyle="italic"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/t_sellersPage"
+        app:layout_constraintTop_toBottomOf="@id/t_sellersPage"
+        />
+
+
+  <Button
+        android:id="@+id/b_addedStatus"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:background="@drawable/custom_button_round"
+        android:text="@string/current_products"
+        android:visibility="invisible"
+        android:textAllCaps="false"
+        android:layout_marginEnd="10dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_showType"
+        app:layout_constraintBottom_toBottomOf="@id/tv_showType" />
+
+    <Button
+        android:id="@+id/b_soldStatus"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        android:visibility="visible"
+        android:background="@drawable/custom_button_round"
+        android:text="@string/sold_products"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/tv_showType"
+        app:layout_constraintBottom_toBottomOf="@id/tv_showType" />
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_seller_products"
+    android:layout_width="403dp"
+    android:layout_height="430dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="13dp"
+    android:scrollbars="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/t_sellersPage" />
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinateLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,6 +143,7 @@
             app:layout_constraintStart_toEndOf="@+id/bottomAppBar" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

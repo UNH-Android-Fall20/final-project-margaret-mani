@@ -1,11 +1,11 @@
 <resources>
-  <string name="app_name">VirtualFarmersMarket</string>
-  <string name="welcome_string">Welcome!! what do you wanna do.</string>
+  <string name="app_name">Virtual Farmers Market</string>
+  <string name="welcome_string">Welcome!! what do you want to do?</string>
   <string name="sell_button">Sell</string>
   <string name="buy_button">Buy</string>
   <string name="add_button">Add New Product</string>
-  <string name="product_search">Product Search</string>
-  <string name="product_search_hint">enter a product name</string>
+  <string name="product_search">Product Search Limit</string>
+  <string name="product_search_hint">Enter a product name</string>
   <string name="category_one">Fruits</string>
   <string name="category_five">OtherFoods</string>
   <string name="category_four">Proteins</string>
@@ -38,7 +38,7 @@
   <string name="category_name_PLVH">Category Name</string>
   <string name="buy_button_PLVH">Get it</string>
   <string name="products_listing_title">Products in :</string>
-  <string name="quantity">Quantity</string>
+  <string name="quantity">Quantity:</string>
   <string name="price">Price</string>
   <string name="editButton">Edit</string>
   <string name="sold_outButton">Sold Out</string>
@@ -76,7 +76,7 @@
   <string name="image_description_buyer">Image of the product in details page</string>
   <string name="product_description_buyer">Product description</string>
   <string name="distance_PDB">Located 28 Mi from your location</string>
-  <string name="notify_seller">Get it !!</string>
+  <string name="notify_seller">Get it!</string>
   <string name="forgot_password">I forgot my password</string>
   <string name="add_product_menu">Add Product</string>
   <string name="title_activity_forgot_password">ForgotPassword</string>
@@ -99,6 +99,11 @@
   <string name="sign_in_home">Sign In</string>
   <string name="sign_up_home">Registration</string>
     <string name="serach_home">Used to search products</string>
+  <string name="phone_nbr">Phone Number</string>
+  <string name="current_data">Current Data</string>
+  <string name="search_area_limit">Search Area Limit</string>
+  <string name="current_products">Current Products</string>
+  <string name="sold_products">Sold Products</string>
 
 
 </resources>

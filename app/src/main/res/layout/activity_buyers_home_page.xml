@@ -72,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/abril_fatface"
                 android:text="@string/categories_heading"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +81,7 @@
                 android:id="@+id/iv_categoryOneImage"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="70dp"
                 android:layout_marginTop="28dp"
                 android:src="@drawable/fruits"
                 app:civ_border_color="#FF000000"
@@ -102,33 +101,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_categoryOneImage" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_categoryTwoImage"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_marginTop="28dp"
-                android:src="@drawable/grains"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.442"
-                app:layout_constraintStart_toEndOf="@+id/iv_categoryOneImage"
-                app:layout_constraintTop_toBottomOf="@+id/tv_categories_heading" />
+          <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_categoryTwoImage"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/grains"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toEndOf="@+id/iv_categoryOneImage"
+            app:layout_constraintTop_toBottomOf="@+id/tv_categories_heading" />
 
-            <TextView
-                android:id="@+id/tv_categoryTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/category_two"
-                android:textSize="16sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_categoryOne"
-                app:layout_constraintTop_toBottomOf="@+id/iv_categoryTwoImage" />
+          <TextView
+            android:id="@+id/tv_categoryTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/category_two"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toEndOf="@+id/tv_categoryOne"
+            app:layout_constraintTop_toBottomOf="@+id/iv_categoryTwoImage" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+          <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_categoryThreeImage"
                 android:layout_width="96dp"
                 android:layout_height="96dp"

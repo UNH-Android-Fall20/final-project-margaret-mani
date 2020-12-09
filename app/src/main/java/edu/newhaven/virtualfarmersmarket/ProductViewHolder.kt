@@ -9,6 +9,7 @@ class ProductViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     //var productImagePL: ImageView = view.findViewById(R.id.iv_productListingVhPhoto)
     var name: TextView = view.findViewById(R.id.tv_prodName)
     var price: TextView = view.findViewById(R.id.tv_prodPrice)
+    var status: TextView = view.findViewById(R.id.tv_statusSold)
     var quantity: TextView = view.findViewById((R.id.tv_prodQuantity))
     var productPicture : ImageView = view.findViewById((R.id.iv_prodPicture))
 
