@@ -104,6 +104,8 @@
   <string name="search_area_limit">Search Area Limit</string>
   <string name="current_products">Current Products</string>
   <string name="sold_products">Sold Products</string>
+  <string name="current_products_display">-- Current Products --</string>
+  <string name="sold_products_display">-- Sold Products --</string>
 
 
 </resources>
