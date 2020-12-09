@@ -49,7 +49,7 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
 
         val intent = intent
         val categoryFilter = intent.getStringExtra("CategoryClicked")
-        val productSearch = intent.getStringExtra("ProductSearch")
+        val productSearch = intent.getStringExtra("ProductSearch")!!
 
         categoryFilterView = findViewById(R.id.tv_categoryNamePL)
 
@@ -89,19 +89,6 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
             rv_product_listing_buyer.adapter = productListingAdapter
             rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
         }
-
-
-        /*
-        val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
-            .setQuery(query, Product::class.java)
-            .build()
-
-        categoryFilterView.setText(categoryFilter)
-
-        productListingAdapter = ProductListingAdapter(options, this)
-
-        rv_product_listing_buyer.adapter = productListingAdapter
-        rv_product_listing_buyer.layoutManager = LinearLayoutManager(this) */
 
         bottomNavigationMenuPL = findViewById(R.id.bottom_navigation_viewPL)
         bottomNavigationMenuPL.visibility = View.INVISIBLE
