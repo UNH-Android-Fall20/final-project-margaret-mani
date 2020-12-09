@@ -11,8 +11,8 @@
     android:id="@+id/iv_prodPicture"
     android:layout_width="100dp"
     android:layout_height="100dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginStart="30dp"
+
+    android:layout_marginStart="20dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:srcCompat="@drawable/produce"
@@ -88,26 +88,27 @@
     android:id="@+id/b_edit"
     android:layout_width="62dp"
     android:layout_height="37dp"
+    android:layout_marginStart="30dp"
     android:background="@drawable/custom_button_round"
     android:text="@string/editButton"
     android:textAllCaps="false"
     android:layout_marginTop="10dp"
     android:textColor="#000109"
     android:textSize="15sp"
-    app:layout_constraintStart_toStartOf="@+id/tv_prodName"
-    app:layout_constraintTop_toBottomOf="@+id/tv_quantity_title" />
+    app:layout_constraintStart_toStartOf="@+id/iv_prodPicture"
+    app:layout_constraintTop_toBottomOf="@+id/iv_prodPicture" />
 
   <Button
     android:id="@+id/b_sold"
     android:layout_width="76dp"
     android:layout_height="37dp"
-    android:layout_marginStart="10dp"
+
     android:background="@drawable/custom_button_round"
     android:text="@string/sold_outButton"
     android:textAllCaps="false"
     android:textColor="#000109"
     android:textSize="15sp"
-    app:layout_constraintStart_toEndOf="@+id/b_edit"
+    app:layout_constraintStart_toStartOf="@+id/tv_prodQuantity"
     app:layout_constraintTop_toTopOf="@+id/b_edit" />
 
   <Button
