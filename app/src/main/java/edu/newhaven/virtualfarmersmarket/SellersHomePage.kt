@@ -209,9 +209,10 @@ class SellersHomePage : AppCompatActivity() {
           startActivity(intent)}
         R.id.nav_sell_logout -> {
           FirebaseAuth.getInstance().signOut()
+          finishAffinity()
           Toast.makeText(
             this@SellersHomePage,"Logged out", Toast.LENGTH_LONG).show()
-          val intent = Intent (this, Login::class.java)
+          val intent = Intent (this, BuyersHomePage::class.java)
           startActivity(intent)
         }
       }

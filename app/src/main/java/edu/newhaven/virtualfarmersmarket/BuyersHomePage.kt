@@ -135,6 +135,7 @@ class BuyersHomePage : AppCompatActivity() {
                     }
                     R.id.nav_logout -> {
                         FirebaseAuth.getInstance().signOut()
+                        finishAffinity()
                         val intent = Intent(this, BuyersHomePage::class.java)
                         startActivity(intent)
                     }
