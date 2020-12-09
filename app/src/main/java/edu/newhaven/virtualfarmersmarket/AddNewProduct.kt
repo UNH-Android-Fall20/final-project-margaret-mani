@@ -121,7 +121,7 @@ class AddNewProduct : AppCompatActivity() {
         db.collection("products")
 
         db.collection("users")
-            .whereEqualTo("userID", firebaseUserID)
+            .whereEqualTo("userID", thisUser?.uid)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
