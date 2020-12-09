@@ -1,26 +1,20 @@
 package edu.newhaven.virtualfarmersmarket
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_buyers_home_page.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class BuyersHomePage : AppCompatActivity() {
 
@@ -28,8 +22,6 @@ class BuyersHomePage : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private lateinit var auth: FirebaseAuth
-    //private var auth = FirebaseAuth.getInstance()  //Needed to check login
-    //private val thisUser = auth.currentUser //Needed to check login
 
     private lateinit var categoryOne: TextView
     private lateinit var categoryOneImage: CircleImageView
