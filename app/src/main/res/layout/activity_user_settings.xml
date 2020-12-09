@@ -41,7 +41,7 @@
         android:id="@+id/tv_currentInfo"
         android:layout_width="150dp"
         android:layout_height="32dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/current_data"
         android:textColor="@color/colorPrimary"
@@ -85,7 +85,7 @@
         android:autofillHints="New Preferred Name"
         android:background="@drawable/custom_button_round"
         android:hint="@string/new_preferred_name"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textCapSentences"
         android:textAllCaps="false"
         android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@id/tv_userSettings"
@@ -93,29 +93,30 @@
 
       <Button
         android:id="@+id/b_updateMe"
-        android:layout_width="90dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="112dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_button_round"
         android:gravity="center"
-        android:text="@string/save_name"
+        android:text="@string/save_changes"
         android:textAllCaps="false"
         android:textColor="#003700"
-        app:layout_constraintTop_toBottomOf="@id/et_newUserPreferredName"
-        app:layout_constraintStart_toStartOf="@id/et_newUserPreferredName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_searchTitle" />
 
       <TextView
         android:id="@+id/tv_phoneNumber"
-        android:layout_width="125dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center_vertical"
         android:text="@string/phone_nbr"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/tv_userFirstName"
-        app:layout_constraintTop_toBottomOf="@+id/b_updateMe" />
+        app:layout_constraintStart_toEndOf="@id/tv_phoneNbrTitle"
+        app:layout_constraintTop_toTopOf="@id/tv_phoneNbrTitle" />
 
       <TextView
         android:id="@+id/tv_phoneNbrTitle"
@@ -123,17 +124,19 @@
         android:layout_height="48dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
         android:text="@string/phone_number"
         android:textColor="#006400"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@id/tv_prefNameTitle"
-        app:layout_constraintTop_toTopOf="@+id/tv_phoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_prefNameTitle" />
 
       <EditText
         android:id="@+id/et_newPhoneNumber"
         android:layout_width="125dp"
         android:layout_height="32dp"
         android:autofillHints="New Phone Number"
+        android:layout_marginTop="35dp"
         android:background="@drawable/custom_button_round"
         android:hint="@string/new_phone_number"
         android:inputType="phone"
@@ -141,25 +144,12 @@
         android:textColor="#003700"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/et_newUserPreferredName"
-        app:layout_constraintTop_toTopOf="@+id/tv_phoneNumber" />
-
-      <Button
-        android:id="@+id/b_updatePhone"
-        android:layout_width="90dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button_round"
-        android:gravity="center"
-        android:text="@string/save_phone"
-        android:textAllCaps="false"
-        android:textColor="#003700"
-        app:layout_constraintStart_toStartOf="@id/et_newUserPreferredName"
-        app:layout_constraintTop_toBottomOf="@+id/et_newPhoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/et_newUserPreferredName" />
 
       <TextView
         android:id="@+id/tv_searchTitle"
         android:layout_width="75dp"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center_vertical"
         android:text="@string/search_area_limit"
@@ -173,14 +163,13 @@
         android:layout_width="100dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center_vertical"
         android:text="@string/product_search"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/tv_searchTitle"
-        app:layout_constraintTop_toBottomOf="@+id/b_updatePhone" />
+        app:layout_constraintTop_toTopOf="@id/tv_searchTitle" />
 
       <EditText
         android:id="@+id/et_newSearchLimit"
@@ -189,50 +178,37 @@
         android:autofillHints="New Search Limit"
         android:background="@drawable/custom_button_round"
         android:hint="@string/new_search_limit"
+        android:layout_marginTop="35dp"
         android:inputType="phone"
         android:textAllCaps="false"
         android:textColor="#003700"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/et_newUserPreferredName"
-        app:layout_constraintTop_toTopOf="@+id/tv_searchLimit" />
-
-      <Button
-        android:id="@+id/b_updateSearch"
-        android:layout_width="90dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/custom_button_round"
-        android:gravity="center"
-        android:text="@string/save_limit"
-        android:textAllCaps="false"
-        android:textColor="#003700"
-        app:layout_constraintStart_toStartOf="@id/et_newUserPreferredName"
-        app:layout_constraintTop_toBottomOf="@+id/et_newSearchLimit" />
+        app:layout_constraintTop_toBottomOf="@+id/et_newPhoneNumber" />
 
       <ProgressBar
-          android:id="@+id/pb_progress"
-          style="?android:attr/progressBarStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="156dp"
-          android:layout_marginTop="5dp"
-          android:foregroundGravity="center_horizontal"
-          android:visibility="invisible"
-          app:layout_constraintStart_toStartOf="@+id/b_updateSearch"
-          app:layout_constraintTop_toBottomOf="@+id/b_updateSearch" />
+        android:id="@+id/pb_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center_horizontal"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="178dp"
+        tools:layout_editor_absoluteY="395dp" />
 
       <Button
         android:id="@+id/b_updateLocation"
         android:layout_width="175dp"
         android:layout_height="40dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="75dp"
         android:background="@drawable/custom_button_round"
         android:gravity="center"
         android:text="@string/update_my_location"
         android:textAllCaps="false"
         android:textColor="#003700"
-        app:layout_constraintStart_toEndOf="@id/b_updateSearch"
-        app:layout_constraintTop_toBottomOf="@+id/b_updateSearch" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/b_updateMe" />
 
       <Button
         android:id="@+id/b_homepage"
@@ -241,7 +217,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/custom_button_round"
         android:gravity="center"
-        android:text="@string/return_to_home_page"
+        android:text="@string/go_to_home_page"
         android:textAllCaps="false"
         android:textColor="#003700"
         app:layout_constraintStart_toStartOf="@+id/b_updateLocation"
