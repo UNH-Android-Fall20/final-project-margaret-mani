@@ -56,8 +56,7 @@ class BuyersHomePage : AppCompatActivity() {
         val thisUser = auth.currentUser
 
 
-        Log.d(TAG, "The user currently is ${auth.currentUser}")
-        Log.d(TAG, "the firebase id is $firebaseUserID")
+        Log.d(TAG, "The user currently is ${auth.currentUser?.uid}")
 
         searchButton = findViewById(R.id.iv_search_button)
         categoryOne = findViewById(R.id.tv_categoryOne)
@@ -119,8 +118,7 @@ class BuyersHomePage : AppCompatActivity() {
             bottom_navigation_menu.selectedItemId = R.id.nav_home
             bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
                 var message = ""
-                Log.d(TAG, "The user currently is $thisUser")
-                Log.d(TAG, "the firebase id is $firebaseUserID")
+                Log.d(TAG, "The user currently is ${thisUser.uid}")
                 when(item.itemId) {
                     R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
                         val intent = Intent(this, SellersHomePage::class.java)
@@ -139,7 +137,6 @@ class BuyersHomePage : AppCompatActivity() {
                         FirebaseAuth.getInstance().signOut()
                         val intent = Intent(this, BuyersHomePage::class.java)
                         startActivity(intent)
-                        firebaseUserID = ""
                     }
                 }
                 Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
@@ -153,8 +150,7 @@ class BuyersHomePage : AppCompatActivity() {
             bottom_navigation_menu_login.menu.getItem(0).isCheckable = false
             bottom_navigation_menu_login.setOnNavigationItemSelectedListener { item ->
                 var message = ""
-                Log.d(TAG, "The user currently is ${thisUser.toString()}")
-                Log.d(TAG, "the firebase id is $firebaseUserID")
+                Log.d(TAG, "The user currently is ${thisUser?.uid}")
                 when(item.itemId) {
                     R.id.nav_user_login ->  {
                         message = "login"

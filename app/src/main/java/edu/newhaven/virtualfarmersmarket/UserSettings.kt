@@ -75,7 +75,7 @@ class UserSettings : AppCompatActivity() {
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["preferredName"] = newPreferredName
 
-            Log.d(TAG, "$firebaseUserID => $map")
+            Log.d(TAG, "${thisUser?.uid} => $map")
             myData
                 .collection("users")
                 .document(docID)
@@ -91,7 +91,7 @@ class UserSettings : AppCompatActivity() {
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["phoneNbr"] = newPhone
 
-            Log.d(TAG, "$firebaseUserID => $map")
+            Log.d(TAG, "${thisUser?.uid} => $map")
             myData
                 .collection("users")
                 .document(docID)
@@ -107,7 +107,7 @@ class UserSettings : AppCompatActivity() {
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["searchLimit"] = newSearch
 
-            Log.d(TAG, "$firebaseUserID => $map")
+            Log.d(TAG, "${thisUser?.uid} => $map")
             myData
                 .collection("users")
                 .document(docID)
