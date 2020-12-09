@@ -14,6 +14,7 @@ data class Product (
     val idNumber: String = "",
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
+    val status: String = "",
     val user: String = ""
 ) :Serializable {
     //val distance = Random.nextInt(1, 20)

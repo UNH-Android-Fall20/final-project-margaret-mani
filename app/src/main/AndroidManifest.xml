@@ -40,7 +40,9 @@
       android:name="com.google.android.maps"
       android:required="false" />
 
-    <activity android:name=".Registration" />
+    <activity
+      android:name=".Registration"
+      android:parentActivityName=".ProductDetailsBuyer"/>
     <activity android:name=".SellersHomePage" />
 
     <provider

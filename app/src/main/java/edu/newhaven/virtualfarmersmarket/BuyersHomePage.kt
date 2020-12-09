@@ -147,7 +147,7 @@ class BuyersHomePage : AppCompatActivity() {
             }
 
         } else {
-            Toast.makeText(this, "YOU MUST LOGIN TO BUY A PRODUCT", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "You must log in to alert a seller.", Toast.LENGTH_SHORT).show()
             Log.d(TAG, "Not logged in")
             bottom_navigation_menu_login.visibility = View.VISIBLE
             bottom_navigation_menu_login.menu.getItem(0).isCheckable = false
