@@ -1,7 +1,5 @@
 package edu.newhaven.virtualfarmersmarket
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,15 +10,13 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_buyers_home_page.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class BuyersHomePage : AppCompatActivity() {
 
@@ -51,6 +47,7 @@ class BuyersHomePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buyers_home_page)
+        //registerPushToken()
 
         auth = Firebase.auth
         val thisUser = auth.currentUser
@@ -170,8 +167,6 @@ class BuyersHomePage : AppCompatActivity() {
                 return@setOnNavigationItemSelectedListener true
             }
         }
-
-
     }
 
     private fun productListing(categoryClicked: CharSequence){
