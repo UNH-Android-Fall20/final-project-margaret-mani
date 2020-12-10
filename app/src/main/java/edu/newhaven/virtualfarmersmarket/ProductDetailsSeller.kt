@@ -55,6 +55,10 @@ class ProductDetailsSeller : AppCompatActivity() {
     tv_product_price_PDB.text = product.price.replace("$","")
     tv_quantity_PDB.text = product.quantity
 
+    if (product.status == "Sold"){
+      b_soldOut.visibility = View.INVISIBLE
+      b_forSale.visibility = View.VISIBLE
+    }
 
     b_editProd.setOnClickListener {
       b_editProd.visibility = View.INVISIBLE
@@ -82,12 +86,27 @@ class ProductDetailsSeller : AppCompatActivity() {
       }
     }
 
+    b_forSale.setOnClickListener{
+      Toast.makeText(this, "Product for sale again!", Toast.LENGTH_LONG ).show()
+      Log.d(TAG, "the id number is ${product.idNumber}")
+
+      b_soldOut.visibility = View.VISIBLE
+      b_forSale.visibility = View.INVISIBLE
+
+      val newStatus = "Added"
+      updateProductForSale("status", newStatus, prodID)
+      val newIntent = Intent(this, SellersHomePage::class.java)
+      startActivity(newIntent)
+    }
+
     b_soldOut.setOnClickListener{
       Toast.makeText(this, "Product sold out", Toast.LENGTH_LONG ).show()
       Log.d(TAG, "the id number is ${product.idNumber}")
 
       val newStatus = "Sold"
       updateProductForSale("status", newStatus, prodID)
+      val newIntent = Intent(this, SellersHomePage::class.java)
+      startActivity(newIntent)
     }
 
     b_deleted.setOnClickListener{
@@ -96,11 +115,12 @@ class ProductDetailsSeller : AppCompatActivity() {
 
       val newStatus = "Deleted"
       updateProductForSale("status", newStatus, prodID)
+      val newIntent = Intent(this, SellersHomePage::class.java)
+      startActivity(newIntent)
     }
   }
 
   private fun updateProductForSale(updateField: String, newData : String, prodID : String?) {
-    Toast.makeText(this, "Trying to delete", Toast.LENGTH_LONG).show()
 
     val map: MutableMap<String, Any> = mutableMapOf<String, Any>()
     map[updateField] = newData
@@ -113,6 +133,7 @@ class ProductDetailsSeller : AppCompatActivity() {
       Toast.makeText(this, "Product not found", Toast.LENGTH_LONG).show()
     }
   }
-}
+  }
+
 
 

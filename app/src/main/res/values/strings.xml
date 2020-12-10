@@ -4,7 +4,7 @@
   <string name="sell_button">Sell</string>
   <string name="buy_button">Buy</string>
   <string name="add_button">Add New Product</string>
-  <string name="product_search">Search Limit</string>
+  <string name="product_search">Product Search</string>
   <string name="product_search_hint">Enter a product name</string>
   <string name="category_one">Fruits</string>
   <string name="category_five">OtherFoods</string>
@@ -105,6 +105,8 @@
   <string name="sold_products">Sold Products</string>
   <string name="current_products_display">-- Current Products --</string>
   <string name="sold_products_display">-- Sold Products --</string>
+    <string name="for_sale">For Sale</string>
+  <string name="for_sale_again">For Sale</string>
 
 
 </resources>

@@ -102,9 +102,22 @@
     android:id="@+id/b_sold"
     android:layout_width="76dp"
     android:layout_height="37dp"
-
+    android:visibility="invisible"
     android:background="@drawable/custom_button_round"
     android:text="@string/sold_outButton"
+    android:textAllCaps="false"
+    android:textColor="#000109"
+    android:textSize="15sp"
+    app:layout_constraintStart_toStartOf="@+id/tv_prodQuantity"
+    app:layout_constraintTop_toTopOf="@+id/b_edit" />
+
+  <Button
+    android:id="@+id/b_forSaleAgain"
+    android:layout_width="76dp"
+    android:layout_height="37dp"
+    android:visibility="invisible"
+    android:background="@drawable/custom_button_round"
+    android:text="@string/for_sale_again"
     android:textAllCaps="false"
     android:textColor="#000109"
     android:textSize="15sp"
