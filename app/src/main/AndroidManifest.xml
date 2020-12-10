@@ -20,7 +20,9 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.MyApp">
-    <activity android:name=".ProductDetailsSeller" />
+
+    <activity android:name=".ProductDetailsSeller"
+      android:parentActivityName=".SellersHomePage"/>
     <activity android:name=".UserSettings" />
     <activity
       android:name=".ForgotPassword"
@@ -71,6 +73,12 @@
     <meta-data
       android:name="preloaded_fonts"
       android:resource="@array/preloaded_fonts" />
+
+
+
+    <meta-data
+      android:name="com.google.firebase.messaging.default_notification_icon"
+      android:resource="@color/colorAccent"/>
   </application>
 
 </manifest>

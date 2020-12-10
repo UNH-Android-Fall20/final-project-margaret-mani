@@ -1,5 +1,6 @@
 package edu.newhaven.virtualfarmersmarket
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,8 +10,6 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import kotlinx.android.synthetic.main.activity_add_new_product.*
-import kotlinx.android.synthetic.main.activity_product_details_buyer.*
 import kotlinx.android.synthetic.main.activity_product_details_buyer.iv_product_image_PDB
 import kotlinx.android.synthetic.main.activity_product_details_buyer.tv_category_PDB
 import kotlinx.android.synthetic.main.activity_product_details_buyer.tv_product_description_PDB
@@ -56,6 +55,10 @@ class ProductDetailsSeller : AppCompatActivity() {
     tv_product_price_PDB.text = product.price.replace("$","")
     tv_quantity_PDB.text = product.quantity
 
+    if (product.status == "Sold"){
+      b_soldOut.visibility = View.INVISIBLE
+      b_forSale.visibility = View.VISIBLE
+    }
 
     b_editProd.setOnClickListener {
       b_editProd.visibility = View.INVISIBLE
@@ -63,6 +66,37 @@ class ProductDetailsSeller : AppCompatActivity() {
       et_quantity.visibility = View.VISIBLE
       et_price.visibility = View.VISIBLE
       b_saveChanges.visibility = View.VISIBLE
+
+      b_saveChanges.setOnClickListener {
+        if (et_description.text.toString() != ""){
+          val newDescription = et_description.text.toString()
+          updateProductForSale("description", newDescription, prodID)
+          Log.d(TAG, "the new description is $newDescription")
+        }
+        if(et_price.text.toString() != ""){
+          val newPrice = et_price.text.toString()
+          updateProductForSale("price", newPrice, prodID)
+        }
+        if(et_quantity.text.toString() != ""){
+          val newNumberAvailable = et_quantity.text.toString()
+          updateProductForSale("quantity", newNumberAvailable, prodID)
+        }
+        val newIntent = Intent(this, SellersHomePage::class.java)
+        startActivity(newIntent)
+      }
+    }
+
+    b_forSale.setOnClickListener{
+      Toast.makeText(this, "Product for sale again!", Toast.LENGTH_LONG ).show()
+      Log.d(TAG, "the id number is ${product.idNumber}")
+
+      b_soldOut.visibility = View.VISIBLE
+      b_forSale.visibility = View.INVISIBLE
+
+      val newStatus = "Added"
+      updateProductForSale("status", newStatus, prodID)
+      val newIntent = Intent(this, SellersHomePage::class.java)
+      startActivity(newIntent)
     }
 
     b_soldOut.setOnClickListener{
@@ -70,7 +104,9 @@ class ProductDetailsSeller : AppCompatActivity() {
       Log.d(TAG, "the id number is ${product.idNumber}")
 
       val newStatus = "Sold"
-      updateProductStatus(newStatus, prodID)
+      updateProductForSale("status", newStatus, prodID)
+      val newIntent = Intent(this, SellersHomePage::class.java)
+      startActivity(newIntent)
     }
 
     b_deleted.setOnClickListener{
@@ -78,15 +114,16 @@ class ProductDetailsSeller : AppCompatActivity() {
       Log.d(TAG, "the id number is ${product.idNumber}")
 
       val newStatus = "Deleted"
-      updateProductStatus(newStatus, prodID)
+      updateProductForSale("status", newStatus, prodID)
+      val newIntent = Intent(this, SellersHomePage::class.java)
+      startActivity(newIntent)
     }
   }
 
-  private fun updateProductStatus(prodStatus : String, prodID : String?) {
-    Toast.makeText(this, "Trying to delete", Toast.LENGTH_LONG).show()
+  private fun updateProductForSale(updateField: String, newData : String, prodID : String?) {
 
     val map: MutableMap<String, Any> = mutableMapOf<String, Any>()
-    map["status"] = prodStatus
+    map[updateField] = newData
 
     if (prodID != null) {
       db.collection("products")
@@ -96,4 +133,7 @@ class ProductDetailsSeller : AppCompatActivity() {
       Toast.makeText(this, "Product not found", Toast.LENGTH_LONG).show()
     }
   }
-}
+  }
+
+
+

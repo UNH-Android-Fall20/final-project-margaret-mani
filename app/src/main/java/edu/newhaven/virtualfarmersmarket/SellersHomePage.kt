@@ -60,14 +60,21 @@ class SellersHomePage : AppCompatActivity() {
       .orderBy ("status")
       .orderBy("product")
 
-
-
     val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
       .setQuery(query, Product::class.java)
       .build()
 
+    /*if (tv_soldProducts.visibility == View.VISIBLE){
+      b_sold.visibility = View.INVISIBLE
+      b_forSaleAgain.visibility = View.VISIBLE
+    } else {
+      b_sold.visibility = View.VISIBLE
+      b_forSaleAgain.visibility = View.INVISIBLE
+    }*/
+
     //insert options into adapter
     adapter = object : FirestoreRecyclerAdapter<Product, ProductViewHolder>(options){
+
       override fun onBindViewHolder(
         holder: ProductViewHolder,
         position: Int,
@@ -92,46 +99,30 @@ class SellersHomePage : AppCompatActivity() {
         holder.quantity.text = model.quantity
         holder.status.text = model.status
 
+
+        //sold products display
         b_soldStatus.setOnClickListener{
           currentStatus = "Sold"
           b_soldStatus.visibility = View.INVISIBLE
-          tv_statusSold.visibility = View.INVISIBLE
+          tv_soldProducts.visibility = View.VISIBLE
           b_addedStatus.visibility = View.VISIBLE
-          tv_currentProducts.visibility = View.VISIBLE
+          tv_currentProducts.visibility = View.INVISIBLE
 
-          val newQuery: Query = db
-            .collection("products")
-            .whereEqualTo("user", thisUser?.uid)
-            .whereEqualTo ("status", currentStatus)
-            .orderBy ("status")
-            .orderBy("product")
-
-          val newOptions = FirestoreRecyclerOptions.Builder<Product>()
-            .setQuery(newQuery, Product::class.java)
-            .build()
-          adapter!!.updateOptions(newOptions)
+          makeNewQuery(currentStatus, thisUser?.uid)
         }
 
+        //current products display
         b_addedStatus.setOnClickListener{
           currentStatus = "Added"
           b_soldStatus.visibility = View.VISIBLE
-          tv_statusSold.visibility = View.INVISIBLE
+          tv_soldProducts.visibility = View.INVISIBLE
           b_addedStatus.visibility = View.INVISIBLE
           tv_currentProducts.visibility = View.VISIBLE
 
-          val newQuery: Query = db
-            .collection("products")
-            .whereEqualTo("user", thisUser?.uid)
-            .whereEqualTo ("status", currentStatus)
-            .orderBy ("status")
-            .orderBy("product")
-
-          val newOptions = FirestoreRecyclerOptions.Builder<Product>()
-            .setQuery(newQuery, Product::class.java)
-            .build()
-          adapter!!.updateOptions(newOptions)
+          makeNewQuery(currentStatus, thisUser?.uid)
         }
 
+        //change to product detail view
         holder.itemView.setOnClickListener{
           val intent = Intent(holder.itemView.context, ProductDetailsSeller::class.java).apply {
             putExtra("SelectedProduct", model)
@@ -140,6 +131,7 @@ class SellersHomePage : AppCompatActivity() {
           holder.itemView.context.startActivity(intent)
         }
 
+        //change to product detail view to edit
         holder.itemView.b_edit.setOnClickListener{
           val intent = Intent(holder.itemView.context, ProductDetailsSeller::class.java).apply {
             putExtra("SelectedProduct", model)
@@ -148,6 +140,7 @@ class SellersHomePage : AppCompatActivity() {
           holder.itemView.context.startActivity(intent)
         }
 
+        //delete product
         holder.itemView.b_delete.setOnClickListener{
           Toast.makeText(holder.itemView.context, "Product deleted", Toast.LENGTH_LONG ).show()
 
@@ -158,8 +151,12 @@ class SellersHomePage : AppCompatActivity() {
           db.collection("products")
             .document(myProdId)
             .update(map)
+
+          takeMeToCurrentProducts()
+
         }
 
+        //product is sold out
         holder.itemView.b_sold.setOnClickListener{
           Toast.makeText(holder.itemView.context, "Product sold out", Toast.LENGTH_LONG ).show()
 
@@ -170,8 +167,26 @@ class SellersHomePage : AppCompatActivity() {
           db.collection("products")
             .document(myProdId)
             .update(map)
+            .addOnSuccessListener {
+              makeNewQuery("Added", thisUser?.uid)
+            }
         }
 
+        //make for sale again
+        holder.itemView.b_forSaleAgain.setOnClickListener{
+          Toast.makeText(holder.itemView.context, "Product is for sale again", Toast.LENGTH_LONG ).show()
+
+          val newStatus = "Added"
+          val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
+          map["status"] = newStatus
+
+          db.collection("products")
+            .document(myProdId)
+            .update(map)
+            .addOnSuccessListener {
+              makeNewQuery("Sold", thisUser?.uid)
+        }
+        }
       }
 
       override fun onCreateViewHolder(group: ViewGroup, i: Int): ProductViewHolder {
@@ -220,6 +235,26 @@ class SellersHomePage : AppCompatActivity() {
       return@setOnNavigationItemSelectedListener true
     }
   }
+
+  fun makeNewQuery(newStatus: String, thisUser : String?){
+    val newQuery: Query = db
+      .collection("products")
+      .whereEqualTo("user", thisUser)
+      .whereEqualTo ("status", newStatus)
+      .orderBy("product")
+
+
+    val newOptions = FirestoreRecyclerOptions.Builder<Product>()
+      .setQuery(newQuery, Product::class.java)
+      .build()
+    adapter!!.updateOptions(newOptions)
+  }
+
+  fun takeMeToCurrentProducts() {
+    val newIntent = Intent(this, SellersHomePage::class.java)
+    startActivity(newIntent)
+  }
+
 
   override fun onStart(){
     super.onStart()

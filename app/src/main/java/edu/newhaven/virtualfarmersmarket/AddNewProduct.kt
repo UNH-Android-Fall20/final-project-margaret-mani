@@ -245,6 +245,7 @@ class AddNewProduct : AppCompatActivity() {
             //filepath = data.data!!
             if (requestCode == CAMERA_REQUEST_CODE) {
                 val imageBitmap = data.extras?.get("data") as Bitmap
+                Log.d(TAG, "the imagebitmap is $imageBitmap")
                 val bytes = ByteArrayOutputStream()
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
                 imageUri = getImageUri(imageBitmap)
@@ -254,8 +255,6 @@ class AddNewProduct : AppCompatActivity() {
                 imageUri = data.data!!
                 val bitmap:Bitmap  = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                 iv_prodPicture.setImageBitmap(bitmap)
-                //val myImgLocation = image.toString().substring(0, image.toString().indexOf("&token"))
-                //}
             } else {
                 super.onActivityResult(requestCode, resultCode, data)
             }
