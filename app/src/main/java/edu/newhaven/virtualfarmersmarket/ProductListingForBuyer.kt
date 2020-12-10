@@ -7,6 +7,7 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -15,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -49,6 +49,8 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
     private lateinit var auth: FirebaseAuth  //Needed to check login
 
     private lateinit var categoryFilterForSearch: String
+
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -204,6 +206,11 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         productListingAdapter.startListening()
     }
 
+    override fun onResume() {
+        super.onResume()
+        bottomNavigationMenuPL.getMenu().getItem(0).setChecked(false);
+    }
+
     override fun onStop() {
         super.onStop()
         productListingAdapter.stopListening()
@@ -218,7 +225,8 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         menuInflater.inflate(R.menu.search_menu, menu)
         val menuItem = menu!!.findItem(R.id.search_menu)
 
-        val searchView = menuItem.actionView as SearchView
+        searchView = menuItem.actionView as SearchView
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(product: String?): Boolean {
                 searchData(product)
@@ -229,7 +237,7 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
                 //searchData(newText)
                 if (newText == "") {
                     default()
-                } else{
+                } else {
                     searchData(newText)
                 }
                 return false

@@ -230,4 +230,9 @@ class SellersHomePage : AppCompatActivity() {
     super.onStop()
     adapter?.stopListening()
   }
+
+  override fun onResume() {
+    super.onResume()
+    bottomNavigationViewSellHome.getMenu().getItem(1).setChecked(true);
+  }
 }

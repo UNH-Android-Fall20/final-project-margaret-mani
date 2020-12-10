@@ -150,6 +150,11 @@ class BuyersHomePage : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        bottom_navigation_menu.getMenu().getItem(1).setChecked(true);
+    }
+
     private fun productListing(categoryClicked: CharSequence){
         val intent = Intent(this, ProductListingForBuyer::class.java)
         intent.putExtra("CategoryClicked", categoryClicked)
