@@ -224,10 +224,10 @@ class SellersHomePage : AppCompatActivity() {
           startActivity(intent)}
         R.id.nav_sell_logout -> {
           FirebaseAuth.getInstance().signOut()
-          firebaseUserID = ""
+          finishAffinity()
           Toast.makeText(
             this@SellersHomePage,"Logged out", Toast.LENGTH_LONG).show()
-          val intent = Intent (this, Login::class.java)
+          val intent = Intent (this, BuyersHomePage::class.java)
           startActivity(intent)
         }
       }
@@ -264,5 +264,10 @@ class SellersHomePage : AppCompatActivity() {
   override fun onStop(){
     super.onStop()
     adapter?.stopListening()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    bottomNavigationViewSellHome.getMenu().getItem(1).setChecked(true);
   }
 }

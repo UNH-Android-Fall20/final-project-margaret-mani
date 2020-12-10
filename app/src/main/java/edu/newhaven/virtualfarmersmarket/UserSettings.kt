@@ -77,7 +77,7 @@ class UserSettings : AppCompatActivity() {
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["preferredName"] = newPreferredName
             updateUserAll(map, docID)
-            Log.d(TAG, "$firebaseUserID => $map")
+            Log.d(TAG, "${thisUser?.uid} => $map")
           }
 
           //update the phone number
@@ -86,7 +86,7 @@ class UserSettings : AppCompatActivity() {
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["phoneNbr"] = newPhone
             updateUserAll(map, docID)
-            Log.d(TAG, "$firebaseUserID => $map")
+            Log.d(TAG, "${thisUser?.uid} => $map")
           }
 
           //update search limit
@@ -95,7 +95,7 @@ class UserSettings : AppCompatActivity() {
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["searchLimit"] = newSearch
             updateUserAll(map, docID)
-            Log.d(TAG, "$firebaseUserID => $map")
+            Log.d(TAG, "${thisUser?.uid} => $map")
           }
           val intent = Intent(this, UserSettings::class.java)
           startActivity(intent)

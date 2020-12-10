@@ -6,10 +6,14 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -22,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_product_listing_for_buyer.*
+import java.util.*
 
 const val PERMISSION_REQUEST_CODE = 0
 
@@ -35,10 +40,17 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
 
     private lateinit var categoryFilterView: TextView
 
+    private lateinit var productBank: MutableList<String>
+    var productList = arrayListOf<String>()
+
     private lateinit var bottomNavigationMenuPL: BottomNavigationView
     private lateinit var bottom_navigation_menuPL_login: BottomNavigationView
 
     private lateinit var auth: FirebaseAuth  //Needed to check login
+
+    private lateinit var categoryFilterForSearch: String
+
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,48 +59,32 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         auth = Firebase.auth
         val thisUser = auth.currentUser
 
+        getAllProductNames()
+        //Log.d(TAG, productList.toString())
+
         val intent = intent
         val categoryFilter = intent.getStringExtra("CategoryClicked")
-        val productSearch = intent.getStringExtra("ProductSearch")!!
+        if (categoryFilter != null) {
+            categoryFilterForSearch = categoryFilter
+        }
 
         categoryFilterView = findViewById(R.id.tv_categoryNamePL)
+        val ref: CollectionReference = dbProductListingBuyer.collection("products")
+        val query: Query = ref
+            .whereEqualTo("category", categoryFilter)
+            .whereEqualTo("status", "Added")
+            .orderBy("product")
 
-        if(categoryFilter == "") {
-            val ref: CollectionReference = dbProductListingBuyer.collection("products")
-            val query: Query = ref
-                .whereEqualTo("productSearch", productSearch)
-                .whereEqualTo("status", "Added")
-                .orderBy ("product")
+        val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
+            .setQuery(query, Product::class.java)
+            .build()
 
-            val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
-                .setQuery(query, Product::class.java)
-                .build()
+        categoryFilterView.setText(categoryFilter)
 
-            categoryFilterView.setText(productSearch)
+        productListingAdapter = ProductListingAdapter(options, this)
 
-            productListingAdapter = ProductListingAdapter(options, this)
-
-            rv_product_listing_buyer.adapter = productListingAdapter
-            rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
-
-        } else {
-            val ref: CollectionReference = dbProductListingBuyer.collection("products")
-            val query: Query = ref
-                .whereEqualTo("category", categoryFilter)
-                .whereEqualTo("status", "Added")
-                .orderBy ("product")
-
-            val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
-                .setQuery(query, Product::class.java)
-                .build()
-
-            categoryFilterView.setText(categoryFilter)
-
-            productListingAdapter = ProductListingAdapter(options, this)
-
-            rv_product_listing_buyer.adapter = productListingAdapter
-            rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
-        }
+        rv_product_listing_buyer.adapter = productListingAdapter
+        rv_product_listing_buyer.layoutManager = LinearLayoutManager(this)
 
         bottomNavigationMenuPL = findViewById(R.id.bottom_navigation_viewPL)
         bottomNavigationMenuPL.visibility = View.INVISIBLE
@@ -102,8 +98,7 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
             bottomNavigationMenuPL.menu.getItem(0).isCheckable = false
             bottomNavigationMenuPL.setOnNavigationItemSelectedListener { item ->
                 var message = ""
-                Log.d(TAG, "The user currently is ${thisUser.toString()}")
-                Log.d(TAG, "the firebase id is $firebaseUserID")
+                Log.d(TAG, "The user currently is ${thisUser.uid}")
                 when(item.itemId) {
                     R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
                         val intent = Intent(this, SellersHomePage::class.java)
@@ -114,15 +109,15 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
                         val intent = Intent(this, BuyersHomePage::class.java)
                         startActivity(intent)
                     }
-                    R.id.nav_settings ->  {
+                    R.id.nav_settings -> {
                         val intent = Intent(this, UserSettings::class.java)
                         startActivity(intent)
                     }
                     R.id.nav_logout -> {
                         FirebaseAuth.getInstance().signOut()
+                        finishAffinity()
                         val intent = Intent(this, BuyersHomePage::class.java)
                         startActivity(intent)
-                        firebaseUserID = ""
                     }
                 }
                 Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
@@ -136,10 +131,9 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
             bottom_navigation_menuPL_login.menu.getItem(0).isCheckable = false
             bottom_navigation_menuPL_login.setOnNavigationItemSelectedListener { item ->
                 var message = ""
-                Log.d(TAG, "The user currently is ${thisUser.toString()}")
-                Log.d(TAG, "the firebase id is $firebaseUserID")
+                Log.d(TAG, "The user currently is ${thisUser?.uid}")
                 when(item.itemId) {
-                    R.id.nav_user_login ->  {
+                    R.id.nav_user_login -> {
                         message = "login"
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
@@ -177,7 +171,11 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         val permissionsToRequest = mutableListOf<String>()
         permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
         if (permissionsToRequest.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), PERMISSION_REQUEST_CODE)
+            ActivityCompat.requestPermissions(
+                this,
+                permissionsToRequest.toTypedArray(),
+                PERMISSION_REQUEST_CODE
+            )
         }
     }
 
@@ -208,6 +206,11 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
         productListingAdapter.startListening()
     }
 
+    override fun onResume() {
+        super.onResume()
+        bottomNavigationMenuPL.getMenu().getItem(0).setChecked(false);
+    }
+
     override fun onStop() {
         super.onStop()
         productListingAdapter.stopListening()
@@ -215,5 +218,121 @@ class ProductListingForBuyer : AppCompatActivity(), ProductListingAdapter.OnData
 
     override fun dataChanged() {
         updateDistances()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu!!.findItem(R.id.search_menu)
+
+        searchView = menuItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(product: String?): Boolean {
+                searchData(product)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                //searchData(newText)
+                if (newText == "") {
+                    default()
+                } else {
+                    searchData(newText)
+                }
+                return false
+            }
+
+        })
+
+        menuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                searchView.onActionViewCollapsed();
+                default()
+                return true
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun default() {
+        val ref: CollectionReference = dbProductListingBuyer.collection("products")
+        val query: Query = ref
+            .whereEqualTo("category", categoryFilterForSearch)
+            .whereEqualTo("status", "Added")
+            .orderBy("product")
+
+        val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
+            .setQuery(query, Product::class.java)
+            .build()
+        productListingAdapter.updateOptions(options)
+    }
+
+    private fun searchData(product: String?) {
+
+        val ref: CollectionReference = dbProductListingBuyer.collection("products")
+
+        var results = mutableListOf<String>()
+
+        productList.forEach {
+            if (product != null && results.size < 10) {
+                if(it.toUpperCase(Locale.ROOT).contains(product.toUpperCase(Locale.ROOT)) ) {
+                    results.add(it)
+                }
+            }
+        }
+
+        if(results.isEmpty()) {
+            val query: Query = ref
+                .whereEqualTo("category", "")
+
+            val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
+                .setQuery(query, Product::class.java)
+                .build()
+            productListingAdapter.updateOptions(options)
+        } else {
+            val query: Query = ref.whereIn("product", results).whereEqualTo(
+                "category",
+                categoryFilterForSearch
+            )
+
+            val options: FirestoreRecyclerOptions<Product> = FirestoreRecyclerOptions.Builder<Product>()
+                .setQuery(query, Product::class.java)
+                .build()
+            productListingAdapter.updateOptions(options)
+        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun getAllProductNames() {
+
+        dbProductListingBuyer.collection("products")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    this.productBank = mutableListOf()
+                    document.getString("product")?.let {
+                        productBank.add(it)
+                        productList.add(it)
+                    }
+                    Log.d(TAG, "${document.id} => ${document.getString("product")}")
+                }
+                for(item in productList){
+                    Log.d("in the list", item)
+                }
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
     }
 }

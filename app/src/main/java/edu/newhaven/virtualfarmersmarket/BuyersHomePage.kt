@@ -1,13 +1,13 @@
 package edu.newhaven.virtualfarmersmarket
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -16,7 +16,6 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_buyers_home_page.*
 
 class BuyersHomePage : AppCompatActivity() {
 
@@ -24,8 +23,6 @@ class BuyersHomePage : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private lateinit var auth: FirebaseAuth
-    //private var auth = FirebaseAuth.getInstance()  //Needed to check login
-    //private val thisUser = auth.currentUser //Needed to check login
 
     private lateinit var categoryOne: TextView
     private lateinit var categoryOneImage: CircleImageView
@@ -53,10 +50,8 @@ class BuyersHomePage : AppCompatActivity() {
         val thisUser = auth.currentUser
 
 
-        Log.d(TAG, "The user currently is ${auth.currentUser}")
-        Log.d(TAG, "the firebase id is $firebaseUserID")
+        Log.d(TAG, "The user currently is ${auth.currentUser?.uid}")
 
-        searchButton = findViewById(R.id.iv_search_button)
         categoryOne = findViewById(R.id.tv_categoryOne)
         categoryOneImage = findViewById(R.id.iv_categoryOneImage)
         categoryTwo = findViewById(R.id.tv_categoryTwo)
@@ -67,17 +62,6 @@ class BuyersHomePage : AppCompatActivity() {
         categoryFourImage = findViewById(R.id.iv_categoryFourImage)
         categoryFive = findViewById(R.id.tv_categoryFive)
         categoryFiveImage = findViewById(R.id.iv_categoryFiveImage)
-
-        searchButton.setOnClickListener {
-            val productForSearch: String = pt_productSearch.text.toString().toUpperCase()
-            pt_productSearch.setText("")
-            if(productForSearch != "") {
-                val intent = Intent(this, ProductListingForBuyer::class.java)
-                intent.putExtra("ProductSearch", productForSearch)
-                intent.putExtra("CategoryClicked", "")
-                startActivity(intent)
-            }
-        }
 
         db.collection("categories").get()
             .addOnSuccessListener { documents ->
@@ -116,8 +100,7 @@ class BuyersHomePage : AppCompatActivity() {
             bottom_navigation_menu.selectedItemId = R.id.nav_home
             bottom_navigation_menu.setOnNavigationItemSelectedListener { item ->
                 var message = ""
-                Log.d(TAG, "The user currently is $thisUser")
-                Log.d(TAG, "the firebase id is $firebaseUserID")
+                Log.d(TAG, "The user currently is ${thisUser.uid}")
                 when(item.itemId) {
                     R.id.nav_sell_home -> {  //also add this above onCreate: private var auth = FirebaseAuth.getInstance() & thisUser
                         val intent = Intent(this, SellersHomePage::class.java)
@@ -134,9 +117,9 @@ class BuyersHomePage : AppCompatActivity() {
                     }
                     R.id.nav_logout -> {
                         FirebaseAuth.getInstance().signOut()
+                        finishAffinity()
                         val intent = Intent(this, BuyersHomePage::class.java)
                         startActivity(intent)
-                        firebaseUserID = ""
                     }
                 }
                 Toast.makeText(this, "$message clicked!!", Toast.LENGTH_SHORT).show()
@@ -150,8 +133,7 @@ class BuyersHomePage : AppCompatActivity() {
             bottom_navigation_menu_login.menu.getItem(0).isCheckable = false
             bottom_navigation_menu_login.setOnNavigationItemSelectedListener { item ->
                 var message = ""
-                Log.d(TAG, "The user currently is ${thisUser.toString()}")
-                Log.d(TAG, "the firebase id is $firebaseUserID")
+                Log.d(TAG, "The user currently is ${thisUser?.uid}")
                 when(item.itemId) {
                     R.id.nav_user_login ->  {
                         message = "login"
@@ -169,10 +151,14 @@ class BuyersHomePage : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        bottom_navigation_menu.getMenu().getItem(1).setChecked(true);
+    }
+
     private fun productListing(categoryClicked: CharSequence){
         val intent = Intent(this, ProductListingForBuyer::class.java)
         intent.putExtra("CategoryClicked", categoryClicked)
-        intent.putExtra("ProductSearch", "")
         startActivity(intent)
     }
 
