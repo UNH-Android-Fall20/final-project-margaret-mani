@@ -14,7 +14,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_buyers_home_page.*
 
 class BuyersHomePage : AppCompatActivity() {
 
@@ -50,7 +49,6 @@ class BuyersHomePage : AppCompatActivity() {
 
         Log.d(TAG, "The user currently is ${auth.currentUser?.uid}")
 
-        searchButton = findViewById(R.id.iv_search_button)
         categoryOne = findViewById(R.id.tv_categoryOne)
         categoryOneImage = findViewById(R.id.iv_categoryOneImage)
         categoryTwo = findViewById(R.id.tv_categoryTwo)
@@ -61,17 +59,6 @@ class BuyersHomePage : AppCompatActivity() {
         categoryFourImage = findViewById(R.id.iv_categoryFourImage)
         categoryFive = findViewById(R.id.tv_categoryFive)
         categoryFiveImage = findViewById(R.id.iv_categoryFiveImage)
-
-        searchButton.setOnClickListener {
-            val productForSearch: String = pt_productSearch.text.toString().toUpperCase()
-            pt_productSearch.setText("")
-            if(productForSearch != "") {
-                val intent = Intent(this, ProductListingForBuyer::class.java)
-                intent.putExtra("ProductSearch", productForSearch)
-                intent.putExtra("CategoryClicked", "")
-                startActivity(intent)
-            }
-        }
 
         db.collection("categories").get()
             .addOnSuccessListener { documents ->
@@ -166,7 +153,6 @@ class BuyersHomePage : AppCompatActivity() {
     private fun productListing(categoryClicked: CharSequence){
         val intent = Intent(this, ProductListingForBuyer::class.java)
         intent.putExtra("CategoryClicked", categoryClicked)
-        intent.putExtra("ProductSearch", "")
         startActivity(intent)
     }
 

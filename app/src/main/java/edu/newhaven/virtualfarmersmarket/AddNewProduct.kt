@@ -149,7 +149,7 @@ class AddNewProduct : AppCompatActivity() {
             val products = mutableMapOf(
                 //takenImage to firebase
                 "product" to txtProdName.text.toString(),
-                "productSearch" to txtProdName.text.toString().toUpperCase(),
+                //"productSearch" to txtProdName.text.toString().toUpperCase(),
                 "description" to txtDescription.text.toString(),
                 "price" to txtPrice.text.toString(),
                 "quantity" to txtQuantity.text.toString(),

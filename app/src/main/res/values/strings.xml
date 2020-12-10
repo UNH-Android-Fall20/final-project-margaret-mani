@@ -16,7 +16,7 @@
   <string name="bottom_nav_home">Home</string>
   <string name="bottom_nav_user_settings">User settings</string>
   <string name="bottom_nav_logout">Logout</string>
-  <string name="categories_heading">CATEGORIES</string>
+  <string name="categories_heading">Categories</string>
   <string-array name="categoryList" />
 
 
