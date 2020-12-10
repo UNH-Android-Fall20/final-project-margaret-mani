@@ -12,6 +12,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -42,6 +44,7 @@ class BuyersHomePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buyers_home_page)
+        //registerPushToken()
 
         auth = Firebase.auth
         val thisUser = auth.currentUser
@@ -146,8 +149,6 @@ class BuyersHomePage : AppCompatActivity() {
                 return@setOnNavigationItemSelectedListener true
             }
         }
-
-
     }
 
     override fun onResume() {

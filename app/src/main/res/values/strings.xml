@@ -4,7 +4,7 @@
   <string name="sell_button">Sell</string>
   <string name="buy_button">Buy</string>
   <string name="add_button">Add New Product</string>
-  <string name="product_search">Product Search Limit</string>
+  <string name="product_search">Product Search</string>
   <string name="product_search_hint">Enter a product name</string>
   <string name="category_one">Fruits</string>
   <string name="category_five">OtherFoods</string>
@@ -88,13 +88,12 @@
   <string name="new_search_limit">New Search Limit</string>
 
   <string name="retrieve_data">Retrieve Data</string>
-  <string name="save_name">Save Name</string>
+  <string name="save_changes">Save Changes</string>
   <string name="save_phone">Save Phone</string>
   <string name="save_limit">Save Limit</string>
-  <string name="return_to_home_page">Return to Home Page</string>
+  <string name="go_to_home_page">Go to Home Page</string>
   <string name="loc_instructions">Location may take several seconds</string>
     <string name="new_description">What is the new description?</string>
-  <string name="save_changes">Save Changes</string>
   <string name="new_quantity">New Quantity?</string>
   <string name="sign_in_home">Sign In</string>
   <string name="sign_up_home">Registration</string>
@@ -104,6 +103,10 @@
   <string name="search_area_limit">Search Area Limit</string>
   <string name="current_products">Current Products</string>
   <string name="sold_products">Sold Products</string>
+  <string name="current_products_display">-- Current Products --</string>
+  <string name="sold_products_display">-- Sold Products --</string>
+    <string name="for_sale">For Sale</string>
+  <string name="for_sale_again">For Sale</string>
 
 
 </resources>

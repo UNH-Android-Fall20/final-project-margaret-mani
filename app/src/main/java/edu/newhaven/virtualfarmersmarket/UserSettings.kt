@@ -71,50 +71,34 @@ class UserSettings : AppCompatActivity() {
         }
         //update preferred name
         b_updateMe.setOnClickListener {
+
+          if (et_newUserPreferredName.text.toString() != ""){
             val newPreferredName : String = et_newUserPreferredName.text.toString()
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["preferredName"] = newPreferredName
-
+            updateUserAll(map, docID)
             Log.d(TAG, "${thisUser?.uid} => $map")
-            myData
-                .collection("users")
-                .document(docID)
-                .update(map)
+          }
 
-            val intent = Intent(this, UserSettings::class.java)
-            startActivity(intent)
-        }
-
-        //update the phone number
-        b_updatePhone.setOnClickListener {
+          //update the phone number
+          if(et_newPhoneNumber.text.toString() != ""){
             val newPhone : String = et_newPhoneNumber.text.toString()
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["phoneNbr"] = newPhone
-
+            updateUserAll(map, docID)
             Log.d(TAG, "${thisUser?.uid} => $map")
-            myData
-                .collection("users")
-                .document(docID)
-                .update(map)
+          }
 
-            val intent = Intent(this, UserSettings::class.java)
-            startActivity(intent)
-        }
-
-        //update search limit
-        b_updateSearch.setOnClickListener {
+          //update search limit
+          if(et_newSearchLimit.text.toString() != "") {
             val newSearch : String = et_newSearchLimit.text.toString()
             val  map : MutableMap<String, Any> = mutableMapOf<String, Any>()
             map["searchLimit"] = newSearch
-
+            updateUserAll(map, docID)
             Log.d(TAG, "${thisUser?.uid} => $map")
-            myData
-                .collection("users")
-                .document(docID)
-                .update(map)
-
-            val intent = Intent(this, UserSettings::class.java)
-            startActivity(intent)
+          }
+          val intent = Intent(this, UserSettings::class.java)
+          startActivity(intent)
         }
 
         b_homepage.setOnClickListener{
@@ -132,7 +116,13 @@ class UserSettings : AppCompatActivity() {
                 requestPermissions()
             }
         }
+    }
 
+    private fun updateUserAll( map : MutableMap<String, Any>, docID: String){
+        myData
+          .collection("users")
+          .document(docID)
+          .update(map)
     }
 
     private fun updateLocation() {
