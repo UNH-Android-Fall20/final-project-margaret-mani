@@ -25,7 +25,6 @@ object Mailer {
                 mime.addRecipient(Message.RecipientType.TO, InternetAddress(emailTo))
                 mime.subject = subject
                 mime.setText(message)
-                //mime.setContent(message, "text/html")
                 Transport.send(mime)
             }
 
@@ -50,7 +49,7 @@ object Mailer {
         // Open a session
         val session = Session.getDefaultInstance(props, object : javax.mail.Authenticator() {
             override fun getPasswordAuthentication(): PasswordAuthentication {
-                return PasswordAuthentication("virtualfarmersmarketdev@gmail.com", "mani@margaret99")
+                return PasswordAuthentication("virtualfarmersmarketdev@gmail.com", "****")
             }
         })
 
@@ -89,7 +88,7 @@ object Mailer {
         // Open a session
         val session = Session.getDefaultInstance(props, object : javax.mail.Authenticator() {
             override fun getPasswordAuthentication(): PasswordAuthentication {
-                return PasswordAuthentication("virtualfarmersmarketdev@gmail.com", "mani@margaret99")
+                return PasswordAuthentication("virtualfarmersmarketdev@gmail.com", "****")
             }
         })
 
